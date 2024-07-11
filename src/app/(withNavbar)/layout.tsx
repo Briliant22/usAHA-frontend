@@ -8,9 +8,11 @@ interface LayoutProps {
 
 export default async function Layout({ children }: LayoutProps) {
   return (
-    <div className="flex">
-        <Navbar />
-        <div>{children}</div>
+    <div className="bg-[#FFFFFF]">
+      <div className="mx-auto flex">
+          <Navbar />
+        <div className="flex-grow">{children}</div>
+      </div>
     </div>
   );
 }
