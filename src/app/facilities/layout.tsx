@@ -2,6 +2,7 @@ import React from "react";
 import { NavbarAtas } from "@/components/navbar/navbarAtas";
 import Footer from "@/components/footer";
 
+
 interface LayoutProps {
   children: React.ReactNode;
 }

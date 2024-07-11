@@ -26,7 +26,7 @@ export const Navbar: React.FC = () => {
             {navItems.map((item) => (
                 <Link href={item.path} key={item.path} passHref>
                 <NavbarButton 
-                    isActive={pathname === item.path}
+                    isActive={pathname.startsWith(item.path)}
                     icon={
                     <Image src={item.icon} alt={item.label} width={30} height={30}/>
                     }

@@ -3,6 +3,7 @@
 import React from 'react'
 import Image from "next/image"
 import { usePathname } from 'next/navigation'
+import { SearchInput } from './searchInput'
 
 type PathContent = {
   [key: string]: string;
@@ -23,11 +24,21 @@ export const NavbarAtas: React.FC = () => {
   const pathname = usePathname()
 
   const getPlaceholder = (): string => {
-    return placeholderMap[pathname]
+    for (const path in placeholderMap) {
+        if (pathname.startsWith(path)) {
+          return placeholderMap[path]
+        }
+      }
+      return ""
   }
 
   const getButtonText = (): string => {
-    return buttonTextMap[pathname]
+    for (const path in buttonTextMap) {
+        if (pathname.startsWith(path)) {
+          return buttonTextMap[path]
+        }
+      }
+      return ""
   }
 
   return (
@@ -38,11 +49,7 @@ export const NavbarAtas: React.FC = () => {
                 <div className="flex gap-2">
                     <div className="bg-gray-100 py-4 px-7 rounded-full w-96 flex gap-2">
                         <Image src="/icons/navbarIcons/searchIcon.svg" alt="search" width={32} height={32}/>
-                        <input 
-                          className="bg-gray-100 w-full text-[#A7AFC4] font-inter focus:outline-none" 
-                          type="text" 
-                          placeholder={getPlaceholder()} 
-                        />
+                        <SearchInput placeholder={getPlaceholder()} path={pathname} />
                     </div>
                     <div className="w-16 h-16 bg-[#6197E8] rounded-full flex justify-center items-center">
                         <Image src="/icons/navbarIcons/filterLogo.svg" alt="filter" width={32} height={32}/>
