@@ -16,12 +16,12 @@ const locationIcon = "/navbarIcons/location.svg";
 
 export default function FacilityCard({...props}: ToolProps) {
   return (
-    <div className="w-72 overflow-hidden">
-      <div className="w-full h-64 relative">
+    <div className="w-72">
+      <div className="w-full h-64">
         <img
           src="/imgs/tempbg2.jpg"
           alt="Facility Image"
-          className="absolute inset-0 object-cover w-full h-full rounded-2xl"
+          className="inset-0 object-cover w-full h-full rounded-2xl"
         />
       </div>
 

@@ -42,7 +42,7 @@ export const NavbarAtas: React.FC = () => {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full flex-shrink-0 pb-4">
         <div className="flex justify-between items-center">
             <Image src="/usahaLogo.svg" alt="logo" width={200} height={46}/>
             <div className="flex gap-6 items-center">

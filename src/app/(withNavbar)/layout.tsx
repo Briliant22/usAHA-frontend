@@ -14,9 +14,11 @@ export default async function Layout({ children }: LayoutProps) {
   return (
     <div className="flex">
         <Navbar />
-        <div className="w-full px-16 py-8">
-            <NavbarAtas/>
+        <div className="flex flex-col h-screen py-9 px-20 w-full">
+          <NavbarAtas/>
+          <div className="flex-grow overflow-y-auto">
             {children}
+          </div>
         </div>
     </div>
   );
