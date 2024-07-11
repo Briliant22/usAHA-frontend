@@ -4,3 +4,8 @@
 @tailwind components;
 @tailwind utilities;
 
+input:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: inherit;
+}

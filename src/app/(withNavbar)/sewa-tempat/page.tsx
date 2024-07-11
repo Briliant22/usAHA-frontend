@@ -20,16 +20,8 @@ export default function Page() {
 
   return (
     <div className="flex flex-col h-screen w-full">
-      <div className="text-black p-4 text-center">
-        <h1 className="text-2xl font-bold">usAHA</h1>
-      </div>
-
-      <div className="text-black p-4">
-        <h2>filter</h2>
-      </div>
-
       <div className="flex-grow p-4">
-        <div className="p-2 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 2xl:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 2xl:grid-cols-4 gap-4">
           {facilities.map((facility) => (
             <FacilityCard key={facility.id} {...facility} />
           ))}
