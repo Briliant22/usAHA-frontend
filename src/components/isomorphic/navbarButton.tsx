@@ -11,7 +11,7 @@ const navbarButtonStyle = tv({
     }
 })
 
-interface NavbarButtonProps extends React.HTMLAttributes<HTMLDivElement> {
+interface NavbarButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
     isActive: boolean,
     icon: React.ReactNode,
     label: string
@@ -19,13 +19,13 @@ interface NavbarButtonProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const NavbarButton: React.FC<NavbarButtonProps> = ({isActive, icon, label, ...props}) => {
   return (
-    <div className={navbarButtonStyle({isActive})} {...props}>
+    <button className={navbarButtonStyle({isActive})} {...props}>
       <div className="flex items-center justify-center w-8 h-8">
         {icon}
       </div>
       <p className="text-white font-semibold text-center text-xs w-14 font-inter">
         {label}
       </p>
-    </div>
+    </button>
   )
 }
