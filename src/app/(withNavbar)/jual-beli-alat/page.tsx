@@ -4,31 +4,34 @@ import ToolCard from '@/components/tools/toolCard';
 
 
 interface ToolResponse {
-  uuid: string;
-  name: string;
-  description: string;
-  price_per_unit: number;
-  location_link: string;
-  stock: number;
-  user_id: string;
-  category: string[];
-
+    uuid: string;
+    name: string;
+    description: string;
+    price_per_unit: number;
+    location_link: string;
+    stock: number;
+    user_id: string;
+    category: string[];
+    images: ImageProps[];
+}
+  
+interface ImageProps {
+    uuid: string;
+    image: string;
+    is_primary: boolean;
+    tool: string;
 }
 
 const getTools = async (url: string) => {
   const response = await fetch(url,{
     cache: "no-store"
   })
-  // console.log(response)
   const data: ToolResponse[] = await response.json()
   return data
 }
 
 export default async function Page() {
   const tools= await getTools('http://localhost:8000/tools/')
-  tools.map((tool) => {
-    console.log(tool)
-  })
   
   return (
     <div className="flex flex-col w-full">

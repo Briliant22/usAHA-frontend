@@ -10,18 +10,28 @@ interface ToolProps {
   stock: number;
   user_id: string;
   category: string[];
+  images: ImageProps[];
 }
 
-const locationIcon = "/navbarIcons/location.svg";
+interface ImageProps {
+    uuid: string;
+    image: string;
+    is_primary: boolean;
+    tool: string;
+  }
+
+const locationIcon = "/icons/location.svg";
 
 export default function FacilityCard({...props}: ToolProps) {
   return (
     <div className="w-72">
       <div className="w-full h-64">
-        <img
-          src="/imgs/tempbg2.jpg"
+        <Image
+          src={props.images[0].image}
           alt="Facility Image"
           className="inset-0 object-cover w-full h-full rounded-2xl"
+          width={288}
+          height={288}
         />
       </div>
 
