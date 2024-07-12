@@ -26,7 +26,10 @@ amenities: Amenity[];
 type FacilityResponse = Facility[];
 
 const getSearchResults = async (url: string) => {
-    const response = await fetch(url)
+    const response = await fetch(url, {
+        method: 'GET',
+        // mode: 'no-cors',
+    })
     const data: FacilityResponse = await response.json()
     return data
 

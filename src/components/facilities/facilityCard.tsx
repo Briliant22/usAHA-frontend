@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { formatCurrency } from "@/utils/formatCurrency";
+import useSWR from "swr";
 
 interface FacilityImage {
   uuid: string;
@@ -45,28 +46,14 @@ const getOwner = async (url: string) => {
   const response = await fetch(url, {
     cache: "no-store",
   });
-  const data: Owner = await response.json();
+  const data: Owner[] = await response.json();
   return data;
 };
 
 export default function FacilityCard({ ...props }: Facility) {
-  const [owner, setOwner] = useState<Owner | null>(null);
-
-  useEffect(() => {
-    const fetchOwner = async () => {
-      try {
-        const ownerData = await getOwner(
-          `http://localhost:8000/profiles?user=${props.owner}`
-        );
-        setOwner(ownerData);
-      } catch (error) {
-        console.error("Error fetching owner data:", error);
-      }
-    };
-
-    fetchOwner();
-  }, [props.owner]);
-
+  const {data, isLoading} = useSWR(`http://localhost:8000/profiles/?user=${props.owner}`, getOwner)
+  const owner = data?.[0];
+  
   return (
     <div className="w-72 overflow-hidden">
       <div className="w-full h-64 relative">
