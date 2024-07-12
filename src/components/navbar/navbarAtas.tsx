@@ -7,7 +7,7 @@ import { SearchInput } from "./searchInput";
 import { LoginModal } from "../account/loginModal";
 import { useUser } from "../isomorphic/userContext";
 import { RegisterModal } from "../account/registerModal";
-import { FilterButton } from "../isomorphic/filterButton";
+import { FilterCategoryInput } from "./filterCategoryInput";
 
 type PathContent = {
   [key: string]: string;
@@ -147,37 +147,7 @@ export function NavbarAtas() {
         <RegisterModal isOpen={isRegisterModalOpen} onClose={closeRegisterModal} />
       </div>
       <div className="w-full px-10">
-          <div className="w-full border rounded-full flex py-1 px-2 justify-between">
-              <FilterButton isActive={false} icon_path="/icons/filtericons/kitchen" label="Kitchen"/>
-              <div className="flex gap-2 w-1/4  justify-center rounded-full p-2">
-                <Image
-                  src="/icons/filterIcons/kitchen.svg"
-                  alt="kitchen filter"
-                  width={21}
-                  height={21}
-                />
-                <p className="text-[#7C89A8]">Kitchen</p>
-              </div>
-              <div className="flex gap-2 w-1/4  justify-center rounded-full p-2">
-                <Image
-                  src="/icons/filterIcons/kitchen.svg"
-                  alt="kitchen filter"
-                  className="text-white"
-                  width={21}
-                  height={21}
-                />
-                <p className="text-[#7C89A8]">Kitchen</p>
-              </div>
-              <div className="flex gap-2 w-1/4  justify-center rounded-full p-2">
-                <Image
-                  src="/icons/filterIcons/kitchen.svg"
-                  alt="kitchen filter"
-                  width={21}
-                  height={21}
-                />
-                <p className="text-[#7C89A8]">Kitchen</p>
-              </div>
-          </div>
+          <FilterCategoryInput/>
       </div>
       
     </div>

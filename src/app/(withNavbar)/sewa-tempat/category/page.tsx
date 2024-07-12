@@ -28,7 +28,6 @@ type FacilityResponse = Facility[];
 const getSearchResults = async (url: string) => {
     const response = await fetch(url, {
         method: 'GET',
-        // mode: 'no-cors',
     })
     const data: FacilityResponse = await response.json()
     return data
@@ -39,7 +38,9 @@ export default function Page() {
     const searchParams = useSearchParams()
     const searchQuery = searchParams.get('query') || ""
     const encodedSerachQuery = encodeURI(searchQuery)
-    const {data, isLoading} = useSWR(`http://localhost:8000/facilities/?name=${encodedSerachQuery}`, getSearchResults)
+    const {data, isLoading} = useSWR(`http://localhost:8000/facilities/?category=${encodedSerachQuery}`, getSearchResults)
+    
+    console.log(data)
 
     if (isLoading) return <div>Loading...</div>
     if (!data || data.length === 0) return <div>No facilities found</div>
@@ -50,7 +51,7 @@ return (
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 2xl:grid-cols-4 gap-4">
             {data.map((facility) => (
                         <FacilityCard key={facility.id} {...facility} />
-            ))}
+                    ))}
             </div>
         </div>
     </div>

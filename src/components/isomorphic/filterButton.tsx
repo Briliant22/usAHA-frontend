@@ -1,9 +1,9 @@
 import React from 'react'
 import { tv } from 'tailwind-variants'
-import Image from 'next/image' // Import the Image component from the appropriate package
+import Image from 'next/image'
 
 const filterButtonStyle = tv({
-    base: 'flex gap-2 w-1/4 justify-center rounded-full p-21',
+    base: 'flex gap-2 w-1/4 justify-center rounded-full p-2',
     variants:{
         isActive: {
             true: 'bg-[#4082E5]',
@@ -22,7 +22,7 @@ const textButtonStyle = tv({
     }
 })
 
-interface FilterButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+interface FilterButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     isActive: boolean,
     icon_path: string,
     label: string
@@ -34,7 +34,7 @@ export const FilterButton = ({isActive, icon_path, label, ...props}: FilterButto
     <button className={filterButtonStyle({isActive})} {...props}>
         <Image
             src={icon_path + imageType + '.svg'}
-            alt="label"
+            alt={label}
             width={21}
             height={21}
         />
