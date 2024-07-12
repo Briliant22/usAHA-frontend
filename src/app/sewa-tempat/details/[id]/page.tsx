@@ -148,7 +148,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             ))}
           </div>
         </div>
-        <DatePickerInput price_per_day={data.price_per_day}/>
+        <DatePickerInput price_per_day={data.price_per_day} facility={params.id}/>
       </div>
     </div>
   );

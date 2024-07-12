@@ -4,13 +4,16 @@ import { formatCurrency } from '@/utils/formatCurrency'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"; 
 import React, { useEffect, useState } from 'react'
+import { useUser } from '../isomorphic/userContext';
 
 
 interface DatePickerInputProps extends React.HTMLAttributes<HTMLDivElement>{
-  price_per_day: number
+  price_per_day: number,
+  facility: string,
 }
 
-export const DatePickerInput = ({price_per_day, ...props}:DatePickerInputProps) => {
+export const DatePickerInput = ({price_per_day,facility, ...props}:DatePickerInputProps) => {
+  const { user, setUser } = useUser();
   const [startDate, setStartDate] = useState<Date | null>(new Date())
   const [endDate, setEndDate] = useState<Date | null>(new Date())
   const [totalPrice, setTotalPrice] = useState<number>(0)
@@ -33,6 +36,23 @@ export const DatePickerInput = ({price_per_day, ...props}:DatePickerInputProps) 
 
   const handleEndDateChange = (date: Date | null) => {
     setEndDate(date)
+  }
+
+
+  const handleSubmitSewa = async () => {
+    await fetch("http://localhost:8000/facilities/booking/create/", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+        },
+      body: JSON.stringify({
+        facility,
+        start_date: startDate?.toISOString().split('T')[0],
+        end_date: endDate?.toISOString().split('T')[0],
+        booker: user?.id,
+      })
+    })
   }
 
   return (
@@ -67,7 +87,7 @@ export const DatePickerInput = ({price_per_day, ...props}:DatePickerInputProps) 
               </div>
             </div>
 
-            <button className="flex bg-[#1973F9] w-56 h-12 rounded-3xl justify-center items-center">
+            <button className="flex bg-[#1973F9] w-56 h-12 rounded-3xl justify-center items-center" onClick={handleSubmitSewa}>
               <p className="text-[#FFFFFF] text-base font-medium">
                 Sewa Tempat Ini
               </p>
