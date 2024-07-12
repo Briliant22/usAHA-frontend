@@ -1,33 +1,72 @@
-import { formatCurrency } from "@/utils/formatCurrency";
+"use client";
+
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import { formatCurrency } from "@/utils/formatCurrency";
 
 interface FacilityImage {
-    uuid: string;
-    facility: string;
-    image: string;
-    is_primary: boolean;
+  uuid: string;
+  facility: string;
+  image: string;
+  is_primary: boolean;
 }
 
 interface Facility {
-uuid: string;
-owner: string;
-owner_username: string;
-name: string;
-category: string;
-description: string;
-city: string;
-location_link: string;
-price_per_day: number;
-created_at: string;
-updated_at: string;
-amenities: string[];
-images: FacilityImage[];
+  uuid: string;
+  owner: string;
+  owner_username: string;
+  name: string;
+  category: string;
+  description: string;
+  city: string;
+  location_link: string;
+  price_per_day: number;
+  created_at: string;
+  updated_at: string;
+  amenities: string[];
+  images: FacilityImage[];
+}
+
+interface Owner {
+  id: string;
+  username: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  bio: string;
+  contact_number: string;
+  profile_pic: string;
 }
 
 const locationIcon = "/icons/location.svg";
 const starIcon = "/icons/reviewStar.svg";
 
-export default function FacilityCard({...props}: Facility) {
+const getOwner = async (url: string) => {
+  const response = await fetch(url, {
+    cache: "no-store",
+  });
+  const data: Owner = await response.json();
+  return data;
+};
+
+export default function FacilityCard({ ...props }: Facility) {
+  const [owner, setOwner] = useState<Owner | null>(null);
+
+  useEffect(() => {
+    const fetchOwner = async () => {
+      try {
+        const ownerData = await getOwner(
+          `http://localhost:8000/profiles?user=${props.owner}`
+        );
+        setOwner(ownerData);
+      } catch (error) {
+        console.error("Error fetching owner data:", error);
+      }
+    };
+
+    fetchOwner();
+  }, [props.owner]);
+
   return (
     <div className="w-72 overflow-hidden">
       <div className="w-full h-64 relative">
@@ -50,21 +89,28 @@ export default function FacilityCard({...props}: Facility) {
 
         <div className="my-1 flex justify-between items-center">
           <div className="flex justify-between items-center space-x-3">
-            <img
-              src="/imgs/pfp.jpg"
-              alt="Facility Image"
-              className="object-cover w-8 h-8 rounded-full"
-            />
+            {owner?.profile_pic ? (
+              <Image
+                src={owner.profile_pic}
+                alt="Owner Profile"
+                className="object-cover w-8 h-8 rounded-full"
+                width={32}
+                height={32}
+              />
+            ) : (
+              <Image
+                src="icons/miscIcons/defPfp.svg"
+                alt="Default Profile"
+                className="object-cover w-8 h-8 rounded-full"
+                width={32}
+                height={32}
+              />
+            )}
             <p className="text-sm font-medium">{props.owner_username}</p>
           </div>
-          <div className="flex justify-end items-center space-x1">
-            <Image
-              src={starIcon}
-              alt="reviewStar"
-              width={24}
-              height={24}
-            />
-            <span className="text-[#4082E5] text-sm font-medium">4,5/5</span>
+          <div className="flex justify-end items-center space-x-1">
+            <Image src={starIcon} alt="reviewStar" width={24} height={24} />
+            <span className="text-[#4082E5] text-sm font-medium">belum/5</span>
           </div>
         </div>
 

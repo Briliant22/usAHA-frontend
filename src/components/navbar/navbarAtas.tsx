@@ -97,15 +97,15 @@ export function NavbarAtas() {
       onClick={handleLogout}
       className="flex justify-center items-center w-[176px] h-[54px] border rounded-full border-[#1973F9]"
     >
-      <div className="flex px-4 w-full justify-start items-center">
+      <div className="flex px-4 w-full justify-between items-center">
         <Image
-          src="/imgs/pfp.jpg"
+          src={user.profile_pic ? user.profile_pic : "icons/miscIcons/defPfp.svg"}
           alt="Profile Image"
           className="object-cover w-[36px] h-[36px] rounded-full"
           width={36}
           height={36}
         />
-        <p className="text-[#1973F9] text-[14px] font-semibold ml-7">
+        <p className="text-[#1973F9] text-[14px] font-semibold mx-3">
           {user.username}
         </p>
       </div>

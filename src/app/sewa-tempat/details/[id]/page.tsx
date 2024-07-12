@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import { formatCurrency } from "@/utils/formatCurrency";
 import { DatePickerInput } from "@/components/sewaTempat/datePicker";
+import { useUser } from "@/components/isomorphic/userContext";
 
 const locationIcon = "/icons/location.svg";
 const likeNonActiveIcon = "/icons/miscIcons/heart.svg";
@@ -10,38 +11,38 @@ const shareIcon = "/icons/miscIcons/share.svg";
 const starIcon = "/icons/reviewStar.svg";
 
 interface FacilityImage {
-    uuid: string;
-    facility: string;
-    image: string;
-    is_primary: boolean;
+  uuid: string;
+  facility: string;
+  image: string;
+  is_primary: boolean;
 }
 
 interface Facility {
-uuid: string;
-owner: string;
-owner_username: string;
-name: string;
-category: string;
-description: string;
-city: string;
-location_link: string;
-price_per_day: number;
-created_at: string;
-updated_at: string;
-amenities: string[];
-images: FacilityImage[];
+  uuid: string;
+  owner: string;
+  owner_username: string;
+  name: string;
+  category: string;
+  description: string;
+  city: string;
+  location_link: string;
+  price_per_day: number;
+  created_at: string;
+  updated_at: string;
+  amenities: string[];
+  images: FacilityImage[];
 }
 
 const getDetails = async (url: string, id: string): Promise<Facility> => {
-    const response = await fetch(`${url}facility/${id}`, {
-        cache: "no-store"
-    });
-    const data: Facility = await response.json();
-    return data;
-}
+  const response = await fetch(`${url}facility/${id}`, {
+    cache: "no-store",
+  });
+  const data: Facility = await response.json();
+  return data;
+};
 
 export default async function Page({ params }: { params: { id: string } }) {
-    const data = await getDetails('http://localhost:8000/facilities/', params.id)
+  const data = await getDetails("http://localhost:8000/facilities/", params.id);
 
   return (
     <div className="flex flex-col justify-center items-center w-full">
@@ -57,9 +58,7 @@ export default async function Page({ params }: { params: { id: string } }) {
               width={24}
               height={24}
             />
-            <span className="text-[#6F778C] text-xl ml-1">
-              {data.city}
-            </span>
+            <span className="text-[#6F778C] text-xl ml-1">{data.city}</span>
           </div>
         </div>
         <div className="flex space-x-5 items-start">
@@ -84,17 +83,18 @@ export default async function Page({ params }: { params: { id: string } }) {
       </div>
       <div className="flex w-3/4 justify-around my-8">
         <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4">
-        {data.images && data.images.map((src, index) => (
-        <div key={index} className="relative w-[460px] h-[484px]">
-            <Image
-            src={src.image}
-            alt={`facilityImg${index + 1}`}
-            layout="fill"
-            objectFit="cover"
-            className="rounded-[32px]"
-            />
-        </div>
-        ))}
+          {data.images &&
+            data.images.map((src, index) => (
+              <div key={index} className="relative w-[460px] h-[484px]">
+                <Image
+                  src={src.image}
+                  alt={`facilityImg${index + 1}`}
+                  layout="fill"
+                  objectFit="cover"
+                  className="rounded-[32px]"
+                />
+              </div>
+            ))}
         </div>
       </div>
       <div className="flex w-3/4 justify-start items-center space-x-6">
@@ -134,21 +134,22 @@ export default async function Page({ params }: { params: { id: string } }) {
               Fasilitas yang dapat dipakai peminjam :{" "}
             </h2>
             {data.amenities.map((src, index) => (
-            <div className="flex items-center my-1" key={index}>
-              <Image
-                src={checkedBoxIcon}
-                alt="checkedBox"
-                width={24}
-                height={24}
-              />
-              <span className="text-normal text-base ml-3">
-                {src}
-              </span>
-            </div>
+              <div className="flex items-center my-1" key={index}>
+                <Image
+                  src={checkedBoxIcon}
+                  alt="checkedBox"
+                  width={24}
+                  height={24}
+                />
+                <span className="text-normal text-base ml-3">{src}</span>
+              </div>
             ))}
           </div>
         </div>
-        <DatePickerInput price_per_day={data.price_per_day} facility={params.id}/>
+        <DatePickerInput
+          price_per_day={data.price_per_day}
+          facility={params.id}
+        />
       </div>
     </div>
   );
