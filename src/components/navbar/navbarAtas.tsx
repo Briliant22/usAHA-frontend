@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { SearchInput } from "./searchInput";
 import { LoginModal } from "../account/loginModal";
 import { useUser } from "../isomorphic/userContext";
+import { RegisterModal } from "../account/registerModal";
 
 type PathContent = {
   [key: string]: string;
@@ -23,7 +24,8 @@ const buttonTextMap: PathContent = {
 };
 
 export function NavbarAtas() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const { user, setUser } = useUser();
   const pathname = usePathname();
 
@@ -46,12 +48,20 @@ export function NavbarAtas() {
   };
 
   const openLoginModal = () => {
-    setIsModalOpen(true);
+    setIsLoginModalOpen(true);
   };
 
   const closeLoginModal = () => {
-    setIsModalOpen(false);
+    setIsLoginModalOpen(false);
   };
+
+  const openRegisterModal = () => {
+    setIsRegisterModalOpen(true);
+  }
+
+  const closeRegisterModal = () => {
+    setIsRegisterModalOpen(false);
+  }
 
   const handleLogout = async () => {
     try {
@@ -131,7 +141,8 @@ export function NavbarAtas() {
         </div>
         {profileButton}
       </div>
-      <LoginModal isOpen={isModalOpen} onClose={closeLoginModal} />
+      <LoginModal isOpen={isLoginModalOpen} onClose={closeLoginModal} openRegister={openRegisterModal} />
+      <RegisterModal isOpen={isRegisterModalOpen} onClose={closeRegisterModal} />
     </div>
   );
 }
