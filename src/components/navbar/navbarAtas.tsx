@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { SearchInput } from "./searchInput";
@@ -27,6 +27,9 @@ const buttonTextMap: PathContent = {
 export function NavbarAtas() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
   const { user, setUser } = useUser();
   const pathname = usePathname();
 
@@ -64,6 +67,19 @@ export function NavbarAtas() {
     setIsRegisterModalOpen(false);
   }
 
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const handleLogout = async () => {
     try {
       const response = await fetch("http://localhost:8000/auth/logout/", {
@@ -76,6 +92,7 @@ export function NavbarAtas() {
 
       if (response.ok) {
         setUser(null);
+        setIsDropdownOpen(false);
         console.log("Logout successful");
       } else {
         console.error("Logout failed");
@@ -93,24 +110,42 @@ export function NavbarAtas() {
       <p className="w-full text-[#1973F9] font-inter font-medium">Log In</p>
     </button>
   ) : (
-    <button
-      onClick={handleLogout}
-      className="flex justify-center items-center w-[176px] h-[54px] border rounded-full border-[#1973F9]"
-    >
-      <div className="flex px-4 w-full justify-between items-center">
-        <Image
-          src={user.profile_pic ? user.profile_pic : "icons/miscIcons/defPfp.svg"}
-          alt="Profile Image"
-          className="object-cover w-[36px] h-[36px] rounded-full"
-          width={36}
-          height={36}
-        />
-        <p className="text-[#1973F9] text-[14px] font-semibold mx-3">
-          {user.username}
-        </p>
-      </div>
-    </button>
+    <div className="relative" ref={dropdownRef}>
+      <button 
+        onClick={() => setIsDropdownOpen(!isDropdownOpen)} 
+        className="flex justify-center items-center w-[176px] h-[54px] border rounded-full border-[#1973F9]"
+      >
+        <div className="flex px-4 w-full justify-between items-center">
+          <Image
+            src={user.profile_pic ? user.profile_pic : "/icons/miscIcons/defPfp.svg"}
+            alt="Profile Image"
+            className="object-cover w-[36px] h-[36px] rounded-full"
+            width={36}
+            height={36}
+          />
+          <p className="text-[#1973F9] text-[14px] font-semibold mx-3">
+            {user.username}
+          </p>
+        </div>
+      </button>
+      {isDropdownOpen && (
+        <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+          <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+            <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your Profile</a>
+            <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</a>
+            <button
+              onClick={handleLogout}
+              className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              role="menuitem"
+            >
+              Sign out
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
   );
+
 
   return (
     <div className="w-full">

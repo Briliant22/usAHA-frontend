@@ -4,7 +4,7 @@ import { useSearchParams } from 'next/navigation'
 import useSWR from 'swr'
 import FacilityCard from '@/components/facilities/facilityCard';
 import Link from 'next/link';
-    
+import Image from "next/image"
 
 interface Amenity {
     id: string;
@@ -42,8 +42,26 @@ export default function Page() {
     const encodedSerachQuery = encodeURI(searchQuery)
     const {data, isLoading} = useSWR(`http://localhost:8000/facilities/?name=${encodedSerachQuery}`, getSearchResults)
 
-    if (isLoading) return <div>Loading...</div>
-    if (!data || data.length === 0) return <div>No facilities found</div>
+    if (isLoading) 
+        return 
+        <div>Loading...</div>
+    if (!data || data.length === 0) 
+        return (
+        <div className="w-full flex justify-center items-center">
+            <div className="w-3/5 flex flex-col justify-center items-center gap-12 pt-32">
+                <Image
+                    src="/icons/resultNotFound.svg"
+                    width={495}
+                    height={340}
+                    alt="No result found"
+                />
+                <div className="flex flex-col justify-center items-center gap-3">
+                <p className="text-5xl font-inter font-bold text-[#4082E5]">Tidak ditemukan hasil</p>
+                <p className="text-xl text-[#5F7495] text-center">Kami tidak bisa menemukan apa yang kamu cari. 
+                Silahkan cari kembali menggunakan kata kunci yang berbeda.</p>
+                </div>
+            </div>
+        </div>)
     
 return (
     <div className="flex flex-col h-screen w-full">
