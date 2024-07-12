@@ -11,6 +11,7 @@ interface User {
   last_name: string;
   bio: string;
   contact_number: string;
+  profile_pic: string;
 }
 
 interface UserContextType {
