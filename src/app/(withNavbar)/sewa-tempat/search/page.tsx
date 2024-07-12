@@ -3,6 +3,7 @@ import React from 'react'
 import { useSearchParams } from 'next/navigation'
 import useSWR from 'swr'
 import FacilityCard from '@/components/facilities/facilityCard';
+import Link from 'next/link';
     
 
 interface Amenity {
@@ -13,7 +14,7 @@ interface Amenity {
 }
 
 interface Facility {
-id: string;
+uuid: string;
 owner: string;
 name: string;
 description: string;
@@ -49,8 +50,15 @@ return (
         <div className="flex-grow p-4">
             <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 2xl:grid-cols-4 gap-4">
             {data.map((facility) => (
-                        <FacilityCard key={facility.id} {...facility} />
+                <Link
+                    href={`/sewa-tempat/details/${facility.uuid}`}
+                    key={facility.uuid}
+                >
+                    <FacilityCard key={facility.uuid} {...facility} />
+                </Link> 
             ))}
+
+            
             </div>
         </div>
     </div>

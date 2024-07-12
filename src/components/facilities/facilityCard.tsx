@@ -86,7 +86,7 @@ export default function FacilityCard({ ...props }: Facility) {
               />
             ) : (
               <Image
-                src="icons/miscIcons/defPfp.svg"
+                src="/icons/miscIcons/defPfp.svg"
                 alt="Default Profile"
                 className="object-cover w-8 h-8 rounded-full"
                 width={32}

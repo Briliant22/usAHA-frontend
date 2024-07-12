@@ -21,25 +21,21 @@ export const SearchInput = ({path, placeholder, ...props}: SearchInputProps) => 
     const onSearch = (e: React.FormEvent) => {
         e.preventDefault()
         const encodedSearchQuery = encodeURIComponent(searchQuery)
-        let newPath = path
+        let newPath = path.split('/')[1] // This will get 'sewa-tempat' from the path
 
-        if (pathname.endsWith('/search')) {
-            newPath = path.replace(/\/search$/, '')
-        }
-
-        router.push(`${newPath}/search?query=${encodedSearchQuery}`)
+        router.push(`/${newPath}/search?query=${encodedSearchQuery}`)
     }
 
-  return (
-    <form className="pt-1" onSubmit={onSearch}>
-        <input 
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="bg-gray-100 w-full text-[#A7AFC4] font-inter focus:outline-none" 
-            type="text" 
-            placeholder={placeholder} 
-            {...props}
-        />
-    </form>
-  )
+    return (
+        <form className="pt-1" onSubmit={onSearch}>
+            <input 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="bg-gray-100 w-full text-[#A7AFC4] font-inter focus:outline-none" 
+                type="text" 
+                placeholder={placeholder} 
+                {...props}
+            />
+        </form>
+    )
 }
