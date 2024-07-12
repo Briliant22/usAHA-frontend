@@ -33,7 +33,6 @@ const getFacility = async (url: string) => {
   return data;
 };
 
-
 export default async function Page() {
   const facilities = await getFacility("http://localhost:8000/facilities/");
 
