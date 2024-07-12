@@ -1,4 +1,5 @@
 
+import Footer from "@/components/footer";
 import { Navbar } from "@/components/navbar/navbar";
 import { NavbarAtas } from "@/components/navbar/navbarAtas";
 import Image from "next/image"
@@ -12,7 +13,8 @@ interface LayoutProps {
 
 export default async function Layout({ children }: LayoutProps) {
   return (
-    <div className="flex">
+    <div>
+      <div className="flex">
         <Navbar />
         <div className="flex flex-col h-screen py-9 px-20 w-full">
           <NavbarAtas/>
@@ -20,6 +22,9 @@ export default async function Layout({ children }: LayoutProps) {
             {children}
           </div>
         </div>
+      </div>
+      <Footer />
     </div>
+    
   );
 }

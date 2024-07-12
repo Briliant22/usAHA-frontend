@@ -33,21 +33,26 @@ const getFacility = async (url: string) => {
     return data
   }
 
-export default async function Page() {
-    const facilities = await getFacility('http://localhost:8000/facilities/')
-
-  return (
-    <div className="flex flex-col h-screen w-full">
-      <div className="flex-grow p-4">
-        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-4">
-            
-            {facilities.map((facility) => (
-                <Link href={`/sewa-tempat/details/${facility.uuid}`} key={facility.uuid}>
-                    <FacilityCard key={facility.uuid} {...facility} />
-                </Link>
-          ))}
+  export default async function Page() {
+    const facilities = await getFacility('http://localhost:8000/facilities/');
+  
+    return (
+      <div className="flex flex-col h-screen w-full">
+        <div className="flex-grow p-1">
+          <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-4">
+            {facilities.map((facility: Facility) => (
+              <Link 
+                href={`/sewa-tempat/details/${facility.uuid}`} 
+                key={facility.uuid}
+                passHref
+              >
+                <div className="cursor-pointer">  {/* Wrapper div to make entire card clickable */}
+                  <FacilityCard {...facility} />
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
-    </div>
-  )
-}
+    );
+  }
