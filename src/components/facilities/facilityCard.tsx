@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Image from "next/image";
 import { formatCurrency } from "@/utils/formatCurrency";
 import useSWR from "swr";
@@ -51,9 +50,12 @@ const getOwner = async (url: string) => {
 };
 
 export default function FacilityCard({ ...props }: Facility) {
-  const {data, isLoading} = useSWR(`http://localhost:8000/profiles/?user=${props.owner}`, getOwner)
+  const { data, isLoading } = useSWR(
+    `http://localhost:8000/profiles/?user=${props.owner}`,
+    getOwner
+  );
   const owner = data?.[0];
-  
+
   return (
     <div className="w-72 overflow-hidden">
       <div className="w-full h-64 relative">

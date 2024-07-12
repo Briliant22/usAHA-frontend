@@ -2,7 +2,6 @@ import React from "react";
 import Image from "next/image";
 import { formatCurrency } from "@/utils/formatCurrency";
 import { DatePickerInput } from "@/components/sewaTempat/datePicker";
-import { useUser } from "@/components/isomorphic/userContext";
 
 const locationIcon = "/icons/location.svg";
 const likeNonActiveIcon = "/icons/miscIcons/heart.svg";

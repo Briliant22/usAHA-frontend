@@ -58,11 +58,11 @@ export function NavbarAtas() {
 
   const openRegisterModal = () => {
     setIsRegisterModalOpen(true);
-  }
+  };
 
   const closeRegisterModal = () => {
     setIsRegisterModalOpen(false);
-  }
+  };
 
   const handleLogout = async () => {
     try {
@@ -99,7 +99,9 @@ export function NavbarAtas() {
     >
       <div className="flex px-4 w-full justify-between items-center">
         <Image
-          src={user.profile_pic ? user.profile_pic : "icons/miscIcons/defPfp.svg"}
+          src={
+            user.profile_pic ? user.profile_pic : "/icons/miscIcons/defPfp.svg"
+          }
           alt="Profile Image"
           className="object-cover w-[36px] h-[36px] rounded-full"
           width={36}
@@ -143,14 +145,19 @@ export function NavbarAtas() {
           </div>
           {profileButton}
         </div>
-        <LoginModal isOpen={isLoginModalOpen} onClose={closeLoginModal} openRegister={openRegisterModal} />
-        <RegisterModal isOpen={isRegisterModalOpen} onClose={closeRegisterModal} />
+        <LoginModal
+          isOpen={isLoginModalOpen}
+          onClose={closeLoginModal}
+          openRegister={openRegisterModal}
+        />
+        <RegisterModal
+          isOpen={isRegisterModalOpen}
+          onClose={closeRegisterModal}
+        />
       </div>
       <div className="w-full px-10">
-          <FilterCategoryInput/>
+        <FilterCategoryInput />
       </div>
-      
     </div>
-    
   );
 }

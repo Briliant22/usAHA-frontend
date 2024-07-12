@@ -6,9 +6,9 @@ type RegisterModalProps = {
   onClose: () => void;
 };
 
-const lightbulbIcon = "icons/miscIcons/lightbulb.svg";
-const closeIcon = "icons/miscIcons/close.svg";
-const cameraIcon = "icons/miscIcons/camera.svg";
+const lightbulbIcon = "/icons/miscIcons/lightbulb.svg";
+const closeIcon = "/icons/miscIcons/close.svg";
+const cameraIcon = "/icons/miscIcons/camera.svg";
 
 export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
   if (!isOpen) return null;

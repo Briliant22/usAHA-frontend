@@ -7,8 +7,8 @@ type LoginModalProps = {
   openRegister: () => void;
 };
 
-const lightbulbIcon = "icons/miscIcons/lightbulb.svg";
-const closeIcon = "icons/miscIcons/close.svg";
+const lightbulbIcon = "/icons/miscIcons/lightbulb.svg";
+const closeIcon = "/icons/miscIcons/close.svg";
 
 export function LoginModal({ isOpen, onClose, openRegister }: LoginModalProps) {
   if (!isOpen) return null;
