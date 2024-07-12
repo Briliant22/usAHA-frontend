@@ -45,7 +45,7 @@ export default function FacilityCard({...props}: ToolProps) {
 
         <div className="my-1 flex justify-between items-center">
           <div className="flex justify-between items-center space-x-3">
-            <img
+            <Image
               src="/imgs/pfp.jpg"
               alt="Facility Image"
               className="object-cover w-8 h-8 rounded-full"

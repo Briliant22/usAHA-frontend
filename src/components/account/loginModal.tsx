@@ -11,15 +11,12 @@ const lightbulbIcon = "icons/miscIcons/lightbulb.svg";
 const closeIcon = "icons/miscIcons/close.svg";
 
 export function LoginModal({ isOpen, onClose, openRegister }: LoginModalProps) {
-  if (!isOpen) return null;
-
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
-
     try {
       const response = await fetch("http://localhost:8000/auth/login/", {
         method: "POST",
@@ -42,6 +39,8 @@ export function LoginModal({ isOpen, onClose, openRegister }: LoginModalProps) {
     onClose();
     openRegister();
   };
+
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">

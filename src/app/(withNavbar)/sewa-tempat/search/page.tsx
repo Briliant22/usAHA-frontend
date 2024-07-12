@@ -6,22 +6,27 @@ import FacilityCard from '@/components/facilities/facilityCard';
 import Link from 'next/link';
 import Image from "next/image"
 
-interface Amenity {
-    id: string;
+interface FacilityImage {
+    uuid: string;
     facility: string;
-    name: string;
-    type: string;
-}
+    image: string;
+    is_primary: boolean;
+  }
 
 interface Facility {
-uuid: string;
-owner: string;
-name: string;
-description: string;
-location: string;
-price_per_day: number;
-max_capacity: number;
-amenities: Amenity[];
+    uuid: string;
+    owner: string;
+    owner_username: string;
+    name: string;
+    category: string;
+    description: string;
+    city: string;
+    location_link: string;
+    price_per_day: number;
+    created_at: string;
+    updated_at: string;
+    amenities: string[];
+    images: FacilityImage[];
 }
 
 type FacilityResponse = Facility[];
