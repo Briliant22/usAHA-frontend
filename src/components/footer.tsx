@@ -4,7 +4,7 @@ function Footer() {
   return (
     <div className="flex flex-col w-full h-[298px] bg-[#E1ECFC] justify-center px-20 py-10">
       <div className="flex justify-between space-x-10">
-        <div className="flex flex-col h-40 justify-start">
+        <div className="flex flex-col h-40 justify-start w-3/6">
           <Image
             className="mt-3"
             src="/usahaLogo.svg"
@@ -13,10 +13,15 @@ function Footer() {
             height={46}
           />
           <p className="py-3 text-[#1973F9] text-xs font-medium">
-            Lorem ipsum dolor sit amet. penjelasan tentang company kita
+            usAHA! adalah platform untuk meningkatkan usaha kecil menengah di
+            Indonesia yang dikenal sebagai UMKM. usAHA! hadir untuk memberikan
+            solusi kreatif bagi UMKM dengan menyediakan kesempatan untuk memulai
+            karir mereka melalui fitur seperti Sewa Ruang dan Jual Beli Alat.
+            Dengan usAHA!, UMKM menghadirkan cara baru untuk berkembang dan
+            menjadi solusi bagi bisnis modern.
           </p>
           <div className="flex w-32 my-3 justify-between">
-            <div className="flex bg-[#4082E5] w-8 h-8 rounded justify-center justify-center items-center">
+            <div className="flex bg-[#4082E5] w-8 h-8 rounded  justify-center items-center">
               <Image
                 src="/icons/socmedIcons/twitter.svg"
                 alt="Twitter"
@@ -24,7 +29,7 @@ function Footer() {
                 height={24}
               />
             </div>
-            <div className="flex bg-[#4082E5] w-8 h-8 rounded justify-center justify-center items-center">
+            <div className="flex bg-[#4082E5] w-8 h-8 rounded  justify-center items-center">
               <Image
                 src="/icons/socmedIcons/instagram.svg"
                 alt="Instagram"
@@ -32,7 +37,7 @@ function Footer() {
                 height={24}
               />
             </div>
-            <div className="flex bg-[#4082E5] w-8 h-8 rounded justify-center justify-center items-center">
+            <div className="flex bg-[#4082E5] w-8 h-8 roundedjustify-center items-center">
               <Image
                 src="/icons/socmedIcons/linkedIn.svg"
                 alt="LinkedIn"
@@ -43,7 +48,9 @@ function Footer() {
           </div>
         </div>
 
-        <div className="flex w-64 h-40 justify-around">
+        <div className="bg-gradient-to-b from-[#FED365] to-[#1973F9] w-[1px] h-full "></div>
+
+        <div className="flex h-40 justify-around w-2/6">
           <div className="flex flex-col justify-between">
             <p className="my-3 text-[#4082E5] text-base font-bold">Menu</p>
             <p className="my-1 text-[#709EE3] text-xs font-semibold">
@@ -75,6 +82,8 @@ function Footer() {
             <p className="my-1 text-[#709EE3] text-xs font-semibold">Careers</p>
           </div>
         </div>
+
+        <div className="bg-gradient-to-b from-[#FED365] to-[#1973F9] w-[1px] h-full "></div>
 
         <div className="flex flex-col w-44 h-40 justify-between">
           <p className="mt-3 text-[#4082E5] text-base font-bold underline">
