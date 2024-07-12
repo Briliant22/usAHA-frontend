@@ -3,7 +3,7 @@ import { tv } from 'tailwind-variants'
 import Image from 'next/image'
 
 const filterButtonStyle = tv({
-    base: 'flex gap-2 w-1/4 justify-center rounded-full p-2',
+    base: 'flex gap-2 w-1/4 justify-center items-center rounded-full p-2',
     variants:{
         isActive: {
             true: 'bg-[#4082E5]',

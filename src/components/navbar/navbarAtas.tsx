@@ -146,7 +146,7 @@ export function NavbarAtas() {
         <LoginModal isOpen={isLoginModalOpen} onClose={closeLoginModal} openRegister={openRegisterModal} />
         <RegisterModal isOpen={isRegisterModalOpen} onClose={closeRegisterModal} />
       </div>
-      <div className="w-full px-10">
+      <div className="w-full px-10 pb-5">
           <FilterCategoryInput/>
       </div>
       

@@ -24,6 +24,7 @@ export const FilterCategoryInput = () => {
     return (
       <div className="w-full border rounded-full flex py-1 px-2 justify-between">
         {categories.map((category) => (
+            
           <FilterButton 
             key={category.label}
             isActive={activeCategory === category.label}
