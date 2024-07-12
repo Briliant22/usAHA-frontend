@@ -64,7 +64,7 @@ export default function FacilityCard({...props}: Facility) {
               width={24}
               height={24}
             />
-            <span className="text-[#4082E5] text-sm font-medium">belum/5</span>
+            <span className="text-[#4082E5] text-sm font-medium">4,5/5</span>
           </div>
         </div>
 

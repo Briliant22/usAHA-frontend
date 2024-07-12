@@ -36,7 +36,8 @@ export default function Page() {
     const searchParams = useSearchParams()
     const searchQuery = searchParams.get('query') || ""
     const encodedSerachQuery = encodeURI(searchQuery)
-    const {data, isLoading} = useSWR(`http://localhost:8000/facilities/${encodedSerachQuery}/`, getSearchResults)
+    console.log("dari search query",encodedSerachQuery)
+    const {data, isLoading} = useSWR(`http://localhost:8000/facilities/?name=${encodedSerachQuery}`, getSearchResults)
 
     console.log(data)
 
