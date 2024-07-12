@@ -8,13 +8,6 @@ const checkedBoxIcon = "/icons/miscIcons/checkedBox.svg";
 const shareIcon = "/icons/miscIcons/share.svg";
 const starIcon = "/icons/reviewStar.svg";
 
-const getDetails = async (url: string, id: string) => {
-    const response = await fetch(url)
-    const data: FacilityResponse = await response.json()
-    return data
-
-}
-
 export default function Page({ params }: { params: { id: string } }) {
   const facilityImages = [
     "/imgs/tempbg1.jpg",
@@ -26,7 +19,7 @@ export default function Page({ params }: { params: { id: string } }) {
       <div className="flex justify-between w-3/4 my-8">
         <div className="flex flex-col justify-start">
           <h1 className="text-[#000000] text-[32px] font-semibold">
-            Mama's Kitchen
+            Mamas Kitchen
           </h1>
           <div className="flex items-center my-1">
             <Image
@@ -70,6 +63,7 @@ export default function Page({ params }: { params: { id: string } }) {
                 layout="fill"
                 objectFit="cover"
                 className="rounded-[32px]"
+                
               />
             </div>
           ))}
@@ -87,7 +81,7 @@ export default function Page({ params }: { params: { id: string } }) {
       <div className="flex w-3/4 justify-start items-center my-4">
         <p className="text-[#000000] text-base font-normal leading-relaxed">
           Berlokasi di Pulo Asem. Dapur ini berukuran 8x10m2. Disewakan oleh
-          Mama’s Bakery dan dilengkapi peralatan baking super lengkap yang dapat
+          Mamas Bakery dan dilengkapi peralatan baking super lengkap yang dapat
           dipakai dalam waktu peminjaman. Lorem ipsum dolor sit amet,
           consectetur adipiscing elit. Pellentesque tristique rutrum ex a
           ultrices. Nulla maximus ex ac fermentum vestibulum. Proin laoreet nisl

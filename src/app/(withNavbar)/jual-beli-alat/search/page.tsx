@@ -1,6 +1,5 @@
 "use client"
 import React from 'react'
-import { useSearchParams } from 'next/navigation'
 import useSWR from 'swr'
 import ToolCard from '@/components/tools/toolCard';
 
@@ -32,10 +31,8 @@ const getSearchResults = async (url: string) => {
 
 }
 
-export default function Page() {
-    const searchParams = useSearchParams()
-    const searchQuery = searchParams.get('query') || ""
-    const encodedSerachQuery = encodeURI(searchQuery)
+export default function Page({params, searchParams}: any) {
+    const encodedSerachQuery = encodeURI(searchParams.query)
     const {data, isLoading} = useSWR(`http://localhost:8000/tools/?search=${encodedSerachQuery}`, getSearchResults)
 
     if (isLoading) return <div>Loading...</div>

@@ -1,6 +1,7 @@
 import React from "react";
 import { NavbarAtas } from "@/components/navbar/navbarAtas";
 import Footer from "@/components/footer";
+import { NavbarAtasNonSearch } from "@/components/navbar/navbarAtasNonSearch";
 
 
 interface LayoutProps {
@@ -11,7 +12,7 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <div className="flex flex-col min-h-screen">
       <div className="flex-grow w-full px-16 py-8">
-        <NavbarAtas />
+        <NavbarAtasNonSearch />
         {children}
       </div>
       <Footer />

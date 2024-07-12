@@ -1,28 +1,32 @@
 "use client"
 import React from 'react'
-import { useSearchParams } from 'next/navigation'
 import useSWR from 'swr'
 import FacilityCard from '@/components/facilities/facilityCard';
 import Link from 'next/link';
 import Image from "next/image"
 
-interface Amenity {
-    id: string;
+interface FacilityImage {
+    uuid: string;
     facility: string;
-    name: string;
-    type: string;
-}
+    image: string;
+    is_primary: boolean;
+  }
 
 interface Facility {
-uuid: string;
-owner: string;
-name: string;
-description: string;
-location: string;
-price_per_day: number;
-max_capacity: number;
-amenities: Amenity[];
-}
+    uuid: string;
+    owner: string;
+    owner_username: string;
+    name: string;
+    category: string;
+    description: string;
+    city: string;
+    location_link: string;
+    price_per_day: number;
+    created_at: string;
+    updated_at: string;
+    amenities: string[];
+    images: FacilityImage[];
+  }
 
 type FacilityResponse = Facility[];
 
@@ -36,10 +40,8 @@ const getSearchResults = async (url: string) => {
 
 }
 
-export default function Page() {
-    const searchParams = useSearchParams()
-    const searchQuery = searchParams.get('query') || ""
-    const encodedSerachQuery = encodeURI(searchQuery)
+export default function Page({params, searchParams}: any) {
+    const encodedSerachQuery = encodeURI(searchParams.query)
     const {data, isLoading} = useSWR(`http://localhost:8000/facilities/?name=${encodedSerachQuery}`, getSearchResults)
 
     if (isLoading) 

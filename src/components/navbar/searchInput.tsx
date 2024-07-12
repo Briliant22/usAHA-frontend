@@ -1,22 +1,17 @@
 "use client"
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
-interface SearchInputProps extends React.InputHTMLAttributes<HTMLInputElement>{
+interface SearchInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     placeholder: string,
     path: string   
 }
 
-export const SearchInput = ({path, placeholder, ...props}: SearchInputProps) => {
-    const searchParams = useSearchParams()
+export const SearchInput = ({ path, placeholder, ...props }: SearchInputProps) => {
     const pathname = usePathname()
     const [searchQuery, setSearchQuery] = useState("")
     const router = useRouter()
-
-    useEffect(() => {
-        setSearchQuery(searchParams.get('query') || "")
-    }, [searchParams])
 
     const onSearch = (e: React.FormEvent) => {
         e.preventDefault()

@@ -1,9 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import Image from "next/image";
 import { formatCurrency } from "@/utils/formatCurrency";
-import useSWR from "swr";
 
 interface FacilityImage {
   uuid: string;
@@ -42,18 +40,11 @@ interface Owner {
 const locationIcon = "/icons/location.svg";
 const starIcon = "/icons/reviewStar.svg";
 
-const getOwner = async (url: string) => {
-  const response = await fetch(url, {
-    cache: "no-store",
-  });
-  const data: Owner[] = await response.json();
-  return data;
-};
+interface FacilityCardProps extends Facility {
+  ownerData?: Owner | null;
+}
 
-export default function FacilityCard({ ...props }: Facility) {
-  const {data, isLoading} = useSWR(`http://localhost:8000/profiles/?user=${props.owner}`, getOwner)
-  const owner = data?.[0];
-  
+export default function FacilityCard({ ownerData, ...props }: FacilityCardProps) {
   return (
     <div className="w-72 overflow-hidden">
       <div className="w-full h-64 relative">
@@ -76,9 +67,9 @@ export default function FacilityCard({ ...props }: Facility) {
 
         <div className="my-1 flex justify-between items-center">
           <div className="flex justify-between items-center space-x-3">
-            {owner?.profile_pic ? (
+            {ownerData?.profile_pic ? (
               <Image
-                src={owner.profile_pic}
+                src={ownerData.profile_pic}
                 alt="Owner Profile"
                 className="object-cover w-8 h-8 rounded-full"
                 width={32}

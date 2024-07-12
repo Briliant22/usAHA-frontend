@@ -6,13 +6,11 @@ type RegisterModalProps = {
   onClose: () => void;
 };
 
-const lightbulbIcon = "icons/miscIcons/lightbulb.svg";
-const closeIcon = "icons/miscIcons/close.svg";
-const cameraIcon = "icons/miscIcons/camera.svg";
+const lightbulbIcon = "/icons/miscIcons/lightbulb.svg";
+const closeIcon = "/icons/miscIcons/close.svg";
+const cameraIcon = "/icons/miscIcons/camera.svg";
 
 export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
-  if (!isOpen) return null;
-
   const [username, setUsername] = useState<string>("");
   const [first_name, setFirstName] = useState<string>("");
   const [last_name, setLastName] = useState<string>("");
@@ -63,6 +61,8 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
       setSelectedFile(e.target.files[0]);
     }
   };
+
+  if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">

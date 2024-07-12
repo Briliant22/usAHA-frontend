@@ -14,7 +14,7 @@ export const DetailTempat = () => {
                     />
                 </div>
                 <div className="flex flex-col justify-center items-center gap-1">
-                    <p className="font-inter font-semibold text-3xl">Mama's Kitchen</p>
+                    <p className="font-inter font-semibold text-3xl">Mamas Kitchen</p>
                     <div className="flex items-center my-1">
                         <Image src="/icons/location.svg" alt="locationIcon" width={24} height={24} />
                         <span className="text-[#6F778C] ml-1 text-xl">Pulo Asem, Jakarta Timur</span>
