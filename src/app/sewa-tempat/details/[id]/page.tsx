@@ -3,6 +3,7 @@ import Image from "next/image";
 import { formatCurrency } from "@/utils/formatCurrency";
 import { DatePickerInput } from "@/components/sewaTempat/datePicker";
 import { useUser } from "@/components/isomorphic/userContext";
+import { API_URL } from "@/config/apiUrl";
 
 const locationIcon = "/icons/location.svg";
 const likeNonActiveIcon = "/icons/miscIcons/heart.svg";
@@ -42,7 +43,7 @@ const getDetails = async (url: string, id: string): Promise<Facility> => {
 };
 
 export default async function Page({ params }: { params: { id: string } }) {
-  const data = await getDetails("http://localhost:8000/facilities/", params.id);
+  const data = await getDetails(API_URL+"/facilities/", params.id);
 
   return (
     <div className="flex flex-col justify-center items-center w-full">

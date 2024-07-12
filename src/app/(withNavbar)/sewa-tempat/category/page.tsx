@@ -4,6 +4,7 @@ import { useSearchParams } from 'next/navigation'
 import useSWR from 'swr'
 import FacilityCard from '@/components/facilities/facilityCard';
 import Link from 'next/link';
+import { API_URL } from '@/config/apiUrl';
     
 
 interface FacilityImage {
@@ -42,7 +43,7 @@ const getSearchResults = async (url: string) => {
 
 export default function Page({params, searchParams}: any) {
     const encodedSerachQuery = encodeURI(searchParams.query)
-    const {data, isLoading} = useSWR(`http://localhost:8000/facilities/?category=${encodedSerachQuery}`, getSearchResults)
+    const {data, isLoading} = useSWR(`${API_URL}/facilities/?category=${encodedSerachQuery}`, getSearchResults)
 
     if (isLoading) return <div>Loading...</div>
     if (!data || data.length === 0) return <div>No facilities found</div>
@@ -50,7 +51,7 @@ export default function Page({params, searchParams}: any) {
 return (
     <div className="flex flex-col h-screen w-full">
         <div className="flex-grow p-4">
-            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 2xl:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-4">
             {data.map((facility) => (
                 <Link
                 href={`/sewa-tempat/details/${facility.uuid}`}

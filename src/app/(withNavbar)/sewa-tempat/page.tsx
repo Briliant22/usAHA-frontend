@@ -1,4 +1,5 @@
 import FacilityCard from "@/components/facilities/facilityCard";
+import { API_URL } from "@/config/apiUrl";
 import Link from "next/link";
 import React from "react";
 
@@ -34,7 +35,7 @@ const getFacility = async (url: string) => {
 };
 
 export default async function Page() {
-  const facilities = await getFacility("http://localhost:8000/facilities/");
+  const facilities = await getFacility(API_URL+"/facilities/");
 
   return (
     <div className="flex flex-col h-screen w-full">

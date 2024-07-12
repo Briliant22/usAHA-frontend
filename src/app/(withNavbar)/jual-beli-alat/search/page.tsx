@@ -2,6 +2,7 @@
 import React from 'react'
 import useSWR from 'swr'
 import ToolCard from '@/components/tools/toolCard';
+import { API_URL } from '@/config/apiUrl';
 
 interface ToolProps {
     uuid: string;
@@ -33,7 +34,7 @@ const getSearchResults = async (url: string) => {
 
 export default function Page({params, searchParams}: any) {
     const encodedSerachQuery = encodeURI(searchParams.query)
-    const {data, isLoading} = useSWR(`http://localhost:8000/tools/?search=${encodedSerachQuery}`, getSearchResults)
+    const {data, isLoading} = useSWR(`${API_URL}/tools/?search=${encodedSerachQuery}`, getSearchResults)
 
     if (isLoading) return <div>Loading...</div>
     if (!data || data.length === 0) return <div>No facilities found</div>

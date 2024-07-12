@@ -8,6 +8,7 @@ import { LoginModal } from "../account/loginModal";
 import { useUser } from "../isomorphic/userContext";
 import { RegisterModal } from "../account/registerModal";
 import { FilterCategoryInput } from "./filterCategoryInput";
+import { API_URL } from "@/config/apiUrl";
 
 type PathContent = {
   [key: string]: string;
@@ -82,7 +83,7 @@ export function NavbarAtas() {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch("http://localhost:8000/auth/logout/", {
+      const response = await fetch(API_URL+"/auth/logout/", {
         method: "POST",
         credentials: "include",
         headers: {

@@ -1,4 +1,5 @@
 import React, { FormEvent, useState } from "react";
+import { API_URL } from "@/config/apiUrl";
 import Image from "next/image";
 
 type LoginModalProps = {
@@ -18,7 +19,7 @@ export function LoginModal({ isOpen, onClose, openRegister }: LoginModalProps) {
     e.preventDefault();
     
     try {
-      const response = await fetch("http://localhost:8000/auth/login/", {
+      const response = await fetch(API_URL+"/auth/login/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

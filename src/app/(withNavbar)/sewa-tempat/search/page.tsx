@@ -4,6 +4,7 @@ import useSWR from 'swr'
 import FacilityCard from '@/components/facilities/facilityCard';
 import Link from 'next/link';
 import Image from "next/image"
+import { API_URL } from '@/config/apiUrl';
 
 interface FacilityImage {
     uuid: string;
@@ -42,7 +43,7 @@ const getSearchResults = async (url: string) => {
 
 export default function Page({params, searchParams}: any) {
     const encodedSerachQuery = encodeURI(searchParams.query)
-    const {data, isLoading} = useSWR(`http://localhost:8000/facilities/?name=${encodedSerachQuery}`, getSearchResults)
+    const {data, isLoading} = useSWR(`${API_URL}/facilities/?name=${encodedSerachQuery}`, getSearchResults)
 
     if (isLoading) 
         return 

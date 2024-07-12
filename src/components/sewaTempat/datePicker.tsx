@@ -5,6 +5,7 @@ import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"; 
 import React, { useEffect, useState } from 'react'
 import { useUser } from '../isomorphic/userContext';
+import { API_URL } from '@/config/apiUrl';
 
 
 interface DatePickerInputProps extends React.HTMLAttributes<HTMLDivElement>{
@@ -40,7 +41,7 @@ export const DatePickerInput = ({price_per_day,facility, ...props}:DatePickerInp
 
 
   const handleSubmitSewa = async () => {
-    await fetch("http://localhost:8000/facilities/booking/create/", {
+    await fetch(API_URL+"/facilities/booking/create/", {
       method: "POST",
       credentials: "include",
       headers: {

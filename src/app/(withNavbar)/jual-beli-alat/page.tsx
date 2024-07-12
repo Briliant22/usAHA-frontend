@@ -1,5 +1,6 @@
 import React from 'react'
 import ToolCard from '@/components/tools/toolCard';
+import { API_URL } from '@/config/apiUrl';
 
 
 interface ToolResponse {
@@ -30,7 +31,7 @@ const getTools = async (url: string) => {
 }
 
 export default async function Page() {
-  const tools= await getTools('http://localhost:8000/tools/')
+  const tools= await getTools(API_URL+'/tools/')
   
   return (
     <div className="flex flex-col w-full">

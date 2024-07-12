@@ -1,5 +1,6 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import Image from "next/image";
+import { API_URL } from "@/config/apiUrl";
 
 type RegisterModalProps = {
   isOpen: boolean;
@@ -32,7 +33,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
     setErrorMessage("");
 
     try {
-      const response = await fetch("http://localhost:8000/auth/registration/", {
+      const response = await fetch(API_URL+"/auth/registration/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
