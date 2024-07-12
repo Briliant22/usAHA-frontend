@@ -1,6 +1,5 @@
 "use client"
 import React from 'react'
-import { useSearchParams } from 'next/navigation'
 import useSWR from 'swr'
 import FacilityCard from '@/components/facilities/facilityCard';
 import Link from 'next/link';
@@ -27,7 +26,7 @@ interface Facility {
     updated_at: string;
     amenities: string[];
     images: FacilityImage[];
-}
+  }
 
 type FacilityResponse = Facility[];
 
@@ -41,10 +40,8 @@ const getSearchResults = async (url: string) => {
 
 }
 
-export default function Page() {
-    const searchParams = useSearchParams()
-    const searchQuery = searchParams.get('query') || ""
-    const encodedSerachQuery = encodeURI(searchQuery)
+export default function Page({params, searchParams}: any) {
+    const encodedSerachQuery = encodeURI(searchParams.query)
     const {data, isLoading} = useSWR(`http://localhost:8000/facilities/?name=${encodedSerachQuery}`, getSearchResults)
 
     if (isLoading) 

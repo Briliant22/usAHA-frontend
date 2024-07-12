@@ -40,10 +40,8 @@ const getSearchResults = async (url: string) => {
 
 }
 
-export default function Page() {
-    const searchParams = useSearchParams()
-    const searchQuery = searchParams.get('query') || ""
-    const encodedSerachQuery = encodeURI(searchQuery)
+export default function Page({params, searchParams}: any) {
+    const encodedSerachQuery = encodeURI(searchParams.query)
     const {data, isLoading} = useSWR(`http://localhost:8000/facilities/?category=${encodedSerachQuery}`, getSearchResults)
 
     if (isLoading) return <div>Loading...</div>

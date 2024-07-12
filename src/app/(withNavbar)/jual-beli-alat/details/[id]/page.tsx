@@ -63,6 +63,7 @@ export default function Page({ params }: { params: { id: string } }) {
                 layout="fill"
                 objectFit="cover"
                 className="rounded-[32px]"
+                
               />
             </div>
           ))}
