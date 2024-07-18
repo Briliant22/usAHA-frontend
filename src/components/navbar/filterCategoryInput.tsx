@@ -5,10 +5,10 @@ import { FilterButton } from '../isomorphic/filterButton'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 const categories = [
-  { label: "Kitchen", icon: "kitchen" },
-  { label: "Art Studio", icon: "artStudio" },
-  { label: "Workshop", icon: "workshop" },
-  { label: "Others", icon: "others" },
+  { label: "Kitchen", icon: "kitchen", value:"kitchen"},
+  { label: "Art Studio", icon: "artStudio", value:"art studio"},
+  { label: "Workshop", icon: "workshop", value:"workshop"},
+  { label: "Others", icon: "others", value:"others"},
 ];
 
 export const FilterCategoryInput = () => {
@@ -29,7 +29,7 @@ export const FilterCategoryInput = () => {
             isActive={activeCategory === category.label}
             icon_path={`/icons/filterIcons/${category.icon}`}
             label={category.label}
-            onClick={() => handleCategoryClick(category.label)}
+            onClick={() => handleCategoryClick(category.value)}
           />
         ))}
       </div>
