@@ -2,15 +2,16 @@ import Footer from "@/components/footer";
 import { NavbarAtas } from "@/components/navbar/navbarAtas";
 import { NavbarHome } from "@/components/navbar/navbarHome";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex flex-col w-full min-h-screen items-center">
+    <div className="flex min-h-screen w-full flex-col items-center">
       <NavbarHome />
-      <div className="px-20 flex w-full justify-evenly h-[80vh] bg-gradient-to-t from-[#8BB5F3] via-[#CADEFD] to-[#FFFFFF]">
-        <div className="flex flex-col w-1/3 h-full justify-center items-start space-y-6">
-          <h1 className="text-[#1973F9] text-[48px] font-bold -mb-12">Halo,</h1>
-          <h2 className="text-[#FED365] text-[64px] font-bold">
+      <div className="flex h-[80vh] w-full justify-evenly bg-gradient-to-t from-[#8BB5F3] via-[#CADEFD] to-[#FFFFFF] px-20">
+        <div className="flex h-full w-1/3 flex-col items-start justify-center space-y-6">
+          <h1 className="-mb-12 text-[48px] font-bold text-[#1973F9]">Halo,</h1>
+          <h2 className="text-[64px] font-bold text-[#FED365]">
             Pemilik Bisnis.
           </h2>
           <p className="text-[20px]">
@@ -19,13 +20,15 @@ export default function Home() {
             ruang siap sewa dan membeli barang bekas berkualitas, siap untuk
             memenuhi kebutuhan bisnis Anda!
           </p>
-          <button className="flex bg-[#1973F9] w-56 h-12 rounded-3xl justify-center items-center">
-            <p className="text-[#FFFFFF] text-base font-medium">
-              Mulai Bereksplorasi
-            </p>
+          <button className="flex h-12 w-56 items-center justify-center rounded-3xl bg-[#1973F9]">
+            <Link href={`/sewa-tempat/`}>
+              <p className="text-base font-medium text-[#FFFFFF]">
+                Mulai Bereksplorasi
+              </p>
+            </Link>
           </button>
         </div>
-        <div className="flex flex-col w-2/4 h-full justify-center items-end space-y-6 pb-14">
+        <div className="flex h-full w-2/4 flex-col items-end justify-center space-y-6 pb-14">
           <Image
             className="mt-3"
             src="/icons/miscIcons/biglb.svg"
@@ -35,8 +38,8 @@ export default function Home() {
           />
         </div>
       </div>
-      <div className="px-20 flex w-full justify-evenly h-[80vh] bg-gradient-to-t from-[#1973F9] to-[#7FA7DB]"></div>
-      <div className="px-20 flex w-full justify-evenly h-[100vh] bg-[#FFFFFF]"></div>
+      <div className="flex h-[80vh] w-full justify-evenly bg-gradient-to-t from-[#1973F9] to-[#7FA7DB] px-20"></div>
+      <div className="flex h-[100vh] w-full justify-evenly bg-[#FFFFFF] px-20"></div>
       <Footer />
     </div>
   );

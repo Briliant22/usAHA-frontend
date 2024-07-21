@@ -88,28 +88,30 @@ export function NavbarAtas() {
   const profileButton = !user ? (
     <button
       onClick={openLoginModal}
-      className="flex justify-center items-center w-[176px] h-[54px] border rounded-full border-[#1973F9]"
+      className="flex h-[54px] w-[176px] items-center justify-center rounded-full border border-[#1973F9]"
     >
-      <p className="w-full text-[#1973F9] font-inter font-medium">Log In</p>
+      <p className="w-full font-inter font-medium text-[#1973F9]">Log In</p>
     </button>
   ) : (
     <button
       onClick={handleLogout}
-      className="flex justify-center items-center w-[176px] h-[54px] border rounded-full border-[#1973F9]"
+      className="flex h-[54px] w-[176px] items-center justify-center rounded-full border border-[#1973F9]"
     >
-      <div className="flex px-4 w-full justify-between items-center">
+      <div className="flex w-full items-center justify-evenly px-4">
         <Image
           src={
             user.profile_pic ? user.profile_pic : "/icons/miscIcons/defPfp.svg"
           }
           alt="Profile Image"
-          className="object-cover w-[36px] h-[36px] rounded-full"
+          className="h-[36px] w-[36px] rounded-full object-cover"
           width={36}
           height={36}
         />
-        <p className="text-[#1973F9] text-[14px] font-semibold mx-3">
-          {user.username}
-        </p>
+        <div className="flex w-[120px] items-center justify-center">
+          <p className="text-[14px] font-semibold text-[#1973F9]">
+            {user.first_name} {user.last_name}
+          </p>
+        </div>
       </div>
     </button>
   );
@@ -117,11 +119,11 @@ export function NavbarAtas() {
   return (
     <div className="w-full">
       <div className="w-full flex-shrink-0 pb-4">
-        <div className="flex justify-between items-center">
+        <div className="flex items-start justify-between space-x-3">
           <Image src="/usahaLogo.svg" alt="logo" width={200} height={46} />
-          <div className="flex gap-6 items-center">
+          <div className="flex items-center gap-6">
             <div className="flex gap-2">
-              <div className="bg-gray-100 py-4 px-7 rounded-full w-96 flex gap-2">
+              <div className="flex w-96 gap-2 rounded-full bg-gray-100 px-7 py-4">
                 <Image
                   src="/icons/navbarIcons/searchIcon.svg"
                   alt="search"
@@ -130,16 +132,8 @@ export function NavbarAtas() {
                 />
                 <SearchInput placeholder={getPlaceholder()} path={pathname} />
               </div>
-              <div className="w-16 h-16 bg-[#6197E8] rounded-full flex justify-center items-center">
-                <Image
-                  src="/icons/navbarIcons/filterLogo.svg"
-                  alt="filter"
-                  width={32}
-                  height={32}
-                />
-              </div>
             </div>
-            <div className="rounded-[16px] w-56 h-12 bg-[#4082E5] flex items-center justify-center">
+            <div className="flex h-12 w-56 items-center justify-center rounded-[16px] bg-[#4082E5]">
               <p className="font-inter text-white">{getButtonText()}</p>
             </div>
           </div>
@@ -155,9 +149,10 @@ export function NavbarAtas() {
           onClose={closeRegisterModal}
         />
       </div>
-      <div className="w-full px-10">
+      <div className="w-full px-10 pb-4">
         <FilterCategoryInput />
       </div>
+      <div className="h-[1px] w-full bg-[#E0E5F2]"></div>
     </div>
   );
 }

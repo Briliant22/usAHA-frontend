@@ -83,7 +83,7 @@ export const DatePickerInput = ({
       };
 
       router.push(
-        `/sewa-tempat/details/${booking.facility}/bayar`
+        `/sewa-tempat/bayar/${booking.uuid}`
       );
     } else {
       console.error("Failed to create booking");

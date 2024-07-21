@@ -23,7 +23,6 @@ export default async function Layout({ children }: LayoutProps) {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
     
   );

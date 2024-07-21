@@ -12,13 +12,15 @@ interface FacilityImage {
 interface Facility {
   uuid: string;
   owner: string;
-  owner_username: string;
+  owner_name: string;
+  owner_pfp: string;
   name: string;
   category: string;
   description: string;
   city: string;
   location_link: string;
   price_per_day: number;
+  rating: number;
   created_at: string;
   updated_at: string;
   amenities: string[];
@@ -37,9 +39,9 @@ export default async function Page() {
   const facilities = await getFacility("http://localhost:8000/facilities/");
 
   return (
-    <div className="flex flex-col h-screen w-full">
-      <div className="flex-grow p-4">
-        <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-4">
+    <div className="flex h-screen w-full flex-col">
+      <div className="flex flex-grow p-4">
+        <div className="mx-auto grid grid-cols-1 gap-16 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4">
           {facilities.map((facility) => (
             <Link
               href={`/sewa-tempat/details/${facility.uuid}`}
