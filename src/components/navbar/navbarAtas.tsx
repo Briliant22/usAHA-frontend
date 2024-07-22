@@ -16,11 +16,13 @@ type PathContent = {
 const placeholderMap: PathContent = {
   "/jual-beli-alat": "Cari Alat",
   "/sewa-tempat": "Cari Properti",
+  "/riwayat": "Cari Properti",
 };
 
 const buttonTextMap: PathContent = {
   "/jual-beli-alat": "Jual Alatmu",
   "/sewa-tempat": "Sewakan Propertimu",
+  "/riwayat": "Sewakan Propertimu",
   "/facilities/details": "Sewakan Propertimu",
 };
 
@@ -149,9 +151,7 @@ export function NavbarAtas() {
           onClose={closeRegisterModal}
         />
       </div>
-      <div className="w-full px-10 pb-4">
-        <FilterCategoryInput />
-      </div>
+
       <div className="h-[1px] w-full bg-[#E0E5F2]"></div>
     </div>
   );

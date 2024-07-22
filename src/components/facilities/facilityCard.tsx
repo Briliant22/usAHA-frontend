@@ -22,7 +22,7 @@ interface Facility {
   city: string;
   location_link: string;
   price_per_day: number;
-  rating: number;
+  rating: number | null;
   created_at: string;
   updated_at: string;
   amenities: string[];
@@ -33,8 +33,6 @@ const locationIcon = "/icons/location.svg";
 const starIcon = "/icons/reviewStar.svg";
 
 export default function FacilityCard({ ...facility }: Facility) {
-
-
   return (
     <div className="w-72 overflow-hidden">
       <div className="relative h-64 w-full">
@@ -85,7 +83,7 @@ export default function FacilityCard({ ...facility }: Facility) {
           <div className="flex items-center justify-end space-x-1">
             <Image src={starIcon} alt="reviewStar" width={24} height={24} />
             <span className="text-sm font-medium text-[#4082E5]">
-              {facility.rating}/5
+              {facility.rating == null ? 0 : facility.rating}/5
             </span>
           </div>
         </div>

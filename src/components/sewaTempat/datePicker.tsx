@@ -30,7 +30,7 @@ export const DatePickerInput = ({
   useEffect(() => {
     if (startDate && endDate) {
       const durationInDays = Math.ceil(
-        (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)
+        (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24),
       );
       setTotalPrice(durationInDays * price_per_day);
     } else {
@@ -65,7 +65,7 @@ export const DatePickerInput = ({
           booker: user?.id,
           notes: "",
         }),
-      }
+      },
     );
 
     if (response.ok) {
@@ -82,9 +82,7 @@ export const DatePickerInput = ({
         is_paid: data.is_paid,
       };
 
-      router.push(
-        `/sewa-tempat/bayar/${booking.uuid}`
-      );
+      router.push(`/sewa-tempat/bayar/${booking.uuid}`);
     } else {
       console.error("Failed to create booking");
     }
@@ -97,35 +95,35 @@ export const DatePickerInput = ({
 
   const rentButton = !user ? (
     <button
-      className="flex bg-[#1973F9] w-56 h-12 rounded-3xl justify-center items-center"
+      className="flex h-12 w-56 items-center justify-center rounded-3xl bg-[#1973F9]"
       onClick={openLoginModal}
     >
-      <p className="text-[#FFFFFF] text-base font-medium">Sewa Tempat Ini</p>
+      <p className="text-base font-medium text-[#FFFFFF]">Sewa Tempat Ini</p>
     </button>
   ) : (
     <button
-      className="flex bg-[#1973F9] w-56 h-12 rounded-3xl justify-center items-center"
+      className="flex h-12 w-56 items-center justify-center rounded-3xl bg-[#1973F9]"
       onClick={handleSubmitSewa}
     >
-      <p className="text-[#FFFFFF] text-base font-medium">Sewa Tempat Ini</p>
+      <p className="text-base font-medium text-[#FFFFFF]">Sewa Tempat Ini</p>
     </button>
   );
 
   return (
-    <div className="flex flex-col justify-center items-start" {...props}>
-      <div className="flex flex-col w-96 h-[271px] justify-center items-center rounded-[20px] shadow-2xl space-y-2 gap-3">
-        <div className="flex-col flex justify-center items-center gap-1">
+    <div className="flex flex-col items-start justify-center" {...props}>
+      <div className="flex h-[271px] w-96 flex-col items-center justify-center gap-3 space-y-2 rounded-[20px] shadow-2xl">
+        <div className="flex flex-col items-center justify-center gap-1">
           <h2 className="text-2xl font-semibold">
             {formatCurrency(totalPrice)}
           </h2>
-          <p className="text-[#353A44] text-base font-normal">
+          <p className="text-base font-normal text-[#353A44]">
             Total sebelum pajak
           </p>
         </div>
 
-        <div className="flex w-80 h-16 justify-center items-center">
-          <div className="flex flex-col w-full h-full rounded-l-[20px] justify-center items-center border-2 border-[#A7AFC4]">
-            <p className="text-[#4082E5] text-xs font-bold">CHECK-IN</p>
+        <div className="flex h-16 w-80 items-center justify-center">
+          <div className="flex h-full w-full flex-col items-center justify-center rounded-l-[20px] border-2 border-[#A7AFC4]">
+            <p className="text-xs font-bold text-[#4082E5]">CHECK-IN</p>
             <DatePicker
               selected={startDate}
               onChange={handleStartDateChange}
@@ -133,8 +131,8 @@ export const DatePickerInput = ({
               className="w-24"
             />
           </div>
-          <div className="flex flex-col w-full h-full rounded-r-[20px] justify-center items-center border-2 border-[#A7AFC4]">
-            <p className="text-[#4082E5] text-xs font-bold">CHECK-OUT</p>
+          <div className="flex h-full w-full flex-col items-center justify-center rounded-r-[20px] border-2 border-[#A7AFC4]">
+            <p className="text-xs font-bold text-[#4082E5]">CHECK-OUT</p>
             <DatePicker
               selected={endDate}
               onChange={handleEndDateChange}

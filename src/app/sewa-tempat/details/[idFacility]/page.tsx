@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { DatePickerInput } from "@/components/sewaTempat/datePicker";
+import memberStart from "@/utils/memberStart";
 
 const locationIcon = "/icons/location.svg";
 const likeNonActiveIcon = "/icons/miscIcons/heart.svg";
@@ -20,13 +21,14 @@ interface Facility {
   owner: string;
   owner_name: string;
   owner_pfp: string;
+  owner_start: string;
   name: string;
   category: string;
   description: string;
   city: string;
   location_link: string;
   price_per_day: number;
-  rating: number;
+  rating: number | null;
   created_at: string;
   updated_at: string;
   amenities: string[];
@@ -114,7 +116,7 @@ export default async function Page({
         <div className="space-x1 flex items-center">
           <Image src={starIcon} alt="reviewStar" width={31} height={31} />
           <span className="text-xl font-semibold text-[#4082E5]">
-            {facilityData.rating}/5
+            {facilityData.rating == null ? 0 : facilityData.rating}/5
           </span>
         </div>
         <p className="text-xl font-normal text-[#4082E5] underline">
@@ -140,7 +142,7 @@ export default async function Page({
             <div className="flex flex-col items-start justify-start">
               <p className="text-base font-medium">{facilityData.owner_name}</p>
               <p className="text-xs font-medium text-[#4082E5]">
-                Member sejak 3 tahun lalu
+                {memberStart(facilityData.owner_start)}
               </p>
             </div>
           </div>

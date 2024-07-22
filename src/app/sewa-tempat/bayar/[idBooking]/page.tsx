@@ -1,8 +1,8 @@
 import React from "react";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
 import SewaTempatInput from "@/components/pembayaran/sewaTempatInput";
 import DetailTempat from "@/components/pembayaran/detailTempat";
+import formatDateRange from "@/utils/formatDateRange";
 
 interface FacilityImage {
   uuid: string;
@@ -39,6 +39,7 @@ interface FacilityBooking {
   notes: string;
   is_approved: boolean;
   is_paid: boolean;
+  user_rating: number;
 }
 
 const getBookingDetails = async (
@@ -99,9 +100,7 @@ export default async function Page({
           Request to Reserve
         </h1>
         <p className="text-[24px] font-semibold">
-          {bookingData.start_date}
-          {"  until  "}
-          {bookingData.end_date}
+          {formatDateRange(bookingData.start_date, bookingData.end_date)}
         </p>
       </div>
       <div className="mt-10 flex justify-center space-x-10 px-20">
