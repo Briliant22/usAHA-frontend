@@ -31,11 +31,13 @@ interface Facility {
 }
 
 const categories = [
-  { label: "Kitchen", icon: "kitchen", value: "kitchen" },
-  { label: "Art Studio", icon: "artStudio", value: "art studio" },
-  { label: "Workshop", icon: "workshop", value: "workshop" },
-  { label: "Others", icon: "others", value: "others" },
-];
+    { label: "Cooking", icon: "cooking", value:"Cooking"},
+    { label: "Cleaning", icon: "cleaning", value:"Cleaning"},
+    { label: "Textile", icon: "textile", value:"Textile"},
+    { label: "Automotive", icon: "automotive", value:"Automotive"},
+    { label: "Furniture", icon: "furniture", value:"Furniture"},
+    { label: "Others", icon: "others", value:"Others"},
+  ];
 
 const fetchFacilities = (url: string) => fetch(url).then(res => res.json());
 
@@ -48,9 +50,7 @@ export default function FacilitySearchPage() {
 
   return (
     <div className="flex h-screen w-full flex-col">
-      <div className="w-full px-10 py-4">
         <FilterCategoryInput categories={categories} />
-      </div>
       <div className="flex-grow p-4">
         {isLoading ? (
           <div>Loading...</div>

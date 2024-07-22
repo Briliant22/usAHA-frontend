@@ -1,32 +1,43 @@
 "use client";
 
-import React from 'react'
+import React, { useCallback } from 'react'
 import { FilterButton } from '../isomorphic/filterButton'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
-const categories = [
-  { label: "Kitchen", icon: "kitchen", value:"kitchen"},
-  { label: "Art Studio", icon: "artStudio", value:"art studio"},
-  { label: "Workshop", icon: "workshop", value:"workshop"},
-  { label: "Others", icon: "others", value:"others"},
-];
+interface Category {
+  label: string;
+  icon: string;
+  value: string;
+}
 
-export const FilterCategoryInput = () => {
+interface FilterCategoryInputProps extends React.HTMLAttributes<HTMLDivElement> {
+  categories?: Category[]
+}
+
+export const FilterCategoryInput = ({categories = []}: FilterCategoryInputProps) => {
     const router = useRouter()
     const searchParams = useSearchParams()
+    const pathname = usePathname()
     const activeCategory = searchParams.get('query') || ''
+    
+    const handleCategoryClick = useCallback((category: string) => {
+      const params = new URLSearchParams(searchParams)
+      const basePathname = pathname.split('/category')[0] // Get the base pathname
 
-    const handleCategoryClick = (category: string) => {
-      const query = category === activeCategory ? '' : category
-      router.push(`/sewa-tempat/category?query=${query}`)
-    }
+      if (category === activeCategory) {
+        router.push(basePathname)
+      } else {
+        params.set('query', category)
+        router.push(`${basePathname}/category?${params.toString()}`)
+      }
+    }, [router, searchParams, pathname, activeCategory])
 
     return (
       <div className="w-full border rounded-full flex py-1 px-2 justify-between">
         {categories.map((category) => (
           <FilterButton 
-            key={category.label}
-            isActive={activeCategory === category.label}
+            key={category.value}
+            isActive={activeCategory === category.value}
             icon_path={`/icons/filterIcons/${category.icon}`}
             label={category.label}
             onClick={() => handleCategoryClick(category.value)}

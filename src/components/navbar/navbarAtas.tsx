@@ -151,8 +151,6 @@ export function NavbarAtas() {
           onClose={closeRegisterModal}
         />
       </div>
-
-      <div className="h-[1px] w-full bg-[#E0E5F2]"></div>
     </div>
   );
 }

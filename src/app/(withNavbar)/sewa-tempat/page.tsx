@@ -28,6 +28,13 @@ interface Facility {
   images: FacilityImage[];
 }
 
+const categories = [
+  { label: "Kitchen", icon: "kitchen", value:"kitchen"},
+  { label: "Art Studio", icon: "artStudio", value:"art studio"},
+  { label: "Workshop", icon: "workshop", value:"workshop"},
+  { label: "Others", icon: "others", value:"others"},
+];
+
 const getFacility = async (url: string) => {
   const response = await fetch(url, {
     cache: "no-store",
@@ -42,7 +49,7 @@ export default async function Page() {
   return (
     <div className="flex h-screen w-full flex-col">
       <div className="w-full px-10 py-4">
-        <FilterCategoryInput />
+        <FilterCategoryInput categories={categories}/>
       </div>
       <div className="flex flex-grow p-4">
         <div className="mx-auto grid grid-cols-1 gap-16 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4">

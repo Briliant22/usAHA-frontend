@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from "next/image"
 import ToolCard from '@/components/tools/toolCard';
+import { FilterCategoryInput } from '@/components/navbar/filterCategoryInput';
 
 
 interface ToolResponse {
@@ -22,6 +23,15 @@ interface ImageProps {
     tool: string;
 }
 
+const categories = [
+  { label: "Cooking", icon: "cooking", value:"Cooking"},
+  { label: "Cleaning", icon: "cleaning", value:"Cleaning"},
+  { label: "Textile", icon: "textile", value:"Textile"},
+  { label: "Automotive", icon: "automotive", value:"Automotive"},
+  { label: "Furniture", icon: "furniture", value:"Furniture"},
+  { label: "Others", icon: "others", value:"Others"},
+];
+
 const getTools = async (url: string) => {
   const response = await fetch(url,{
     cache: "no-store"
@@ -35,6 +45,7 @@ export default async function Page() {
   
   return (
     <div className="flex flex-col w-full">
+      <FilterCategoryInput categories={categories}/>
       <div className="flex-grow p-4">
         <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-4">
           {tools.map((tool) => (
