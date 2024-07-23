@@ -24,7 +24,10 @@ interface UserContextType {
   user: User | null;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
   isLoggedIn: () => boolean;
-  fetchWithCredentials: (url: string, options?: RequestInit) => Promise<Response>;
+  fetchWithCredentials: (
+    url: string,
+    options?: RequestInit,
+  ) => Promise<Response>;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -35,7 +38,9 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetchWithCredentials('http://localhost:8000/auth/user/');
+        const response = await fetchWithCredentials(
+          "http://localhost:8000/auth/user/",
+        );
         if (response.ok) {
           const data = await response.json();
           setUser(data);
@@ -51,18 +56,25 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const isLoggedIn = () => !!user;
 
   const fetchWithCredentials = (url: string, options: RequestInit = {}) => {
+    const headers =
+      options.body instanceof FormData
+        ? options.headers
+        : {
+            ...options.headers,
+            "Content-Type": "application/json",
+          };
+
     return fetch(url, {
       ...options,
-      credentials: 'include',
-      headers: {
-        ...options.headers,
-        'Content-Type': 'application/json',
-      },
+      credentials: "include",
+      headers: headers,
     });
   };
 
   return (
-    <UserContext.Provider value={{ user, setUser, isLoggedIn, fetchWithCredentials }}>
+    <UserContext.Provider
+      value={{ user, setUser, isLoggedIn, fetchWithCredentials }}
+    >
       {children}
     </UserContext.Provider>
   );

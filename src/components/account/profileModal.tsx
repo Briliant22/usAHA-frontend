@@ -7,7 +7,7 @@ const settingsIcon = "/icons/miscIcons/settings.svg";
 const logoutIcon = "/icons/miscIcons/logout.svg";
 
 export default function ProfileModal() {
-  const { user, setUser } = useUser();
+  const { setUser } = useUser();
 
   const handleLogout = async () => {
     try {
@@ -39,8 +39,8 @@ export default function ProfileModal() {
         aria-orientation="vertical"
         aria-labelledby="options-menu"
       >
-        <a
-          href="#"
+        <Link
+          href={`/profile/`}
           className="block px-4 py-4 text-xl font-normal hover:bg-gray-100 hover:text-[#4082E5]"
           role="menuitem"
         >
@@ -48,7 +48,7 @@ export default function ProfileModal() {
             <Image src={profileIcon} alt="profile" width={24} height={124} />
             <p>Profile Anda</p>
           </span>
-        </a>
+        </Link>
         <a
           href="#"
           className="block px-4 py-4 text-xl font-normal hover:bg-gray-100 hover:text-[#4082E5]"

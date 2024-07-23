@@ -52,7 +52,11 @@ export default async function Page() {
               href={`/sewa-tempat/details/${facility.uuid}`}
               key={facility.uuid}
             >
-              <FacilityCard key={facility.uuid} facility={facility} isOwner={false} />
+              <FacilityCard
+                key={facility.uuid}
+                facility={facility}
+                isOwner={false}
+              />
             </Link>
           ))}
         </div>

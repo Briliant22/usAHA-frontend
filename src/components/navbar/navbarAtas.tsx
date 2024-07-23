@@ -19,6 +19,7 @@ const placeholderMap: PathContent = {
   "/sewa-tempat": "Cari Properti",
   "/riwayat": "Cari Properti",
   "/listing": "Cari Properti",
+  "/profile": "Cari Properti",
 };
 
 const buttonTextMap: PathContent = {
@@ -26,7 +27,7 @@ const buttonTextMap: PathContent = {
   "/sewa-tempat": "Sewakan Propertimu",
   "/riwayat": "Sewakan Propertimu",
   "/listing": "Cari Properti",
-  "/facilities/details": "Sewakan Propertimu",
+  "/profile": "Cari Properti",
 };
 
 export default function NavbarAtas({ isDashboard }: NavbarProps) {

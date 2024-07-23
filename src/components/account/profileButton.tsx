@@ -10,7 +10,7 @@ export default function ProfileButton() {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const { user, setUser } = useUser();
+  const { user } = useUser();
 
   const openLoginModal = () => {
     setIsLoginModalOpen(true);
