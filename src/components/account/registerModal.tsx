@@ -21,6 +21,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
   const [password, setPassword] = useState<string>("");
   const [confirm_password, setConfirmPassword] = useState<string>("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string>("");
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -62,14 +63,16 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
   };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if ( e.target.files && e.target.files.length > 0) {
-      setSelectedFile(e.target.files[0]);
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+      setSelectedFile(file);
+      setPreviewUrl(URL.createObjectURL(file));
     }
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <div className="flex flex-col justify-start items-center bg-[#FFFFFF] w-[866px] h-[75vh] p-5 rounded-[28px] shadow-lg w-96">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="flex h-[75vh] w-96 w-[866px] flex-col items-center justify-start rounded-[28px] bg-[#FFFFFF] p-5 shadow-lg">
         <div className="flex w-full justify-end">
           <button type="button" onClick={onClose} className="">
             <Image
@@ -82,8 +85,8 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
           </button>
         </div>
         <Image src={lightbulbIcon} alt="lightbulbIcon" width={58} height={64} />
-        <div className="flex justify-center items-baseline">
-          <h2 className="text-[28px] font-semibold my-4">Gabung di</h2>
+        <div className="flex items-baseline justify-center">
+          <h2 className="my-4 text-[28px] font-semibold">Gabung di</h2>
           <Image
             src="/imgs/usaha.png"
             alt="logo"
@@ -92,13 +95,13 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
             className="ml-2"
           />
         </div>
-        <form onSubmit={handleSubmit} className="flex flex-col w-full px-8">
-          <div className="flex justify-between w-full space-x-4">
-            <div className="flex flex-col w-full space-y-2">
+        <form onSubmit={handleSubmit} className="flex w-full flex-col px-8">
+          <div className="flex w-full justify-between space-x-4">
+            <div className="flex w-full flex-col space-y-2">
               <label className="block text-base font-semibold">Username</label>
               <input
                 type="text"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F0F1F5]"
+                className="w-full rounded-lg border bg-[#F0F1F5] px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
@@ -108,7 +111,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
               </label>
               <input
                 type="text"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F0F1F5]"
+                className="w-full rounded-lg border bg-[#F0F1F5] px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={first_name}
                 onChange={(e) => setFirstName(e.target.value)}
                 required
@@ -118,7 +121,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
               </label>
               <input
                 type="text"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F0F1F5]"
+                className="w-full rounded-lg border bg-[#F0F1F5] px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={last_name}
                 onChange={(e) => setLastName(e.target.value)}
                 required
@@ -126,7 +129,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
               <label className="block text-base font-semibold">Email</label>
               <input
                 type="email"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F0F1F5]"
+                className="w-full rounded-lg border bg-[#F0F1F5] px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -136,18 +139,18 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
               </label>
               <input
                 type="text"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F0F1F5]"
+                className="w-full rounded-lg border bg-[#F0F1F5] px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={contact_number}
                 onChange={(e) => setPhoneNumber(e.target.value)}
                 required
               />
             </div>
-            <div className="bg-[#1973F9] w-[3px] h-[400px]"></div>
-            <div className="flex flex-col w-full space-y-2">
+            <div className="h-[400px] w-[3px] bg-[#1973F9]"></div>
+            <div className="flex w-full flex-col space-y-2">
               <label className="block text-base font-semibold">Password</label>
               <input
                 type="password"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F0F1F5]"
+                className="w-full rounded-lg border bg-[#F0F1F5] px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -157,7 +160,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
               </label>
               <input
                 type="password"
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F0F1F5]"
+                className="w-full rounded-lg border bg-[#F0F1F5] px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={confirm_password}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
@@ -165,39 +168,48 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
               <label className="block text-base font-semibold">
                 Upload Image
               </label>
-              <div className="relative w-full h-full">
-                <div className="absolute inset-0 flex items-center justify-center bg-[#F0F1F5] rounded-lg">
-                  <div className="flex flex-col items-center justify-center">
-                    <Image
-                      src={cameraIcon}
-                      alt="image input"
-                      width={34}
-                      height={34}
-                      className=""
-                    />
-                    <p className="block text-base font-medium">
-                      Upload foto anda (Optional)
-                    </p>
-                  </div>
+              <div className="relative h-full w-full">
+                <div
+                  className="absolute inset-0 flex items-center justify-center rounded-lg bg-[#F0F1F5]"
+                  style={{
+                    backgroundImage: previewUrl ? `url(${previewUrl})` : "none",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }}
+                >
+                  {!previewUrl && (
+                    <div className="flex flex-col items-center justify-center">
+                      <Image
+                        src={cameraIcon}
+                        alt="image input"
+                        width={34}
+                        height={34}
+                        className=""
+                      />
+                      <p className="block text-base font-medium">
+                        Upload foto anda (Optional)
+                      </p>
+                    </div>
+                  )}
                 </div>
                 <input
                   type="file"
-                  className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                  className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
                   onChange={handleFileChange}
                   accept="image/*"
                 />
               </div>
             </div>
           </div>
-          <div className="flex flex-col justify-center items-center h-[16px] my-4">
+          <div className="my-4 flex h-[16px] flex-col items-center justify-center">
             {errorMessage && <p className="text-red-500">{errorMessage}</p>}
           </div>
-          <div className="flex flex-col justify-center items-center my-4">
+          <div className="my-4 flex flex-col items-center justify-center">
             <button
               type="submit"
-              className="flex bg-[#1973F9] w-56 h-12 rounded-[20px] justify-center items-center mt-2"
+              className="mt-2 flex h-12 w-56 items-center justify-center rounded-[20px] bg-[#1973F9]"
             >
-              <p className="text-[#FFFFFF] text-base font-medium">Register</p>
+              <p className="text-base font-medium text-[#FFFFFF]">Register</p>
             </button>
           </div>
         </form>

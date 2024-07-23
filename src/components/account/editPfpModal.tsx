@@ -100,6 +100,7 @@ export default function EditPfpModal({ isOpen, onClose }: EditPfpModal) {
               className="absolute inset-0 h-full w-full cursor-pointer opacity-0"
               onChange={handleFileChange}
               accept="image/*"
+              required
             />
           </div>
           <button

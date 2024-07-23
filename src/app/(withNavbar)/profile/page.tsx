@@ -30,7 +30,7 @@ export default function Page() {
           </div>
         </div>
       ) : (
-        <EditProfile />
+        <EditProfile onCancel={stopEditing} />
       )}
     </div>
   );
