@@ -17,6 +17,7 @@ interface Facility {
   owner: string;
   owner_name: string;
   owner_pfp: string;
+  owner_start: string;
   name: string;
   category: string;
   description: string;
@@ -44,9 +45,9 @@ const getSearchResults = async (url: string) => {
 export default function Page() {
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("query") || "";
-  const encodedSerachQuery = encodeURI(searchQuery);
+  const encodedSearchQuery = encodeURI(searchQuery);
   const { data, isLoading } = useSWR(
-    `http://localhost:8000/facilities/?name=${encodedSerachQuery}`,
+    `http://localhost:8000/facilities/?name=${encodedSearchQuery}`,
     getSearchResults,
   );
 

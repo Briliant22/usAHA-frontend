@@ -1,13 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { SearchInput } from "./searchInput";
 import { LoginModal } from "../account/loginModal";
 import { useUser } from "../isomorphic/userContext";
 import { RegisterModal } from "../account/registerModal";
-import { FilterCategoryInput } from "./filterCategoryInput";
 
 type PathContent = {
   [key: string]: string;
@@ -26,9 +25,11 @@ const buttonTextMap: PathContent = {
   "/facilities/details": "Sewakan Propertimu",
 };
 
-export function NavbarAtas() {
+export default function NavbarAtas() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
   const { user, setUser } = useUser();
   const pathname = usePathname();
 
@@ -66,6 +67,22 @@ export function NavbarAtas() {
     setIsRegisterModalOpen(false);
   };
 
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsDropdownOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   const handleLogout = async () => {
     try {
       const response = await fetch("http://localhost:8000/auth/logout/", {
@@ -79,6 +96,7 @@ export function NavbarAtas() {
       if (response.ok) {
         setUser(null);
         console.log("Logout successful");
+        window.location.href = "/sewa-tempat";
       } else {
         console.error("Logout failed");
       }
@@ -95,27 +113,61 @@ export function NavbarAtas() {
       <p className="w-full font-inter font-medium text-[#1973F9]">Log In</p>
     </button>
   ) : (
-    <button
-      onClick={handleLogout}
-      className="flex h-[54px] w-[176px] items-center justify-center rounded-full border border-[#1973F9]"
-    >
-      <div className="flex w-full items-center justify-evenly px-4">
-        <Image
-          src={
-            user.profile_pic ? user.profile_pic : "/icons/miscIcons/defPfp.svg"
-          }
-          alt="Profile Image"
-          className="h-[36px] w-[36px] rounded-full object-cover"
-          width={36}
-          height={36}
-        />
-        <div className="flex w-[120px] items-center justify-center">
-          <p className="text-[14px] font-semibold text-[#1973F9]">
-            {user.first_name} {user.last_name}
+    <div className="relative" ref={dropdownRef}>
+      <button
+        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+        className="flex h-[54px] w-[176px] items-center justify-center rounded-full border border-[#1973F9]"
+      >
+        <div className="flex w-full items-center justify-between px-4">
+          <Image
+            src={
+              user.profile_pic
+                ? user.profile_pic
+                : "/icons/miscIcons/defPfp.svg"
+            }
+            alt="Profile Image"
+            className="h-[36px] w-[36px] rounded-full object-cover"
+            width={36}
+            height={36}
+          />
+          <p className="mx-3 text-[14px] font-semibold text-[#1973F9]">
+            {user.username}
           </p>
         </div>
-      </div>
-    </button>
+      </button>
+      {isDropdownOpen && (
+        <div className="absolute right-0 z-50 mt-2 w-[20vw] rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5">
+          <div
+            className="py-1"
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="options-menu"
+          >
+            <a
+              href="#"
+              className="block px-4 py-4 text-[20px] hover:bg-gray-100 hover:text-[#4082E5]"
+              role="menuitem"
+            >
+              Your Profile
+            </a>
+            <a
+              href="#"
+              className="block px-4 py-4 text-[20px] hover:bg-gray-100 hover:text-[#4082E5]"
+              role="menuitem"
+            >
+              Settings
+            </a>
+            <button
+              onClick={handleLogout}
+              className="block w-full px-4 py-4 text-left text-[20px] hover:bg-gray-100 hover:text-[#4082E5]"
+              role="menuitem"
+            >
+              Sign out
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
   );
 
   return (

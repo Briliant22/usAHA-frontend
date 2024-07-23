@@ -8,7 +8,6 @@ import { LoginModal } from "../account/loginModal";
 import { useUser } from "../isomorphic/userContext";
 import { RegisterModal } from "../account/registerModal";
 
-
 export function NavbarHome() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
@@ -55,26 +54,26 @@ export function NavbarHome() {
   const profileButton = !user ? (
     <button
       onClick={openLoginModal}
-      className="flex justify-center items-center w-[176px] h-[54px] border rounded-full border-[#1973F9]"
+      className="flex h-[54px] w-[176px] items-center justify-center rounded-full border border-[#1973F9]"
     >
-      <p className="w-full text-[#1973F9] font-inter font-medium">Log In</p>
+      <p className="w-full font-inter font-medium text-[#1973F9]">Log In</p>
     </button>
   ) : (
     <button
       onClick={handleLogout}
-      className="flex justify-center items-center w-[176px] h-[54px] border rounded-full border-[#1973F9]"
+      className="flex h-[54px] w-[176px] items-center justify-center rounded-full border border-[#1973F9]"
     >
-      <div className="flex px-4 w-full justify-between items-center">
+      <div className="flex w-full items-center justify-between px-4">
         <Image
           src={
             user.profile_pic ? user.profile_pic : "/icons/miscIcons/defPfp.svg"
           }
           alt="Profile Image"
-          className="object-cover w-[36px] h-[36px] rounded-full"
+          className="h-[36px] w-[36px] rounded-full object-cover"
           width={36}
           height={36}
         />
-        <p className="text-[#1973F9] text-[14px] font-semibold mx-3">
+        <p className="mx-3 text-[14px] font-semibold text-[#1973F9]">
           {user.username}
         </p>
       </div>
@@ -82,9 +81,9 @@ export function NavbarHome() {
   );
 
   return (
-    <div className="w-full py-4 px-12">
-      <div className="w-full flex-shrink-0 pb-4 my-4">
-        <div className="flex justify-between items-center">
+    <div className="w-full px-12 py-4">
+      <div className="my-4 w-full flex-shrink-0 pb-4">
+        <div className="flex items-center justify-between">
           <Image src="/usahaLogo.svg" alt="logo" width={200} height={46} />
           {profileButton}
         </div>

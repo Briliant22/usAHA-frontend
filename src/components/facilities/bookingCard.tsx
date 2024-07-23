@@ -51,7 +51,7 @@ export default function BookingCard({ ...booking }: FacilityBooking) {
   const totalCost = formatCurrency(booking.duration * booking.price_per_day);
 
   return (
-    <div className="flex h-[200px] w-full items-center justify-start space-x-4 rounded-[20px] p-3 shadow-md">
+    <div className="flex h-[200px] w-full min-w-fit items-center justify-start space-x-4 rounded-[20px] p-3 shadow-md hover:bg-gray-100">
       <div className="relative h-[170px] w-[190px]">
         <Image
           src={booking.image.image}

@@ -1,5 +1,9 @@
+"use client";
+
+import { useUser } from "@/components/isomorphic/userContext";
 import BookingCard from "@/components/facilities/bookingCard";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 interface FacilityImage {
   uuid: string;
@@ -25,25 +29,40 @@ interface FacilityBooking {
   image: FacilityImage;
 }
 
-const getBooking = async (url: string) => {
-  const response = await fetch(url, {
-    method: "GET",
-    credentials: "include",
-    cache: "no-store",
-  });
+export default function Page() {
+  const { isLoggedIn, fetchWithCredentials } = useUser();
+  const [bookings, setBookings] = useState<FacilityBooking[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  if (!response.ok) {
-    throw new Error("Network response was not ok");
-  }
+  useEffect(() => {
+    const fetchBookings = async () => {
+      if (isLoggedIn()) {
+        try {
+          const response = await fetchWithCredentials(
+            "http://localhost:8000/facilities/bookings/user/",
+          );
+          if (response.ok) {
+            const data: FacilityBooking[] = await response.json();
+            setBookings(data);
+          } else {
+            throw new Error("Failed to fetch bookings");
+          }
+        } catch (err) {
+          setError("Error fetching bookings. Please try again later.");
+          console.error(err);
+        }
+      } else {
+        setError("You must be logged in to view your bookings.");
+      }
+      setLoading(false);
+    };
 
-  const data: FacilityBooking[] = await response.json();
-  return data;
-};
+    fetchBookings();
+  }, [isLoggedIn, fetchWithCredentials]);
 
-export default async function Page() {
-  const bookings = await getBooking(
-    "http://localhost:8000/facilities/bookings/",
-  );
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
     <div className="flex h-screen w-full flex-col items-center">
@@ -54,7 +73,13 @@ export default async function Page() {
       </div>
       <div className="flex w-[70vw] flex-wrap items-center justify-center space-y-4">
         {bookings.map((booking) => (
-          <BookingCard {...booking} />
+          <Link
+            href={`/riwayat/${booking.uuid}`}
+            key={booking.uuid}
+            className="w-full"
+          >
+            <BookingCard {...booking} />
+          </Link>
         ))}
       </div>
     </div>

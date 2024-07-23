@@ -15,13 +15,14 @@ interface Facility {
   owner: string;
   owner_name: string;
   owner_pfp: string;
+  owner_start: string;
   name: string;
   category: string;
   description: string;
   city: string;
   location_link: string;
   price_per_day: number;
-  rating: number | null;
+  rating: number;
   created_at: string;
   updated_at: string;
   amenities: string[];

@@ -17,6 +17,7 @@ interface Facility {
   owner: string;
   owner_name: string;
   owner_pfp: string;
+  owner_start: string;
   name: string;
   category: string;
   description: string;

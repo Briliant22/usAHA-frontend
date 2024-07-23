@@ -33,19 +33,21 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
 
     setErrorMessage("");
 
+    const formData = new FormData();
+    formData.append("username", username);
+    formData.append("first_name", first_name);
+    formData.append("last_name", last_name);
+    formData.append("email", email);
+    formData.append("contact_number", contact_number);
+    formData.append("password", password);
+    if (selectedFile) {
+      formData.append("profile_pic", selectedFile);
+    }
+
     try {
       const response = await fetch("http://localhost:8000/auth/registration/", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({
-          username,
-          first_name,
-          last_name,
-          email,
-          contact_number,
-          password,
-        }),
+        body: formData,
       });
 
       if (!response.ok) {
@@ -55,11 +57,12 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
       window.location.reload();
     } catch (error) {
       console.error("Error registering:", error);
+      setErrorMessage("Registration failed. Please try again.");
     }
   };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files.length > 0) {
+    if ( e.target.files && e.target.files.length > 0) {
       setSelectedFile(e.target.files[0]);
     }
   };
@@ -122,7 +125,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
               />
               <label className="block text-base font-semibold">Email</label>
               <input
-                type="text"
+                type="email"
                 className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F0F1F5]"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
