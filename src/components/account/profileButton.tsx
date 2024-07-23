@@ -57,7 +57,7 @@ export default function ProfileButton() {
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
         className="flex h-[54px] w-[176px] items-center justify-center rounded-full border border-[#1973F9]"
       >
-        <div className="flex w-full items-center justify-between px-4">
+        <div className="flex w-full items-center justify-start space-x-2 p-3">
           <Image
             src={
               user.profile_pic
@@ -69,9 +69,11 @@ export default function ProfileButton() {
             width={36}
             height={36}
           />
-          <p className="mx-3 text-[14px] font-semibold text-[#1973F9]">
-            {user.username}
-          </p>
+          <div className="flex justify-center px-3">
+            <p className="text-[14px] font-semibold text-[#1973F9]">
+              {user.username}
+            </p>
+          </div>
         </div>
       </button>
       {isDropdownOpen && <ProfileModal />}

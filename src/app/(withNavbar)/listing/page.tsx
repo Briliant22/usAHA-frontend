@@ -4,6 +4,7 @@ import { useUser } from "@/components/isomorphic/userContext";
 import BookingCard from "@/components/facilities/bookingCard";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import FacilityCard from "@/components/facilities/facilityCard";
 
 interface FacilityImage {
   uuid: string;
@@ -12,44 +13,46 @@ interface FacilityImage {
   is_primary: boolean;
 }
 
-interface FacilityBooking {
+interface Facility {
   uuid: string;
-  facility: string;
-  booker: string;
-  start_date: string;
-  end_date: string;
-  duration: number;
-  notes: string;
-  is_approved: boolean;
-  is_paid: boolean;
-  user_rating: number | null;
-  facility_name: string;
+  owner: string;
+  owner_name: string;
+  owner_pfp: string;
+  owner_start: string;
+  name: string;
+  category: string;
+  description: string;
   city: string;
+  location_link: string;
   price_per_day: number;
-  image: FacilityImage;
+  rating: number;
+  created_at: string;
+  updated_at: string;
+  amenities: string[];
+  images: FacilityImage[];
 }
 
 export default function Page() {
   const { isLoggedIn, fetchWithCredentials } = useUser();
-  const [bookings, setBookings] = useState<FacilityBooking[]>([]);
+  const [facilities, setFacilities] = useState<Facility[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchBookings = async () => {
+    const fetchFacilities = async () => {
       if (isLoggedIn()) {
         try {
           const response = await fetchWithCredentials(
-            "http://localhost:8000/facilities/bookings/user/",
+            "http://localhost:8000/facilities/owner/",
           );
           if (response.ok) {
-            const data: FacilityBooking[] = await response.json();
-            setBookings(data);
+            const data: Facility[] = await response.json();
+            setFacilities(data);
           } else {
-            throw new Error("Gagal mengambil booking anda");
+            throw new Error("Gagal mengambil listing anda");
           }
         } catch (err) {
-          setError("Gagal mengambil booking anda. Coba lagi di lain waktu.");
+          setError("Gagal mengambil listing anda. Coba lagi di lain waktu.");
           console.error(err);
         }
       } else {
@@ -58,7 +61,7 @@ export default function Page() {
       setLoading(false);
     };
 
-    fetchBookings();
+    fetchFacilities();
   }, [isLoggedIn, fetchWithCredentials]);
 
   if (loading) return <p>Loading...</p>;
@@ -67,19 +70,15 @@ export default function Page() {
   return (
     <div className="flex h-screen w-full flex-col items-center">
       <div className="flex flex-col items-center justify-center py-4">
-        <h1 className="text-center text-[40px] font-semibold">
-          Riwayat Transaksi
-        </h1>
+        <h1 className="text-center text-[40px] font-semibold">Listing Anda</h1>
       </div>
-      <div className="flex w-[70vw] flex-wrap items-center justify-center space-y-4">
-        {bookings.map((booking) => (
-          <Link
-            href={`/riwayat/${booking.uuid}`}
-            key={booking.uuid}
-            className="w-full"
-          >
-            <BookingCard {...booking} />
-          </Link>
+      <div className="mx-auto grid grid-cols-1 gap-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+        {facilities.map((facility) => (
+          <FacilityCard
+            key={facility.uuid}
+            facility={facility}
+            isOwner={true}
+          />
         ))}
       </div>
     </div>

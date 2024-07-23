@@ -34,12 +34,17 @@ export default function Navbar() {
     navItems.push({
       path: "/riwayat",
       icon: "/icons/navbarIcons/riwayat.svg",
-      label: "Riwayat Transaksi"
+      label: "Riwayat Transaksi",
+    });
+    navItems.push({
+      path: "/listing",
+      icon: "/icons/navbarIcons/listing.svg",
+      label: "Listing Anda",
     });
   }
 
   return (
-    <div className="flex h-screen w-28 flex-col gap-6 bg-[#3A7ADA] pt-10">
+    <div className="absolute left-0 top-[4vh] flex h-[90vh] w-28 flex-col gap-6 rounded-r-[20px] bg-[#3A7ADA] pt-10">
       {navItems.map((item) => (
         <Link href={item.path} key={item.path} passHref>
           <NavbarButton

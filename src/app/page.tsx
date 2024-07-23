@@ -1,13 +1,12 @@
 import Footer from "@/components/footer";
-import { NavbarAtas } from "@/components/navbar/navbarAtas";
-import { NavbarHome } from "@/components/navbar/navbarHome";
+import NavbarAtas from "@/components/navbar/navbarAtas";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
   return (
     <div className="flex min-h-screen w-full flex-col items-center">
-      <NavbarHome />
+      <NavbarAtas isDashboard={false} />
       <div className="flex h-[80vh] w-full justify-evenly bg-gradient-to-t from-[#8BB5F3] via-[#CADEFD] to-[#FFFFFF] px-20">
         <div className="flex h-full w-1/3 flex-col items-start justify-center space-y-6">
           <h1 className="-mb-12 text-[48px] font-bold text-[#1973F9]">Halo,</h1>

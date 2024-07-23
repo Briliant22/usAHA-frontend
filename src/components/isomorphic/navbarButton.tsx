@@ -5,7 +5,7 @@ const navbarButtonStyle = tv({
   base: "aspect-square w-20 mx-auto flex flex-col justify-center items-center pb-1",
   variants: {
     isActive: {
-      true: "bg-[#2F6BC5] rounded-full",
+      true: "bg-[#2F6BC5] rounded-[10px]",
       false: "",
     },
   },

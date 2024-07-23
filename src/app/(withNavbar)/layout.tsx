@@ -10,10 +10,10 @@ interface LayoutProps {
 export default async function Layout({ children }: LayoutProps) {
   return (
     <div>
-      <div className="flex">
+      <div className="relative flex">
         <Navbar />
         <div className="flex h-screen w-full flex-col px-20 py-9">
-          <NavbarAtas />
+          <NavbarAtas isDashboard={true}/>
           <div className="flex-grow overflow-y-auto">{children}</div>
         </div>
       </div>
