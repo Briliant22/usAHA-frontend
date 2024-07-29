@@ -2,10 +2,10 @@ import React from "react";
 import { tv } from "tailwind-variants";
 
 const navbarButtonStyle = tv({
-  base: "aspect-square w-20 mx-auto flex flex-col justify-center items-center pb-1",
+  base: "aspect-square w-20 mx-auto flex flex-col justify-center items-center pb-1 rounded-[10px] hover:bg-[#97BCF2]",
   variants: {
     isActive: {
-      true: "bg-[#2F6BC5] rounded-[10px]",
+      true: "bg-[#97BCF2]",
       false: "",
     },
   },

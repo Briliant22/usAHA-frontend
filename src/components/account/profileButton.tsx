@@ -47,7 +47,7 @@ export default function ProfileButton() {
   const profileButton = !user ? (
     <button
       onClick={openLoginModal}
-      className="flex h-[54px] w-[176px] items-center justify-center rounded-full border border-[#1973F9]"
+      className="flex h-[54px] w-[176px] items-center justify-center rounded-full border border-[#1973F9] hover:bg-[#97BCF2]"
     >
       <p className="w-full font-inter font-medium text-[#1973F9]">Log In</p>
     </button>
@@ -55,7 +55,7 @@ export default function ProfileButton() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-        className="flex h-[54px] w-[176px] items-center justify-center rounded-full border border-[#1973F9]"
+        className="flex h-[54px] w-[176px] items-center justify-center rounded-full border border-[#1973F9] hover:bg-[#97BCF2]"
       >
         <div className="flex w-full items-center justify-start space-x-2 p-3">
           <Image

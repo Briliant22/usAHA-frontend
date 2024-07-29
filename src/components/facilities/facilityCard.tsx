@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { formatCurrency } from "@/utils/formatCurrency";
 import { truncateText } from "@/utils/truncateText";
+import TextButton from "../textButton";
 
 interface FacilityImage {
   uuid: string;
@@ -90,9 +91,11 @@ export default function FacilityCard({ facility, isOwner }: FacilityCardProps) {
         </div>
         {isOwner ? (
           <div className="flex w-full items-center justify-center py-4">
-            <div className="flex h-10 w-56 items-center justify-center rounded-[16px] border border-[#4082E5] p-2 text-[#4082E5] hover:bg-[#4082E5] hover:text-[#FFFFFF]">
-              <p className="text-[14px] font-medium">Ubah Informasi Listing</p>
-            </div>
+            <TextButton
+              label="Ubah informasi listing"
+              size="large"
+              type="secondary"
+            />
           </div>
         ) : (
           <div className="my-1 flex items-center justify-between">

@@ -1,5 +1,6 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import Image from "next/image";
+import TextButton from "../textButton";
 
 type RegisterModalProps = {
   isOpen: boolean;
@@ -95,7 +96,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
             className="ml-2"
           />
         </div>
-        <form onSubmit={handleSubmit} className="flex w-full flex-col px-8">
+        <form onSubmit={handleSubmit} className="flex w-full flex-col px-8 justify-center items-center">
           <div className="flex w-full justify-between space-x-4">
             <div className="flex w-full flex-col space-y-2">
               <label className="block text-base font-semibold">Username</label>
@@ -204,14 +205,9 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
           <div className="my-4 flex h-[16px] flex-col items-center justify-center">
             {errorMessage && <p className="text-red-500">{errorMessage}</p>}
           </div>
-          <div className="my-4 flex flex-col items-center justify-center">
-            <button
-              type="submit"
-              className="mt-2 flex h-12 w-56 items-center justify-center rounded-[20px] bg-[#1973F9]"
-            >
-              <p className="text-base font-medium text-[#FFFFFF]">Register</p>
-            </button>
-          </div>
+          <button type="submit">
+            <TextButton label="Registrasi" size="large" type="primary" />
+          </button>
         </form>
       </div>
     </div>

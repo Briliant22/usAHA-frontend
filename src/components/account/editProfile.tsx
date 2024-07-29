@@ -3,6 +3,7 @@ import { useUser } from "../isomorphic/userContext";
 import Image from "next/image";
 import { FormEvent, useState } from "react";
 import EditPfpModal from "./editPfpModal";
+import TextButton from "../textButton";
 
 interface EditProfileProps {
   onCancel: () => void;
@@ -69,7 +70,7 @@ export default function EditProfile({ onCancel }: EditProfileProps) {
     <div className="flex h-full w-full min-w-fit items-center justify-center">
       {isLoggedIn() ? (
         <div className="flex w-3/5 flex-col items-center justify-center space-y-10">
-          <div className="relative flex h-64 w-64 min-w-fit items-center justify-center">
+          <div className="relative flex h-64 w-64 min-w-fit items-center justify-center rounded-full border border-[#4082E5]">
             <Image
               src={
                 user?.profile_pic
@@ -83,7 +84,7 @@ export default function EditProfile({ onCancel }: EditProfileProps) {
             />
             <button
               onClick={openEditPfpModal}
-              className="absolute bottom-0 right-4 flex h-[50px] w-[50px] items-center justify-center rounded-full bg-[#1973F9]"
+              className="absolute bottom-0 right-4 flex h-[50px] w-[50px] items-center justify-center rounded-full bg-[#1973F9] hover:bg-[#97BCF2]"
             >
               <Image
                 src="/icons/miscIcons/edit.svg"
@@ -164,19 +165,18 @@ export default function EditProfile({ onCancel }: EditProfileProps) {
             </div>
             <div className="my-4 flex flex-col items-center justify-center">
               <div className="flex items-center justify-center space-x-10">
-                <button
+                <TextButton
+                  label="Batal"
+                  size="large"
+                  type="negative"
                   onClick={onCancel}
-                  className="mt-2 flex h-12 w-56 items-center justify-center rounded-[20px] bg-red-600 p-2 hover:bg-red-400"
-                >
-                  <p className="text-base font-medium text-[#FFFFFF]">Cancel</p>
-                </button>
-                <button
-                  type="submit"
-                  className="mt-2 flex h-12 w-56 items-center justify-center rounded-[20px] bg-[#1973F9] hover:bg-[#97BCF2]"
-                >
-                  <p className="text-base font-medium text-[#FFFFFF]">
-                    Confirm Change
-                  </p>
+                />
+                <button type="submit">
+                  <TextButton
+                    label="Konfirmasi Perubahan"
+                    size="large"
+                    type="primary"
+                  />
                 </button>
               </div>
             </div>

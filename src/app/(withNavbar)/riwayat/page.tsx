@@ -72,15 +72,16 @@ export default function Page() {
         </h1>
       </div>
       <div className="flex w-[70vw] flex-wrap items-center justify-center space-y-4">
-        {bookings.map((booking) => (
-          <Link
-            href={`/riwayat/${booking.uuid}`}
-            key={booking.uuid}
-            className="w-full"
-          >
-            <BookingCard {...booking} />
-          </Link>
-        ))}
+        {bookings.map((booking) => {
+          const redirectLink = booking.is_paid
+            ? `/riwayat/${booking.uuid}`
+            : `/sewa-tempat/bayar/${booking.uuid}`;
+          return (
+            <Link href={redirectLink} key={booking.uuid} className="w-full">
+              <BookingCard {...booking} />
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

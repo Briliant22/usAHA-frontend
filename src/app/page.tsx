@@ -1,5 +1,6 @@
 import Footer from "@/components/footer";
 import NavbarAtas from "@/components/navbar/navbarAtas";
+import TextButton from "@/components/textButton";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -19,13 +20,13 @@ export default function Home() {
             ruang siap sewa dan membeli barang bekas berkualitas, siap untuk
             memenuhi kebutuhan bisnis Anda!
           </p>
-          <button className="flex h-12 w-56 items-center justify-center rounded-3xl bg-[#1973F9]">
-            <Link href={`/sewa-tempat/`}>
-              <p className="text-base font-medium text-[#FFFFFF]">
-                Mulai Bereksplorasi
-              </p>
-            </Link>
-          </button>
+          <Link href={`/sewa-tempat/`}>
+            <TextButton
+              label="Mulai Bereksplorasi"
+              size="large"
+              type="primary"
+            />
+          </Link>
         </div>
         <div className="flex h-full w-2/4 flex-col items-end justify-center space-y-6 pb-14">
           <Image

@@ -1,6 +1,5 @@
 import Link from "next/link";
 import Image from "next/image";
-import { tv } from "tailwind-variants";
 
 const backIcon = "/icons/miscIcons/backIcon.svg";
 

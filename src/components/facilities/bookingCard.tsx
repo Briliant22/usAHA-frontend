@@ -81,9 +81,15 @@ export default function BookingCard({ ...booking }: FacilityBooking) {
           {userReview}
           <div className="flex items-center justify-start space-x-1">
             <h3 className="text-[16px] font-semibold">{totalCost}</h3>
-            <span className="text-[12px] font-medium text-[#A7AFC4]">
-              paid in full
-            </span>
+            {booking.is_paid ? (
+              <span className="text-[14px] font-bold text-green-500">
+                paid in full
+              </span>
+            ) : (
+              <span className="text-[14px] font-bold text-red-600">
+                not paid
+              </span>
+            )}
           </div>
         </div>
       </div>

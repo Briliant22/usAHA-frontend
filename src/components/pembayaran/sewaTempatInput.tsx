@@ -4,6 +4,8 @@ import React, { ChangeEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { formatCurrency } from "@/utils/formatCurrency";
+import { useUser } from "../isomorphic/userContext";
+import TextButton from "../textButton";
 
 interface FacilityTransactionProps {
   uuid: string;
@@ -17,6 +19,7 @@ export default function SewaTempatInput({
   price_per_day,
 }: FacilityTransactionProps) {
   const router = useRouter();
+  const { fetchWithCredentials } = useUser();
   const paymentAmount = duration * price_per_day;
 
   const [paymentMethod, setPaymentMethod] = useState<"credit" | "debit">(
@@ -38,8 +41,8 @@ export default function SewaTempatInput({
   const [postalCode, setPostalCode] = useState("");
 
   const handleSubmit = async () => {
-    console.log(uuid)
-    console.log(paymentMethod)
+    console.log(uuid);
+    console.log(paymentMethod);
     const response = await fetch("http://localhost:8000/payments/create/", {
       method: "POST",
       credentials: "include",
@@ -54,9 +57,27 @@ export default function SewaTempatInput({
 
     if (response.ok) {
       const data = await response.json();
-      router.push(`/sewa-tempat/`);
+      router.push(`/riwayat/${uuid}`);
     } else {
       console.error("Failed to complete payment");
+    }
+  };
+
+  const handleCancel = async () => {
+    try {
+      const response = await fetchWithCredentials(
+        `http://localhost:8000/facilities/booking/${uuid}/`,
+        {
+          method: "DELETE",
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error("Delete failed");
+      }
+      router.push(`/riwayat/`);
+    } catch (error) {
+      console.error("Error deleting booking:", error);
     }
   };
 
@@ -64,7 +85,7 @@ export default function SewaTempatInput({
     <div className="flex h-fit w-[1/2] min-w-fit flex-col items-center gap-8 rounded-xl px-8 py-10 pb-16 shadow-lg">
       <div className="flex flex-col items-center">
         <p className="font-inter text-xl font-semibold text-[#4082E5]">
-          Your Total(IDR)
+          Total Transaksi (IDR)
         </p>
         <p className="font-inter text-2xl font-semibold">
           {formatCurrency(paymentAmount)}
@@ -211,12 +232,20 @@ export default function SewaTempatInput({
           </div>
         </div>
       </div>
-      <button
-        className="rounded-full bg-gradient-to-r from-[#275EB0] to-[#1973F9] px-12 py-4"
-        onClick={handleSubmit}
-      >
-        <p className="font-inter text-white">Sewa Tempat Ini</p>
-      </button>
+      <div className="flex w-full items-center justify-evenly space-x-10">
+        <TextButton
+          label="Batalkan Booking"
+          size="large"
+          type="negative"
+          onClick={handleCancel}
+        />
+        <TextButton
+          label="Konfirmasi Pembayaran"
+          size="large"
+          type="primary"
+          onClick={handleSubmit}
+        />
+      </div>
     </div>
   );
 }

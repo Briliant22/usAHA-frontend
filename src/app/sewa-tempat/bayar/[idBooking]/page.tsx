@@ -3,6 +3,7 @@ import Image from "next/image";
 import SewaTempatInput from "@/components/pembayaran/sewaTempatInput";
 import DetailTempat from "@/components/pembayaran/detailTempat";
 import formatDateRange from "@/utils/formatDateRange";
+import BackButton from "@/components/backButton";
 
 interface FacilityImage {
   uuid: string;
@@ -87,14 +88,6 @@ export default async function Page({
 
   return (
     <div className="relative flex w-full flex-col items-center justify-center">
-      <div className="absolute left-0 top-10">
-        <Image
-          src="/icons/miscIcons/backIcon.svg"
-          alt="back"
-          width={15}
-          height={15}
-        />
-      </div>
       <div className="flex flex-col items-center justify-center pt-10">
         <h1 className="font-inter text-[36px] font-semibold">
           Request to Reserve

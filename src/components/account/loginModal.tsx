@@ -1,5 +1,6 @@
 import React, { FormEvent, useState } from "react";
 import Image from "next/image";
+import TextButton from "../textButton";
 
 type LoginModalProps = {
   isOpen: boolean;
@@ -18,7 +19,6 @@ export function LoginModal({ isOpen, onClose, openRegister }: LoginModalProps) {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
 
     try {
       const response = await fetch("http://localhost:8000/auth/login/", {
@@ -44,8 +44,8 @@ export function LoginModal({ isOpen, onClose, openRegister }: LoginModalProps) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <div className="flex flex-col justify-start items-center bg-[#FFFFFF] w-[866px] h-[60vh] p-8 rounded-[28px] shadow-lg w-96">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="flex h-[64vh] w-96 w-[866px] flex-col items-center justify-start rounded-[28px] bg-[#FFFFFF] p-8 shadow-lg">
         <div className="flex w-full justify-end">
           <button type="button" onClick={onClose} className="">
             <Image
@@ -58,8 +58,8 @@ export function LoginModal({ isOpen, onClose, openRegister }: LoginModalProps) {
           </button>
         </div>
         <Image src={lightbulbIcon} alt="lightbulbIcon" width={70} height={77} />
-        <div className="flex justify-center items-baseline">
-          <h2 className="text-[32px] font-semibold my-4">Welcome to</h2>
+        <div className="flex items-baseline justify-center">
+          <h2 className="my-4 text-[32px] font-semibold">Welcome to</h2>
           <Image
             src="/imgs/usaha.png"
             alt="logo"
@@ -69,46 +69,43 @@ export function LoginModal({ isOpen, onClose, openRegister }: LoginModalProps) {
           />
         </div>
         <form onSubmit={handleSubmit}>
-          <div className="w-[600px] h-[40px] mb-10">
+          <div className="mb-10 h-[40px] w-[600px]">
             <label className="block text-base font-semibold">Username</label>
             <input
               type="text"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F0F1F5]"
+              className="w-full rounded-lg border bg-[#F0F1F5] px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
             />
           </div>
-          <div className="w-[600px] h-[40px] mb-10">
+          <div className="mb-10 h-[40px] w-[600px]">
             <label className="block text-base font-semibold">Password</label>
             <input
               type="password"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-[#F0F1F5]"
+              className="w-full rounded-lg border bg-[#F0F1F5] px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
           </div>
-          <div className="flex flex-col justify-center items-center">
-            <button
-              type="submit"
-              className="flex bg-[#1973F9] w-56 h-12 rounded-[20px] justify-center items-center mt-2"
-            >
-              <p className="text-[#FFFFFF] text-base font-medium">Login</p>
+          <div className="flex flex-col items-center justify-center">
+            <button type="submit">
+              <TextButton label="Login" size="large" type="primary" />
             </button>
           </div>
         </form>
-        <div className="flex flex-col w-[600px] justify-center items-center">
-          <div className="bg-[#1973F9] w-full h-[1px] mt-8"></div>
-          <p className="my-4 text-[#1973F9] text-base font-medium">
+        <div className="flex w-[600px] flex-col items-center justify-center">
+          <div className="mt-4 h-[1px] w-full bg-[#1973F9]"></div>
+          <p className="my-4 text-base font-medium text-[#1973F9]">
             Belum punya akun?
           </p>
-          <button
+          <TextButton
+            label="Registrasi"
+            size="large"
+            type="secondary"
             onClick={handleRegister}
-            className="flex bg-[#1973F9] w-56 h-12 rounded-[20px] justify-center items-center"
-          >
-            <p className="text-[#FFFFFF] text-base font-medium">Register</p>
-          </button>
+          />
         </div>
       </div>
     </div>

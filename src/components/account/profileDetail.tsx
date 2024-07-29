@@ -3,6 +3,7 @@ import memberStart from "@/utils/memberStart";
 import { useUser } from "../isomorphic/userContext";
 import Image from "next/image";
 import { truncateText } from "@/utils/truncateText";
+import TextButton from "../textButton";
 
 interface ProfileDetailProps {
   onEditProfile: () => void;
@@ -14,8 +15,8 @@ export default function ProfileDetail({ onEditProfile }: ProfileDetailProps) {
   return (
     <div className="flex h-full w-full min-w-fit">
       {isLoggedIn() ? (
-        <div className="flex h-full w-full min-w-fit justify-between space-x-10">
-          <div className="flex h-64 w-64 min-w-fit items-start justify-start">
+        <div className="flex h-full w-full min-w-fit justify-between items-center space-x-10">
+          <div className="flex h-64 w-64 min-w-fit items-start justify-start rounded-full border border-[#4082E5]">
             <Image
               src={
                 user?.profile_pic
@@ -33,14 +34,12 @@ export default function ProfileDetail({ onEditProfile }: ProfileDetailProps) {
               <h1 className="text-[36px] font-semibold text-[#4082E5]">
                 {user?.first_name} {user?.last_name}
               </h1>
-              <button
+              <TextButton
+                label="Edit Profil"
+                size="small"
+                type="secondary"
                 onClick={onEditProfile}
-                className="flex h-[50px] w-[150px] items-center justify-center rounded-[25px] bg-[#4082E5] p-2 hover:bg-[#2F6BC5]"
-              >
-                <p className="text-[14px] font-bold text-[#FFFFFF]">
-                  Edit Profil
-                </p>
-              </button>
+              />
             </div>
             <span className="flex justify-start space-x-10">
               <h2 className="text-[20px] font-medium">
@@ -58,7 +57,7 @@ export default function ProfileDetail({ onEditProfile }: ProfileDetailProps) {
                   {memberStart(user.date_joined)}
                 </h2>
                 <div className="my-4 flex h-[30vh] w-full flex-col items-start justify-start rounded-[20px] border border-[#A6A7B1] p-4">
-                  {user.bio == "" ? (
+                  {user.bio == null ? (
                     <p className="text-[18px] font-normal text-[#A6A7B1]">
                       Halo! Nama saya ...
                     </p>

@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import Image from "next/image";
 import { useUser } from "../isomorphic/userContext";
+import TextButton from "../textButton";
 
 interface EditPfpModal {
   isOpen: boolean;
@@ -103,13 +104,8 @@ export default function EditPfpModal({ isOpen, onClose }: EditPfpModal) {
               required
             />
           </div>
-          <button
-            type="submit"
-            className="mt-10 flex h-[50px] w-[150px] items-center justify-center rounded-[25px] bg-[#4082E5] p-2 hover:bg-[#2F6BC5]"
-          >
-            <p className="text-[14px] font-bold text-[#FFFFFF]">
-              Edit Profile Pic
-            </p>
+          <button type="submit" className="mt-8">
+            <TextButton label="Edit Profile Pic" size="large" type="primary" />
           </button>
         </form>
       </div>
