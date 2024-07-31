@@ -3,6 +3,12 @@ import Image from "next/image";
 import { DatePickerInput } from "../sewaTempat/datePicker";
 import { formatCurrency } from "@/utils/formatCurrency";
 
+interface Amenity {
+  uuid: string;
+  name: string;
+  facility: string;
+}
+
 interface FacilityImage {
   uuid: string;
   facility: string;
@@ -22,10 +28,10 @@ interface Facility {
   city: string;
   location_link: string;
   price_per_day: number;
-  rating: number | null;
+  rating: number;
   created_at: string;
   updated_at: string;
-  amenities: string[];
+  amenities: Amenity[];
   images: FacilityImage[];
 }
 
@@ -158,7 +164,7 @@ export default function FacilityDetail({
                     width={24}
                     height={24}
                   />
-                  <span className="text-normal ml-3 text-base">{amenity}</span>
+                  <span className="text-normal ml-3 text-base">{amenity.name}</span>
                 </div>
               ))}
           </div>

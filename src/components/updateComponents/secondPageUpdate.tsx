@@ -1,28 +1,34 @@
 import { useState } from "react";
 import TextButton from "../textButton";
-import GoBack from "./goBack";
+import GoBack from "../createFacility/goBack";
 import Image from "next/image";
+import { useUser } from "../isomorphic/userContext";
+
+interface FacilityImage {
+  uuid: string;
+  facility: string;
+  image: string;
+  is_primary: boolean;
+}
 
 interface SecondPageProps {
   setFirstPage: () => void;
   setThirdPage: () => void;
-  setDescription: (description: string) => void;
-  description: string;
+  uuid: string;
   setImages: (images: (File | null)[]) => void;
   images: (File | null)[];
+  previousImages: FacilityImage[];
 }
-
-const imageIcon = "/icons/miscIcons/image.svg";
 
 export default function SecondPage({
   setFirstPage,
   setThirdPage,
-  setDescription,
-  description,
+  uuid,
   setImages,
   images,
+  previousImages,
 }: SecondPageProps) {
-  const [deskripsi, setDeskripsi] = useState<string>(description);
+  const { fetchWithCredentials } = useUser();
   const [imageFiles, setImageFiles] = useState<(File | null)[]>(images);
   const [previewUrls, setPreviewUrls] = useState<(string | null)[]>(
     images.map((file) => (file ? URL.createObjectURL(file) : null)),
@@ -36,18 +42,43 @@ export default function SecondPage({
     const newPreviewUrls = [...previewUrls];
     newPreviewUrls[index] = file ? URL.createObjectURL(file) : null;
     setPreviewUrls(newPreviewUrls);
+
+    if (file) {
+      handleSubmitImage(uuid, previousImages[index]?.uuid, file, index === 0);
+    }
   };
 
   const handleNextPage = () => {
-    setDescription(deskripsi);
     setImages(imageFiles);
     setThirdPage();
   };
 
   const handlePrevPage = () => {
-    setDescription(deskripsi);
     setImages(imageFiles);
     setFirstPage();
+  };
+
+  const handleSubmitImage = async (facility: string, replace: string, image: File, isPrimary: boolean) => {
+    const formData = new FormData();
+    formData.append("facility", facility);
+    formData.append("replace", replace);
+    formData.append("image", image);
+    formData.append("is_primary", JSON.stringify(isPrimary));
+
+    try {
+      const response = await fetchWithCredentials(
+        "http://localhost:8000/facilities/image/create/",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+    } catch (error) {
+      console.error("Error changing facility image:", error);
+    }
   };
 
   return (
@@ -62,28 +93,11 @@ export default function SecondPage({
         />
       </div>
       <div className="my-8 flex flex-col items-center space-y-4">
-        <h2 className="text-[20px] font-semibold">
-          Berikan deskripsi singkat atas properti Anda
-        </h2>
-        <div className="flex w-1/2 flex-col items-center"></div>
-        <div className="h-[15vw] w-[45vw] gap-2 rounded-[24px] border border-[#979DBD]">
-          <textarea
-            className="h-full w-full rounded-[24px] px-4 py-4 focus:outline-none focus:ring-2 focus:ring-[#1973F9]"
-            value={deskripsi}
-            onChange={(e) => setDeskripsi(e.target.value)}
-            placeholder="Tulis deskripsi..."
-            required
-          />
-        </div>
-      </div>
-      <div className="my-8 flex flex-col items-center space-y-4">
-        <h2 className="text-[20px] font-semibold">
-          Lengkapi foto properti Anda
-        </h2>
+        <h2 className="text-[20px] font-semibold">Edit foto properti Anda</h2>
         <div className="flex w-[45vw] flex-col items-center justify-center space-y-4">
           <div className="relative h-[25vw] w-[45vw] items-center justify-center">
             <div
-              className="absolute inset-0 flex items-center justify-center rounded-[24px] border border-dashed border-[#979DBD]"
+              className="absolute inset-0 flex items-center justify-center rounded-[24px] border border-[#979DBD]"
               style={{
                 backgroundImage: previewUrls[0]
                   ? `url(${previewUrls[0]})`
@@ -93,13 +107,12 @@ export default function SecondPage({
               }}
             >
               {!previewUrls[0] && (
-                <div className="flex flex-col items-center justify-center">
+                <div className="flex h-full w-full flex-col items-center justify-center">
                   <Image
-                    src={imageIcon}
+                    src={previousImages[0].image}
                     alt="image input"
-                    width={34}
-                    height={34}
-                    className=""
+                    className="h-full w-full rounded-[24px] object-cover"
+                    layout="fill"
                   />
                   <p className="block text-base font-medium">
                     Upload foto thumbnail
@@ -124,7 +137,7 @@ export default function SecondPage({
                 className="relative flex h-[14vw] w-[22vw] items-center justify-center"
               >
                 <div
-                  className="absolute inset-0 flex items-center justify-center rounded-[24px] border border-dashed border-[#979DBD]"
+                  className="absolute inset-0 flex items-center justify-center rounded-[24px] border border-[#979DBD]"
                   style={{
                     backgroundImage: previewUrl ? `url(${previewUrl})` : "none",
                     backgroundSize: "cover",
@@ -132,13 +145,12 @@ export default function SecondPage({
                   }}
                 >
                   {!previewUrl && (
-                    <div className="flex flex-col items-center justify-center">
+                    <div className="flex h-full w-full flex-col items-center justify-center">
                       <Image
-                        src={imageIcon}
+                        src={previousImages[index + 1].image}
                         alt="image input"
-                        width={34}
-                        height={34}
-                        className=""
+                        className="h-full w-full rounded-[24px] object-cover"
+                        layout="fill"
                       />
                       <p className="block text-base font-medium">
                         Upload foto fasilitas

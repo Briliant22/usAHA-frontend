@@ -4,6 +4,13 @@ import Image from "next/image";
 import { formatCurrency } from "@/utils/formatCurrency";
 import { truncateText } from "@/utils/truncateText";
 import TextButton from "../textButton";
+import Link from "next/link";
+
+interface Amenity {
+  uuid: string;
+  name: string;
+  facility: string;
+}
 
 interface FacilityImage {
   uuid: string;
@@ -27,7 +34,7 @@ interface Facility {
   rating: number;
   created_at: string;
   updated_at: string;
-  amenities: string[];
+  amenities: Amenity[];
   images: FacilityImage[];
 }
 
@@ -91,11 +98,13 @@ export default function FacilityCard({ facility, isOwner }: FacilityCardProps) {
         </div>
         {isOwner ? (
           <div className="flex w-full items-center justify-center py-4">
-            <TextButton
-              label="Ubah informasi listing"
-              size="large"
-              type="secondary"
-            />
+            <Link href={`/listing/${facility.uuid}/`}>
+              <TextButton
+                label="Informasi detail listing"
+                size="large"
+                type="secondary"
+              />
+            </Link>
           </div>
         ) : (
           <div className="my-1 flex items-center justify-between">

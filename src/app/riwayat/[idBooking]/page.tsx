@@ -4,6 +4,12 @@ import BackButton from "@/components/backButton";
 import formatDateRange from "@/utils/formatDateRange";
 import { formatCurrency } from "@/utils/formatCurrency";
 
+interface Amenity {
+  uuid: string;
+  name: string;
+  facility: string;
+}
+
 interface FacilityImage {
   uuid: string;
   facility: string;
@@ -23,10 +29,10 @@ interface Facility {
   city: string;
   location_link: string;
   price_per_day: number;
-  rating: number | null;
+  rating: number;
   created_at: string;
   updated_at: string;
-  amenities: string[];
+  amenities: Amenity[];
   images: FacilityImage[];
 }
 

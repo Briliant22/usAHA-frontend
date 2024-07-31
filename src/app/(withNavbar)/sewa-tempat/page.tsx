@@ -3,6 +3,12 @@ import { FilterCategoryInput } from "@/components/navbar/filterCategoryInput";
 import Link from "next/link";
 import React from "react";
 
+interface Amenity {
+  uuid: string;
+  name: string;
+  facility: string;
+}
+
 interface FacilityImage {
   uuid: string;
   facility: string;
@@ -25,7 +31,7 @@ interface Facility {
   rating: number;
   created_at: string;
   updated_at: string;
-  amenities: string[];
+  amenities: Amenity[];
   images: FacilityImage[];
 }
 

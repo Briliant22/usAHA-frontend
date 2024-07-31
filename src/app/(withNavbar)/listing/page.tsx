@@ -6,6 +6,12 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import FacilityCard from "@/components/facilities/facilityCard";
 
+interface Amenity {
+  uuid: string;
+  name: string;
+  facility: string;
+}
+
 interface FacilityImage {
   uuid: string;
   facility: string;
@@ -28,7 +34,7 @@ interface Facility {
   rating: number;
   created_at: string;
   updated_at: string;
-  amenities: string[];
+  amenities: Amenity[];
   images: FacilityImage[];
 }
 

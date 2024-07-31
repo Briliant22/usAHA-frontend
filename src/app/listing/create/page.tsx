@@ -3,6 +3,8 @@
 import FirstPage from "@/components/createFacility/firstPage";
 import SecondPage from "@/components/createFacility/secondPage";
 import ThirdPage from "@/components/createFacility/thirdPage";
+import { useUser } from "@/components/isomorphic/userContext";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface Amenity {
@@ -10,6 +12,8 @@ interface Amenity {
 }
 
 export default function Page() {
+  const { fetchWithCredentials } = useUser();
+  const router = useRouter();
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   const [name, setName] = useState<string>("");
@@ -39,24 +43,58 @@ export default function Page() {
     setCurrentPage(3);
   };
 
-  useEffect(() => {
-    console.log("Name:", name);
-    console.log("Category:", category);
-    console.log("Description:", description);
-    console.log("Location Link:", location_link);
-    console.log("City:", city);
-    console.log("Amenities:", amenities);
-    console.log("Images:", images);
-  }, [
-    name,
-    category,
-    description,
-    location_link,
-    city,
-    price_per_day,
-    amenities,
-    images,
-  ]);
+  const handleCreateFacility = async () => {
+
+    const filteredAmenities = amenities.filter(
+      (amenity) => amenity.name.trim() !== "",
+    );
+
+    const imagesComplete = images.every((image) => image !== null);
+
+    const formData = new FormData();
+    if (
+      name !== "" &&
+      category !== null &&
+      description !== "" &&
+      city !== "" &&
+      location_link !== "" &&
+      filteredAmenities.length > 0 &&
+      imagesComplete
+    ) {
+      formData.append("name", name);
+      formData.append("category", category);
+      formData.append("description", description);
+      formData.append("city", city);
+      formData.append("location_link", location_link);
+      formData.append("price_per_day", String(price_per_day));
+
+      formData.append("amenities", JSON.stringify(filteredAmenities));
+
+      images.forEach((image) => {
+        if (image !== null) {
+          formData.append(`images`, image);
+        }
+      });
+    }
+
+    try {
+      const response = await fetchWithCredentials(
+        "http://localhost:8000/facilities/facility/create/",
+        {
+          method: "POST",
+          body: formData,
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error("Edit failed");
+      }
+
+      router.push(`/listing`);
+    } catch (error) {
+      console.error("Error creating facility", error);
+    }
+  };
 
   return (
     <div className="relative flex h-full w-full flex-col items-center justify-center">
@@ -92,6 +130,9 @@ export default function Page() {
             setSecondPage={openSecondPage}
             setAmenities={setAmenities}
             amenities={amenities}
+            setPricePerDay={setPricePerDay}
+            price_per_day={price_per_day}
+            handleCreateFacility={handleCreateFacility}
           />
         )}
       </div>

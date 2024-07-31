@@ -37,10 +37,10 @@ const buttonTextMap: PathContent = {
 
 const redirectLinkMap: PathContent = {
   "/jual-beli-alat": "/jual-beli-alat",
-  "/sewa-tempat": "/sewa-tempat/create",
-  "/riwayat": "/sewa-tempat/create",
-  "/listing": "/sewa-tempat/create",
-  "/profile": "/sewa-tempat/create",
+  "/sewa-tempat": "/listing/create",
+  "/riwayat": "/listing/create",
+  "/listing": "/listing/create",
+  "/profile": "/listing/create",
 };
 
 export default function NavbarAtas({ isDashboard }: NavbarProps) {

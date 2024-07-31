@@ -1,9 +1,13 @@
 import React from "react";
-import Image from "next/image";
 import SewaTempatInput from "@/components/pembayaran/sewaTempatInput";
 import DetailTempat from "@/components/pembayaran/detailTempat";
 import formatDateRange from "@/utils/formatDateRange";
-import BackButton from "@/components/backButton";
+
+interface Amenity {
+  uuid: string;
+  name: string;
+  facility: string;
+}
 
 interface FacilityImage {
   uuid: string;
@@ -17,6 +21,7 @@ interface Facility {
   owner: string;
   owner_name: string;
   owner_pfp: string;
+  owner_start: string;
   name: string;
   category: string;
   description: string;
@@ -26,7 +31,7 @@ interface Facility {
   rating: number;
   created_at: string;
   updated_at: string;
-  amenities: string[];
+  amenities: Amenity[];
   images: FacilityImage[];
 }
 

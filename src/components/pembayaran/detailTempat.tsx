@@ -5,6 +5,12 @@ import Image from "next/image";
 import { formatCurrency } from "@/utils/formatCurrency";
 import { truncateText } from "@/utils/truncateText";
 
+interface Amenity {
+  uuid: string;
+  name: string;
+  facility: string;
+}
+
 interface FacilityImage {
   uuid: string;
   facility: string;
@@ -17,6 +23,7 @@ interface Facility {
   owner: string;
   owner_name: string;
   owner_pfp: string;
+  owner_start: string;
   name: string;
   category: string;
   description: string;
@@ -26,7 +33,7 @@ interface Facility {
   rating: number;
   created_at: string;
   updated_at: string;
-  amenities: string[];
+  amenities: Amenity[];
   images: FacilityImage[];
 }
 
@@ -122,7 +129,7 @@ export default function DetailTempat({ ...facility }: Facility) {
         <ul className="list-inside list-disc">
           {facility.amenities.map((amenity, index) => (
             <li key={index} className="text-md text-gray-600">
-              {amenity}
+              {amenity.name}
             </li>
           ))}
         </ul>

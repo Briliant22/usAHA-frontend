@@ -5,6 +5,12 @@ import useSWR from "swr";
 import FacilityCard from "@/components/facilities/facilityCard";
 import { FilterCategoryInput } from "@/components/navbar/filterCategoryInput";
 
+interface Amenity {
+  uuid: string;
+  name: string;
+  facility: string;
+}
+
 interface FacilityImage {
   uuid: string;
   facility: string;
@@ -27,7 +33,7 @@ interface Facility {
   rating: number;
   created_at: string;
   updated_at: string;
-  amenities: string[];
+  amenities: Amenity[];
   images: FacilityImage[];
 }
 
@@ -62,7 +68,11 @@ export default function Page() {
       <div className="flex-grow p-4">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4">
           {data.map((facility) => (
-            <FacilityCard key={facility.uuid} {...facility} />
+            <FacilityCard
+              key={facility.uuid}
+              facility={facility}
+              isOwner={false}
+            />
           ))}
         </div>
       </div>
