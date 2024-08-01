@@ -48,7 +48,7 @@ export default function Page() {
     const filteredAmenities = amenities.filter(
       (amenity) => amenity.name.trim() !== "",
     );
-    
+
     const imagesComplete = images.every((image) => image !== null);
 
     const formData = new FormData();
@@ -84,7 +84,7 @@ export default function Page() {
 
     try {
       const response = await fetchWithCredentials(
-        "http://localhost:8000/facilities/facility/create/",
+        `${process.env.NEXT_PUBLIC_API_URL}/facilities/facility/create/`,
         {
           method: "POST",
           body: formData,

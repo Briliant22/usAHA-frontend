@@ -39,7 +39,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
     const fetchUser = async () => {
       try {
         const response = await fetchWithCredentials(
-          "http://localhost:8000/auth/user/",
+          `${process.env.NEXT_PUBLIC_API_URL}/auth/user/`,
         );
         if (response.ok) {
           const data = await response.json();

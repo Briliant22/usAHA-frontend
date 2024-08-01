@@ -78,11 +78,11 @@ export default async function Page({
   params: { idBooking: string };
 }) {
   const bookingData = await getBookingDetails(
-    "http://localhost:8000/facilities/",
+    `${process.env.NEXT_PUBLIC_API_URL}/facilities/`,
     params.idBooking,
   );
   const facilityData = await getFacilityDetails(
-    "http://localhost:8000/facilities/",
+    `${process.env.NEXT_PUBLIC_API_URL}/facilities/`,
     bookingData.facility,
   );
   const paymentProps = {

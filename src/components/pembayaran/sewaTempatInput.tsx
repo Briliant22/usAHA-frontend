@@ -43,7 +43,7 @@ export default function SewaTempatInput({
   const handleSubmit = async () => {
     console.log(uuid);
     console.log(paymentMethod);
-    const response = await fetch("http://localhost:8000/payments/create/", {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/payments/create/`, {
       method: "POST",
       credentials: "include",
       headers: {
@@ -66,7 +66,7 @@ export default function SewaTempatInput({
   const handleCancel = async () => {
     try {
       const response = await fetchWithCredentials(
-        `http://localhost:8000/facilities/booking/${uuid}/`,
+        `${process.env.NEXT_PUBLIC_API_URL}/facilities/booking/${uuid}/`,
         {
           method: "DELETE",
         },

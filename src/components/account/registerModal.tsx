@@ -47,10 +47,13 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
     }
 
     try {
-      const response = await fetch("http://localhost:8000/auth/registration/", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/registration/`,
+        {
+          method: "POST",
+          body: formData,
+        },
+      );
 
       if (!response.ok) {
         throw new Error("Register failed");

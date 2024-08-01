@@ -54,7 +54,7 @@ export default function WriteReview({ booking }: WriteReviewProps) {
 
     try {
       const response = await fetchWithCredentials(
-        "http://localhost:8000/facilities/review/create/",
+        `${process.env.NEXT_PUBLIC_API_URL}/facilities/review/create/`,
         {
           method: "POST",
           body: formData,

@@ -54,7 +54,7 @@ export const DatePickerInput = ({
     setErrorMessage("");
 
     const response = await fetch(
-      "http://localhost:8000/facilities/booking/create/",
+      `${process.env.NEXT_PUBLIC_API_URL}/facilities/booking/create/`,
       {
         method: "POST",
         credentials: "include",

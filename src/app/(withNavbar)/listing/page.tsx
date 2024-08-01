@@ -48,7 +48,7 @@ export default function Page() {
       if (isLoggedIn()) {
         try {
           const response = await fetchWithCredentials(
-            "http://localhost:8000/facilities/owner/",
+            `${process.env.NEXT_PUBLIC_API_URL}/facilities/owner/`,
           );
           if (response.ok) {
             const data: Facility[] = await response.json();

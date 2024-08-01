@@ -66,7 +66,7 @@ export default function EditProfile({ onCancel }: EditProfileProps) {
 
     try {
       const response = await fetchWithCredentials(
-        "http://localhost:8000/auth/user/",
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/user/`,
         {
           method: "PUT",
           body: formData,

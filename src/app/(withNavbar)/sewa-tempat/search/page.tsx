@@ -53,7 +53,7 @@ export default function Page() {
   const searchQuery = searchParams.get("query") || "";
   const encodedSearchQuery = encodeURI(searchQuery);
   const { data, isLoading } = useSWR(
-    `http://localhost:8000/facilities/?name=${encodedSearchQuery}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/facilities/?name=${encodedSearchQuery}`,
     getSearchResults,
   );
 

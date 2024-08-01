@@ -28,7 +28,7 @@ export default function EditPfpModal({ isOpen, onClose }: EditPfpModal) {
 
     try {
       const response = await fetchWithCredentials(
-        "http://localhost:8000/profiles/pfp/edit/",
+        `${process.env.NEXT_PUBLIC_API_URL}/profiles/pfp/edit/`,
         {
           method: "PUT",
           body: formData,

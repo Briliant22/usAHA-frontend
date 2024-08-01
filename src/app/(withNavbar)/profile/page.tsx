@@ -42,7 +42,7 @@ export default function Page() {
       if (user) {
         try {
           const response = await fetchWithCredentials(
-            `http://localhost:8000/facilities/reviews/?user=${user.id}`,
+            `${process.env.NEXT_PUBLIC_API_URL}/facilities/reviews/?user=${user.id}`,
           );
           if (response.ok) {
             const data = await response.json();

@@ -69,7 +69,7 @@ export default function Page({ params }: { params: { idFacility: string } }) {
     const fetchData = async () => {
       try {
         const facilityResponse = await fetch(
-          `http://localhost:8000/facilities/facility/${params.idFacility}/`,
+          `${process.env.NEXT_PUBLIC_API_URL}/facilities/facility/${params.idFacility}/`,
           { credentials: "include", cache: "no-store" },
         );
         if (!facilityResponse.ok) {
@@ -79,7 +79,7 @@ export default function Page({ params }: { params: { idFacility: string } }) {
         setFacilityData(facilityData);
 
         const response = await fetchWithCredentials(
-          `http://localhost:8000/facilities/reviews/?facility=${params.idFacility}`,
+          `${process.env.NEXT_PUBLIC_API_URL}/facilities/reviews/?facility=${params.idFacility}`,
         );
         if (response.ok) {
           const data = await response.json();
@@ -101,7 +101,7 @@ export default function Page({ params }: { params: { idFacility: string } }) {
     try {
       if (user?.id === facilityData?.owner) {
         const response = await fetchWithCredentials(
-          `http://localhost:8000/facilities/facility/${facilityData?.uuid}/`,
+          `${process.env.NEXT_PUBLIC_API_URL}/facilities/facility/${facilityData?.uuid}/`,
           {
             method: "DELETE",
           },

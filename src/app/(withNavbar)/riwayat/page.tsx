@@ -41,7 +41,7 @@ export default function Page() {
       if (isLoggedIn()) {
         try {
           const response = await fetchWithCredentials(
-            "http://localhost:8000/facilities/bookings/user/",
+            `${process.env.NEXT_PUBLIC_API_URL}/facilities/bookings/user/`,
           );
           if (response.ok) {
             const data: FacilityBooking[] = await response.json();

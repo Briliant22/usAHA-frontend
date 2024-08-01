@@ -57,7 +57,7 @@ export default function ThirdPageUpdate({
     formData.append("name", name);
     try {
       const response = await fetchWithCredentials(
-        `http://localhost:8000/facilities/amenity/create/`,
+        `${process.env.NEXT_PUBLIC_API_URL}/facilities/amenity/create/`,
         {
           method: "POST",
           body: formData,
@@ -79,7 +79,7 @@ export default function ThirdPageUpdate({
     formData.append("name", name);
     try {
       const response = await fetchWithCredentials(
-        `http://localhost:8000/facilities/amenity/${amenityId}/`,
+        `${process.env.NEXT_PUBLIC_API_URL}/facilities/amenity/${amenityId}/`,
         {
           method: "PUT",
           body: formData,
@@ -96,7 +96,7 @@ export default function ThirdPageUpdate({
   const handleDeleteAmenity = async (amenityId: string) => {
     try {
       const response = await fetchWithCredentials(
-        `http://localhost:8000/facilities/amenity/${amenityId}/`,
+        `${process.env.NEXT_PUBLIC_API_URL}/facilities/amenity/${amenityId}/`,
         {
           method: "DELETE",
         },

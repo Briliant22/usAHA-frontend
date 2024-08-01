@@ -23,12 +23,15 @@ export function LoginModal({ isOpen, onClose, openRegister }: LoginModalProps) {
     setErrorMessage("");
 
     try {
-      const response = await fetch("http://localhost:8000/auth/login/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify({ username, password }),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/login/`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({ username, password }),
+        },
+      );
 
       if (!response.ok) {
         throw new Error("Login failed");

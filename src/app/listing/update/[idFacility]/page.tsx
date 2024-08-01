@@ -71,7 +71,7 @@ export default function Page({ params }: { params: { idFacility: string } }) {
   useEffect(() => {
     const fetchFacilityDetails = async () => {
       const data = await getFacilityDetails(
-        "http://localhost:8000/facilities/",
+        `${process.env.NEXT_PUBLIC_API_URL}/facilities/`,
         params.idFacility,
       );
       setFacilityData(data);
@@ -123,7 +123,7 @@ export default function Page({ params }: { params: { idFacility: string } }) {
 
     try {
       const response = await fetchWithCredentials(
-        `http://localhost:8000/facilities/facility/${params.idFacility}/`,
+        `${process.env.NEXT_PUBLIC_API_URL}/facilities/facility/${params.idFacility}/`,
         {
           method: "PUT",
           body: formData,

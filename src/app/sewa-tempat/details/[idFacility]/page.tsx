@@ -80,12 +80,12 @@ export default async function Page({
   params: { idFacility: string };
 }) {
   const facilityData = await getFacilityDetails(
-    "http://localhost:8000/facilities/",
+    `${process.env.NEXT_PUBLIC_API_URL}/facilities/`,
     params.idFacility,
   );
 
   const facilityReviews = await getFacilityReviews(
-    "http://localhost:8000/facilities/reviews?facility=",
+    `${process.env.NEXT_PUBLIC_API_URL}/facilities/reviews?facility=`,
     params.idFacility,
   );
 

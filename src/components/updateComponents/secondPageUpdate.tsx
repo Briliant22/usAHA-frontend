@@ -72,7 +72,7 @@ export default function SecondPage({
 
     try {
       const response = await fetchWithCredentials(
-        "http://localhost:8000/facilities/image/create/",
+        `${process.env.NEXT_PUBLIC_API_URL}/facilities/image/create/`,
         {
           method: "POST",
           body: formData,

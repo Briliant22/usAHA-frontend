@@ -56,7 +56,7 @@ export default function ReviewCard({ review, editable }: ReviewCardProps) {
 
     try {
       const response = await fetchWithCredentials(
-        `http://localhost:8000/facilities/review/${review.id}/`,
+        `${process.env.NEXT_PUBLIC_API_URL}/facilities/review/${review.id}/`,
         {
           method: "PUT",
           body: formData,
@@ -77,7 +77,7 @@ export default function ReviewCard({ review, editable }: ReviewCardProps) {
   const handleDeleteReview = async () => {
     try {
       const response = await fetchWithCredentials(
-        `http://localhost:8000/facilities/review/${review.id}/`,
+        `${process.env.NEXT_PUBLIC_API_URL}/facilities/review/${review.id}/`,
         {
           method: "DELETE",
         },
