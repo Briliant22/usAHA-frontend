@@ -58,7 +58,12 @@ export default function SecondPage({
     setFirstPage();
   };
 
-  const handleSubmitImage = async (facility: string, replace: string, image: File, isPrimary: boolean) => {
+  const handleSubmitImage = async (
+    facility: string,
+    replace: string,
+    image: File,
+    isPrimary: boolean,
+  ) => {
     const formData = new FormData();
     formData.append("facility", facility);
     formData.append("replace", replace);
@@ -71,11 +76,12 @@ export default function SecondPage({
         {
           method: "POST",
           body: formData,
-        }
+        },
       );
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
+      window.location.reload();
     } catch (error) {
       console.error("Error changing facility image:", error);
     }

@@ -16,9 +16,11 @@ export function LoginModal({ isOpen, onClose, openRegister }: LoginModalProps) {
 
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setErrorMessage("");
 
     try {
       const response = await fetch("http://localhost:8000/auth/login/", {
@@ -35,6 +37,7 @@ export function LoginModal({ isOpen, onClose, openRegister }: LoginModalProps) {
       window.location.reload();
     } catch (error) {
       console.error("Error logging in:", error);
+      setErrorMessage("Login failed. Please try again.");
     }
   };
 
@@ -89,9 +92,15 @@ export function LoginModal({ isOpen, onClose, openRegister }: LoginModalProps) {
               required
             />
           </div>
+          <div className="my-4 flex h-[16px] flex-col items-center justify-center">
+            {errorMessage && <p className="text-red-500">{errorMessage}</p>}
+          </div>
           <div className="flex flex-col items-center justify-center">
-            <button type="submit">
-              <TextButton label="Login" size="large" type="primary" />
+            <button
+              className="m-2 flex h-[50px] w-[224px] items-center justify-center rounded-[25px] bg-[#1973F9] text-[#FFFFFF] hover:bg-[#97BCF2]"
+              type="submit"
+            >
+              <p className="text-[14px] font-semibold">Login</p>
             </button>
           </div>
         </form>

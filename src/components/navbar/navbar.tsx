@@ -23,11 +23,11 @@ export default function Navbar() {
       icon: "/icons/navbarIcons/sewaTempat.svg",
       label: "Sewa Tempat",
     },
-    {
-      path: "/jual-beli-alat",
-      icon: "/icons/navbarIcons/jualBeliAlat.svg",
-      label: "Jual Beli Alat",
-    },
+    // {
+    //   path: "/jual-beli-alat",
+    //   icon: "/icons/navbarIcons/jualBeliAlat.svg",
+    //   label: "Jual Beli Alat",
+    // },
   ];
 
   if (user) {

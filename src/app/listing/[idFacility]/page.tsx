@@ -1,12 +1,14 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FacilityDetail from "@/components/facilities/facilityDetail";
 import BackButton from "@/components/backButton";
 import Link from "next/link";
 import TextButton from "@/components/textButton";
 import { useUser } from "@/components/isomorphic/userContext";
 import { useRouter } from "next/navigation";
+import FacilityReviews from "@/components/facilities/facilityReviews";
+import LoadingPage from "@/components/loadingPage";
 
 interface Amenity {
   uuid: string;
@@ -40,36 +42,66 @@ interface Facility {
   images: FacilityImage[];
 }
 
-const getFacilityDetails = async (
-  url: string,
-  idFacility: string,
-): Promise<Facility> => {
-  const response = await fetch(`${url}facility/${idFacility}/`, {
-    credentials: "include",
-    cache: "no-store",
-  });
-  const facilityData: Facility = await response.json();
-  return facilityData;
-};
+interface Review {
+  id: string;
+  user: string;
+  user_name: string;
+  user_pfp: string;
+  user_start: string;
+  booking: string;
+  facility: string;
+  facility_name: string;
+  rating: number;
+  content: string;
+  created_at: string;
+  updated_at: string;
+}
 
-export default async function Page({
-  params,
-}: {
-  params: { idFacility: string };
-}) {
+export default function Page({ params }: { params: { idFacility: string } }) {
   const { user, fetchWithCredentials } = useUser();
   const router = useRouter();
+  const [facilityData, setFacilityData] = useState<Facility | null>(null);
+  const [facilityReviews, setFacilityReviews] = useState<Review[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const facilityData = await getFacilityDetails(
-    "http://localhost:8000/facilities/",
-    params.idFacility,
-  );
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const facilityResponse = await fetch(
+          `http://localhost:8000/facilities/facility/${params.idFacility}/`,
+          { credentials: "include", cache: "no-store" },
+        );
+        if (!facilityResponse.ok) {
+          throw new Error("Failed to fetch facility details");
+        }
+        const facilityData: Facility = await facilityResponse.json();
+        setFacilityData(facilityData);
+
+        const response = await fetchWithCredentials(
+          `http://localhost:8000/facilities/reviews/?facility=${params.idFacility}`,
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setFacilityReviews(data);
+        } else {
+          throw new Error("Failed to fetch reviews");
+        }
+      } catch (error) {
+        setError("Failed to fetch facility reviews");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [params.idFacility]);
 
   const handleDelete = async () => {
     try {
-      if (user?.id === facilityData.owner) {
+      if (user?.id === facilityData?.owner) {
         const response = await fetchWithCredentials(
-          `http://localhost:8000/facilities/facility/${facilityData.uuid}/`,
+          `http://localhost:8000/facilities/facility/${facilityData?.uuid}/`,
           {
             method: "DELETE",
           },
@@ -84,6 +116,18 @@ export default async function Page({
       console.error("Error deleting booking:", error);
     }
   };
+
+  if (loading) {
+    return <LoadingPage />;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!facilityData) {
+    return <div>Facility data not found</div>;
+  }
 
   return (
     <div className="relative flex w-full flex-col items-center justify-center">
@@ -113,6 +157,8 @@ export default async function Page({
       </div>
       <div className="my-3 h-[1px] w-3/4 bg-[#E0E5F2]"></div>
       <FacilityDetail facility={facilityData} payment={false} />
+      <div className="mt-8 h-[1px] w-full bg-[#E0E5F2]"></div>
+      <FacilityReviews reviews={facilityReviews} editable={false} />
     </div>
   );
 }

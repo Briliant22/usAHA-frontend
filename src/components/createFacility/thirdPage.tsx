@@ -23,6 +23,13 @@ export default function ThirdPage({
   price_per_day,
   handleCreateFacility,
 }: ThirdPageProps) {
+  const [facilityAmenities, setFacilityAmenities] =
+    useState<Amenity[]>(amenities);
+  const [facilityPrice, setFacilityPrice] = useState<string>(
+    price_per_day.toString(),
+  );
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
   const handlePrevPage = () => {
     const filteredAmenities = facilityAmenities.filter(
       (amenity) => amenity.name.trim() !== "",
@@ -32,13 +39,6 @@ export default function ThirdPage({
     handlePrice(facilityPrice);
     setSecondPage();
   };
-
-  const [facilityAmenities, setFacilityAmenities] =
-    useState<Amenity[]>(amenities);
-
-  const [facilityPrice, setFacilityPrice] = useState<string>(
-    price_per_day.toString(),
-  );
 
   const handleAmenityChange = (index: number, value: string) => {
     const newAmenities = [...facilityAmenities];
@@ -68,6 +68,18 @@ export default function ThirdPage({
     const filteredAmenities = facilityAmenities.filter(
       (amenity) => amenity.name.trim() !== "",
     );
+
+    if (filteredAmenities.length === 0) {
+      setErrorMessage("Setidaknya satu fasilitas harus ditambahkan.");
+      return;
+    }
+
+    const numericPrice = parseFloat(facilityPrice.replace(/[^0-9]/g, ""));
+    if (isNaN(numericPrice) || numericPrice <= 0) {
+      setErrorMessage("Harga harus berupa angka yang valid.");
+      return;
+    }
+
     setFacilityAmenities(filteredAmenities);
     setAmenities(filteredAmenities);
     handlePrice(facilityPrice);
@@ -99,6 +111,7 @@ export default function ThirdPage({
             </div>
           ))}
         </div>
+        {errorMessage && <div className="text-red-500">{errorMessage}</div>}
       </div>
       <div className="mb-8 flex justify-center">
         <TextButton

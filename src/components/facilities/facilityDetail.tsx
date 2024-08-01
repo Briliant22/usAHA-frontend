@@ -121,14 +121,11 @@ export default function FacilityDetail({
         <div className="space-x1 flex items-center">
           <Image src={starIcon} alt="reviewStar" width={31} height={31} />
           <span className="text-xl font-semibold text-[#4082E5]">
-            {facility.rating == null ? 0 : facility.rating}/5
+            {facility.rating == 0 ? 0 : facility.rating}/5
           </span>
         </div>
-        <p className="text-xl font-normal text-[#4082E5] underline">
-          200 reviews
-        </p>
       </div>
-      <div className="my-4 flex min-h-20 w-3/4 min-w-fit items-start justify-start">
+      <div className="my-4 flex min-h-20 w-3/4 items-start justify-start">
         <p className="text-base font-normal leading-relaxed text-[#000000]">
           {facility.description}
         </p>
@@ -140,13 +137,13 @@ export default function FacilityDetail({
             <Image
               src={facility.owner_pfp}
               alt="Owner Profile"
-              width={43}
-              height={43}
-              className="h-[43px] w-[43px] rounded-full object-cover"
+              width={60}
+              height={60}
+              className="h-[60px] w-[60px] rounded-full object-cover"
             />
             <div className="flex flex-col items-start justify-start">
-              <p className="text-base font-medium">{facility.owner_name}</p>
-              <p className="text-xs font-medium text-[#4082E5]">
+              <p className="text-[20px] font-medium">{facility.owner_name}</p>
+              <p className="text-[16px] font-medium text-[#4082E5]">
                 {memberStart(facility.owner_start)}
               </p>
             </div>
@@ -164,7 +161,9 @@ export default function FacilityDetail({
                     width={24}
                     height={24}
                   />
-                  <span className="text-normal ml-3 text-base">{amenity.name}</span>
+                  <span className="text-normal ml-3 text-base">
+                    {amenity.name}
+                  </span>
                 </div>
               ))}
           </div>

@@ -26,6 +26,7 @@ export const DatePickerInput = ({
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const router = useRouter();
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   useEffect(() => {
     if (startDate && endDate) {
@@ -50,6 +51,8 @@ export const DatePickerInput = ({
   };
 
   const handleSubmitSewa = async () => {
+    setErrorMessage("");
+
     const response = await fetch(
       "http://localhost:8000/facilities/booking/create/",
       {
@@ -83,6 +86,9 @@ export const DatePickerInput = ({
       };
 
       router.push(`/sewa-tempat/bayar/${booking.uuid}`);
+    } else if (!response.ok) {
+      const error = await response.json();
+      setErrorMessage(error.non_field_errors[0]);
     } else {
       console.error("Failed to create booking");
     }
@@ -110,7 +116,7 @@ export const DatePickerInput = ({
   );
 
   return (
-    <div className="flex flex-col items-start justify-center" {...props}>
+    <div className="flex flex-col items-center justify-center" {...props}>
       <div className="flex h-[271px] w-96 flex-col items-center justify-center gap-3 space-y-2 rounded-[20px] shadow-2xl">
         <div className="flex flex-col items-center justify-center gap-1">
           <h2 className="text-2xl font-semibold">
@@ -151,6 +157,11 @@ export const DatePickerInput = ({
           isOpen={isRegisterModalOpen}
           onClose={closeRegisterModal}
         />
+      </div>
+      <div className="mx-2 my-4 flex w-64 flex-col items-center justify-center">
+        {errorMessage && (
+          <p className="text-center text-red-500">{errorMessage}</p>
+        )}
       </div>
     </div>
   );

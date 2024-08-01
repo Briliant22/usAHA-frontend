@@ -3,6 +3,8 @@ import FacilityDetail from "@/components/facilities/facilityDetail";
 import BackButton from "@/components/backButton";
 import formatDateRange from "@/utils/formatDateRange";
 import { formatCurrency } from "@/utils/formatCurrency";
+import FacilityReviews from "@/components/facilities/facilityReviews";
+import WriteReview from "@/components/facilities/writeReview";
 
 interface Amenity {
   uuid: string;
@@ -53,6 +55,21 @@ interface FacilityBooking {
   image: FacilityImage;
 }
 
+interface Review {
+  id: string;
+  user: string;
+  user_name: string;
+  user_pfp: string;
+  user_start: string;
+  booking: string;
+  facility: string;
+  facility_name: string;
+  rating: number;
+  content: string;
+  created_at: string;
+  updated_at: string;
+}
+
 const getBookingDetails = async (
   url: string,
   idBooking: string,
@@ -77,6 +94,18 @@ const getFacilityDetails = async (
   return facilityData;
 };
 
+const getFacilityReviews = async (
+  url: string,
+  idFacility: string,
+): Promise<Review[]> => {
+  const response = await fetch(`${url}${idFacility}`, {
+    credentials: "include",
+    cache: "no-store",
+  });
+  const reviewsData: Review[] = await response.json();
+  return reviewsData;
+};
+
 export default async function Page({
   params,
 }: {
@@ -90,6 +119,11 @@ export default async function Page({
   const facilityData = await getFacilityDetails(
     "http://localhost:8000/facilities/",
     bookingData.facility,
+  );
+
+  const facilityReviews = await getFacilityReviews(
+    "http://localhost:8000/facilities/reviews?facility=",
+    facilityData.uuid,
   );
 
   return (
@@ -108,6 +142,14 @@ export default async function Page({
       </div>
       <div className="my-3 h-[1px] w-3/4 bg-[#E0E5F2]"></div>
       <FacilityDetail facility={facilityData} payment={false} />
+      {bookingData.user_rating == null && bookingData.is_paid == true ? (
+        <div className="flex w-full flex-col items-center justify-center">
+          <div className="mt-8 h-[1px] w-full bg-[#E0E5F2]"></div>
+          <WriteReview booking={bookingData} />
+        </div>
+      ) : null}
+      <div className="mt-8 h-[1px] w-full bg-[#E0E5F2]"></div>
+      <FacilityReviews reviews={facilityReviews} editable={false} />
     </div>
   );
 }

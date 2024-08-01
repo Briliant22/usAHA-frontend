@@ -56,13 +56,11 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
   const isLoggedIn = () => !!user;
 
   const fetchWithCredentials = (url: string, options: RequestInit = {}) => {
-    const headers =
-      options.body instanceof FormData
-        ? options.headers
-        : {
-            ...options.headers,
-            "Content-Type": "application/json",
-          };
+    const headers = new Headers(options.headers);
+
+    if (options.body && !(options.body instanceof FormData)) {
+      headers.set("Content-Type", "application/json");
+    }
 
     return fetch(url, {
       ...options,

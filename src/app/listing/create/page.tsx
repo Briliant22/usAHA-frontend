@@ -15,6 +15,7 @@ export default function Page() {
   const { fetchWithCredentials } = useUser();
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const [name, setName] = useState<string>("");
   const [category, setCategory] = useState<
@@ -44,11 +45,10 @@ export default function Page() {
   };
 
   const handleCreateFacility = async () => {
-
     const filteredAmenities = amenities.filter(
       (amenity) => amenity.name.trim() !== "",
     );
-
+    
     const imagesComplete = images.every((image) => image !== null);
 
     const formData = new FormData();
@@ -75,7 +75,12 @@ export default function Page() {
           formData.append(`images`, image);
         }
       });
+    } else {
+      setErrorMessage("Form pendaftaran fasilitas belum diisi dengan lengkap");
+      return;
     }
+
+    setErrorMessage("");
 
     try {
       const response = await fetchWithCredentials(
@@ -98,9 +103,16 @@ export default function Page() {
 
   return (
     <div className="relative flex h-full w-full flex-col items-center justify-center">
-      <h1 className="mb-8 text-center text-[36px] font-semibold text-[#4082E5] underline">
+      <h1 className="mt-10 text-center text-[36px] font-semibold text-[#4082E5] underline">
         Sewakan Properti Saya
       </h1>
+      <div className="my-4 flex h-[16px] flex-col items-center justify-center">
+        {errorMessage && (
+          <p className="text-[16px] font-semibold text-red-500">
+            {errorMessage}
+          </p>
+        )}
+      </div>
       <div className="flex h-full w-3/4">
         {currentPage === 1 && (
           <FirstPage
@@ -113,6 +125,7 @@ export default function Page() {
             city={city}
             setLocationLink={setLocationLink}
             locationLink={location_link}
+            setError={setErrorMessage}
           />
         )}
         {currentPage === 2 && (

@@ -11,6 +11,7 @@ interface EditProfileProps {
 
 export default function EditProfile({ onCancel }: EditProfileProps) {
   const { user, isLoggedIn, fetchWithCredentials } = useUser();
+
   const name = !user ? "" : user.username;
   const firstName = !user ? "" : user.first_name;
   const lastName = !user ? "" : user.last_name;
@@ -38,6 +39,23 @@ export default function EditProfile({ onCancel }: EditProfileProps) {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setErrorMessage("Email tidak valid.");
+      return;
+    }
+
+    if (!/^\d+$/.test(contact_number)) {
+      setErrorMessage("Nomor kontak harus terdiri dari angka saja.");
+      return;
+    }
+
+    if (bio.length > 500) {
+      setErrorMessage("Bio tidak boleh lebih dari 500 karakter.");
+      return;
+    }
+
+    setErrorMessage("");
+
     const formData = new FormData();
     formData.append("username", username);
     formData.append("first_name", first_name);
@@ -59,8 +77,8 @@ export default function EditProfile({ onCancel }: EditProfileProps) {
         throw new Error("Edit failed");
       }
 
-      window.location.reload();
       onCancel();
+      window.location.reload();
     } catch (error) {
       console.error("Error changing profile picture:", error);
     }
@@ -104,9 +122,10 @@ export default function EditProfile({ onCancel }: EditProfileProps) {
                 </label>
                 <input
                   type="text"
-                  className="w-full rounded-lg border bg-[#F0F1F5] px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full rounded-lg border bg-[#A6A7B1] px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
+                  disabled
                   required
                 />
                 <label className="block text-base font-semibold">
@@ -171,12 +190,13 @@ export default function EditProfile({ onCancel }: EditProfileProps) {
                   type="negative"
                   onClick={onCancel}
                 />
-                <button type="submit">
-                  <TextButton
-                    label="Konfirmasi Perubahan"
-                    size="large"
-                    type="primary"
-                  />
+                <button
+                  className="m-2 flex h-[50px] w-[224px] items-center justify-center rounded-[25px] bg-[#1973F9] text-[#FFFFFF] hover:bg-[#97BCF2]"
+                  type="submit"
+                >
+                  <p className="text-[14px] font-semibold">
+                    Konfirmasi Perubahan
+                  </p>
                 </button>
               </div>
             </div>

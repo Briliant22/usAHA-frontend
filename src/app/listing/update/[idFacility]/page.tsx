@@ -53,6 +53,7 @@ export default function Page({ params }: { params: { idFacility: string } }) {
   const { fetchWithCredentials } = useUser();
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [errorMessage, setErrorMessage] = useState<string>("");
   const [facilityData, setFacilityData] = useState<Facility | null>(null);
 
   const [name, setName] = useState<string>("");
@@ -100,22 +101,6 @@ export default function Page({ params }: { params: { idFacility: string } }) {
     setCurrentPage(3);
   };
 
-  useEffect(() => {
-    console.log("Name:", name);
-    console.log("Category:", category);
-    console.log("Description:", description);
-    console.log("Location Link:", location_link);
-    console.log("City:", city);
-    console.log("Price:", price_per_day);
-  }, [
-    name,
-    category,
-    description,
-    location_link,
-    city,
-    price_per_day,
-  ]);
-
   const handleUpdateFacility = async () => {
     const formData = new FormData();
     if (
@@ -131,6 +116,9 @@ export default function Page({ params }: { params: { idFacility: string } }) {
       formData.append("city", city);
       formData.append("location_link", location_link);
       formData.append("price_per_day", String(price_per_day));
+    } else {
+      setErrorMessage("Form update fasilitas belum diisi dengan lengkap");
+      return;
     }
 
     try {
@@ -161,6 +149,13 @@ export default function Page({ params }: { params: { idFacility: string } }) {
       <h1 className="mb-8 text-center text-[36px] font-semibold text-[#4082E5] underline">
         Sewakan Properti Saya
       </h1>
+      <div className="my-4 flex h-[16px] flex-col items-center justify-center">
+        {errorMessage && (
+          <p className="text-[16px] font-semibold text-red-500">
+            {errorMessage}
+          </p>
+        )}
+      </div>
       <div className="flex h-full w-3/4">
         {currentPage === 1 && (
           <FirstPageUpdate
@@ -178,6 +173,7 @@ export default function Page({ params }: { params: { idFacility: string } }) {
             description={description}
             setPricePerDay={setPricePerDay}
             price_per_day={price_per_day}
+            setErrorMessage={setErrorMessage}
           />
         )}
         {currentPage === 2 && (

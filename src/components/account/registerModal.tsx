@@ -96,7 +96,10 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
             className="ml-2"
           />
         </div>
-        <form onSubmit={handleSubmit} className="flex w-full flex-col px-8 justify-center items-center">
+        <form
+          onSubmit={handleSubmit}
+          className="flex w-full flex-col items-center justify-center px-8"
+        >
           <div className="flex w-full justify-between space-x-4">
             <div className="flex w-full flex-col space-y-2">
               <label className="block text-base font-semibold">Username</label>
@@ -205,8 +208,11 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
           <div className="my-4 flex h-[16px] flex-col items-center justify-center">
             {errorMessage && <p className="text-red-500">{errorMessage}</p>}
           </div>
-          <button type="submit">
-            <TextButton label="Registrasi" size="large" type="primary" />
+          <button
+            className="m-2 flex h-[50px] w-[224px] items-center justify-center rounded-[25px] bg-[#1973F9] text-[#FFFFFF] hover:bg-[#97BCF2]"
+            type="submit"
+          >
+            <p className="text-[14px] font-semibold">Register</p>
           </button>
         </form>
       </div>

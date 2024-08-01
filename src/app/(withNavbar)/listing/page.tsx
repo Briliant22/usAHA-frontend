@@ -1,10 +1,9 @@
 "use client";
 
 import { useUser } from "@/components/isomorphic/userContext";
-import BookingCard from "@/components/facilities/bookingCard";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import FacilityCard from "@/components/facilities/facilityCard";
+import LoadingPage from "@/components/loadingPage";
 
 interface Amenity {
   uuid: string;
@@ -70,7 +69,7 @@ export default function Page() {
     fetchFacilities();
   }, [isLoggedIn, fetchWithCredentials]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <LoadingPage />;
   if (error) return <p>{error}</p>;
 
   return (

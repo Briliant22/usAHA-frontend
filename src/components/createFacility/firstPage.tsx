@@ -16,6 +16,7 @@ interface FirstPageProps {
   city: string;
   setLocationLink: (locationLink: string) => void;
   locationLink: string;
+  setError: (error: string) => void;
 }
 
 export default function FirstPage({
@@ -28,6 +29,7 @@ export default function FirstPage({
   city,
   setLocationLink,
   locationLink,
+  setError,
 }: FirstPageProps) {
   const [namaFasilitas, setNamaFasilitas] = useState<string>(name);
   const [activeCategory, setActiveCategory] = useState<
@@ -68,7 +70,8 @@ export default function FirstPage({
     setCity(kota);
 
     if (isAnyFieldEmpty) {
-      setLocationLink("");
+      setError("Alamat masih belum lengkap!");
+      return;
     } else {
       setLocationLink(
         `${namaJalan}, ${nomor}, ${kelurahan}, ${kecamatan}, ${kota}, ${provinsi}, ${kodePos}`,

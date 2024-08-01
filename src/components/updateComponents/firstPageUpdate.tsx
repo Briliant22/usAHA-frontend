@@ -21,6 +21,7 @@ interface FirstPageUpdateProps {
   description: string;
   setPricePerDay: (price_per_day: number) => void;
   price_per_day: number;
+  setErrorMessage: (error: string) => void;
 }
 
 export default function FirstPageUpdate({
@@ -38,6 +39,7 @@ export default function FirstPageUpdate({
   description,
   setPricePerDay,
   price_per_day,
+  setErrorMessage,
 }: FirstPageUpdateProps) {
   const [namaFasilitas, setNamaFasilitas] = useState<string>(name);
   const [activeCategory, setActiveCategory] = useState<
@@ -92,7 +94,8 @@ export default function FirstPageUpdate({
     setCity(kota);
 
     if (isAnyFieldEmpty) {
-      setLocationLink("");
+      setErrorMessage("Alamat masih belum lengkap!");
+      return;
     } else {
       setLocationLink(
         `${namaJalan}, ${nomor}, ${kelurahan}, ${kecamatan}, ${kota}, ${provinsi}, ${kodePos}`,

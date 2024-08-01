@@ -4,6 +4,7 @@ import { useUser } from "@/components/isomorphic/userContext";
 import BookingCard from "@/components/facilities/bookingCard";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import LoadingPage from "@/components/loadingPage";
 
 interface FacilityImage {
   uuid: string;
@@ -61,7 +62,7 @@ export default function Page() {
     fetchBookings();
   }, [isLoggedIn, fetchWithCredentials]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <LoadingPage />;
   if (error) return <p>{error}</p>;
 
   return (

@@ -29,7 +29,7 @@ export default function ProfileDetail({ onEditProfile }: ProfileDetailProps) {
               height={250}
             />
           </div>
-          <div className="flex w-full min-w-fit flex-col justify-start space-y-2">
+          <div className="flex w-full min-w-fit flex-col justify-start">
             <div className="flex justify-between">
               <h1 className="text-[36px] font-semibold text-[#4082E5]">
                 {user?.first_name} {user?.last_name}
@@ -72,7 +72,7 @@ export default function ProfileDetail({ onEditProfile }: ProfileDetailProps) {
           </div>
         </div>
       ) : (
-        <p>Loading user data...</p>
+        <p>User belum login...</p>
       )}
     </div>
   );
