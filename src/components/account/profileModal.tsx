@@ -24,7 +24,6 @@ export default function ProfileModal() {
 
       if (response.ok) {
         setUser(null);
-        console.log("Logout successful");
         window.location.href = "/sewa-tempat";
       } else {
         console.error("Logout failed");

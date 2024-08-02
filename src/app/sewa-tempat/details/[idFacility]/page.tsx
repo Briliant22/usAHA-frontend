@@ -1,7 +1,11 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import FacilityDetail from "@/components/facilities/facilityDetail";
 import BackButton from "@/components/backButton";
 import FacilityReviews from "@/components/facilities/facilityReviews";
+import { useUser } from "@/components/isomorphic/userContext";
+import LoadingPage from "@/components/loadingPage";
 
 interface Amenity {
   uuid: string;
@@ -50,44 +54,56 @@ interface Review {
   updated_at: string;
 }
 
-const getFacilityDetails = async (
-  url: string,
-  idFacility: string,
-): Promise<Facility> => {
-  const response = await fetch(`${url}facility/${idFacility}/`, {
-    credentials: "include",
-    cache: "no-store",
-  });
-  const facilityData: Facility = await response.json();
-  return facilityData;
-};
+export default function Page({ params }: { params: { idFacility: string } }) {
+  const { fetchWithCredentials } = useUser();
+  const [facilityData, setFacilityData] = useState<Facility | null>(null);
+  const [facilityReviews, setFacilityReviews] = useState<Review[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-const getFacilityReviews = async (
-  url: string,
-  idFacility: string,
-): Promise<Review[]> => {
-  const response = await fetch(`${url}${idFacility}`, {
-    credentials: "include",
-    cache: "no-store",
-  });
-  const reviewsData: Review[] = await response.json();
-  return reviewsData;
-};
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const facilityResponse = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/facilities/facility/${params.idFacility}/`,
+          { credentials: "include", cache: "no-store" },
+        );
+        if (!facilityResponse.ok) {
+          throw new Error("Failed to fetch facility details");
+        }
+        const facilityData: Facility = await facilityResponse.json();
+        setFacilityData(facilityData);
 
-export default async function Page({
-  params,
-}: {
-  params: { idFacility: string };
-}) {
-  const facilityData = await getFacilityDetails(
-    `${process.env.NEXT_PUBLIC_API_URL}/facilities/`,
-    params.idFacility,
-  );
+        const response = await fetchWithCredentials(
+          `${process.env.NEXT_PUBLIC_API_URL}/facilities/reviews/?facility=${params.idFacility}`,
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setFacilityReviews(data);
+        } else {
+          throw new Error("Failed to fetch reviews");
+        }
+      } catch (error) {
+        setError("Failed to fetch facility reviews");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const facilityReviews = await getFacilityReviews(
-    `${process.env.NEXT_PUBLIC_API_URL}/facilities/reviews?facility=`,
-    params.idFacility,
-  );
+    fetchData();
+  }, [params.idFacility]);
+
+  if (loading) {
+    return <LoadingPage />;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!facilityData) {
+    return <div>Facility data not found</div>;
+  }
 
   return (
     <div className="relative flex w-full flex-col items-center justify-center">

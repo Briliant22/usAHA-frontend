@@ -1,10 +1,14 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
 import FacilityDetail from "@/components/facilities/facilityDetail";
 import BackButton from "@/components/backButton";
 import formatDateRange from "@/utils/formatDateRange";
 import { formatCurrency } from "@/utils/formatCurrency";
 import FacilityReviews from "@/components/facilities/facilityReviews";
 import WriteReview from "@/components/facilities/writeReview";
+import { useUser } from "@/components/isomorphic/userContext";
+import LoadingPage from "@/components/loadingPage";
 
 interface Amenity {
   uuid: string;
@@ -70,61 +74,71 @@ interface Review {
   updated_at: string;
 }
 
-const getBookingDetails = async (
-  url: string,
-  idBooking: string,
-): Promise<FacilityBooking> => {
-  const response = await fetch(`${url}booking/${idBooking}/`, {
-    credentials: "include",
-    cache: "no-store",
-  });
-  const bookingData: FacilityBooking = await response.json();
-  return bookingData;
-};
-
-const getFacilityDetails = async (
-  url: string,
-  idFacility: string,
-): Promise<Facility> => {
-  const response = await fetch(`${url}facility/${idFacility}/`, {
-    credentials: "include",
-    cache: "no-store",
-  });
-  const facilityData: Facility = await response.json();
-  return facilityData;
-};
-
-const getFacilityReviews = async (
-  url: string,
-  idFacility: string,
-): Promise<Review[]> => {
-  const response = await fetch(`${url}${idFacility}`, {
-    credentials: "include",
-    cache: "no-store",
-  });
-  const reviewsData: Review[] = await response.json();
-  return reviewsData;
-};
-
-export default async function Page({
+export default function Page({
   params,
 }: {
   params: { idBooking: string };
 }) {
-  const bookingData = await getBookingDetails(
-    `${process.env.NEXT_PUBLIC_API_URL}/facilities/`,
-    params.idBooking,
-  );
+  const { fetchWithCredentials } = useUser();
+  const [bookingData, setBookingData] = useState<FacilityBooking | null>(null);
+  const [facilityData, setFacilityData] = useState<Facility | null>(null);
+  const [facilityReviews, setFacilityReviews] = useState<Review[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const facilityData = await getFacilityDetails(
-    `${process.env.NEXT_PUBLIC_API_URL}/facilities/`,
-    bookingData.facility,
-  );
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const bookingResponse = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/facilities/booking/${params.idBooking}/`,
+          { credentials: "include", cache: "no-store" },
+        );
+        if (!bookingResponse.ok) {
+          throw new Error("Failed to fetch booking details");
+        }
+        const bookingData: FacilityBooking = await bookingResponse.json();
+        setBookingData(bookingData);
 
-  const facilityReviews = await getFacilityReviews(
-    `${process.env.NEXT_PUBLIC_API_URL}/facilities/reviews?facility=`,
-    facilityData.uuid,
-  );
+        const facilityResponse = await fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/facilities/facility/${bookingData.facility}/`,
+          { credentials: "include", cache: "no-store" },
+        );
+        if (!facilityResponse.ok) {
+          throw new Error("Failed to fetch facility details");
+        }
+        const facilityData: Facility = await facilityResponse.json();
+        setFacilityData(facilityData);
+
+        const response = await fetchWithCredentials(
+          `${process.env.NEXT_PUBLIC_API_URL}/facilities/reviews/?facility=${facilityData.uuid}`,
+        );
+        if (response.ok) {
+          const data = await response.json();
+          setFacilityReviews(data);
+        } else {
+          throw new Error("Failed to fetch reviews");
+        }
+      } catch (error) {
+        setError("Failed to fetch facility reviews");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [params.idBooking]);
+
+  if (loading) {
+    return <LoadingPage />;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!facilityData || !bookingData) {
+    return <div>Facility data not found</div>;
+  }
 
   return (
     <div className="relative flex w-full flex-col items-center justify-center">
