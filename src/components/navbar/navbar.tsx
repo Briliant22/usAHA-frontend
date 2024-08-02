@@ -23,11 +23,6 @@ export default function Navbar() {
       icon: "/icons/navbarIcons/sewaTempat.svg",
       label: "Sewa Tempat",
     },
-    // {
-    //   path: "/jual-beli-alat",
-    //   icon: "/icons/navbarIcons/jualBeliAlat.svg",
-    //   label: "Jual Beli Alat",
-    // },
   ];
 
   if (user) {
@@ -44,7 +39,7 @@ export default function Navbar() {
   }
 
   return (
-    <div className="absolute left-0 top-[4vh] flex h-[90vh] w-28 flex-col gap-6 rounded-r-[20px] bg-[#1973F9] pt-10">
+    <div className="absolute left-0 top-[4vh] z-50 flex h-[90vh] w-28 flex-col gap-6 rounded-r-[20px] bg-[#1973F9] pt-10">
       {navItems.map((item) => (
         <Link href={item.path} key={item.path} passHref>
           <NavbarButton

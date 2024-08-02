@@ -86,7 +86,7 @@ export default function Page() {
         />
       </div>
       <div className="flex flex-grow p-4">
-        <div className="mx-auto grid grid-cols-1 gap-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+        <div className="mx-auto grid grid-cols-1 gap-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4">
           {data
             .filter((facility) => !category || facility.category === category)
             .map((facility) => (

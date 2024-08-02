@@ -82,7 +82,7 @@ export default function NavbarAtas({ isDashboard }: NavbarProps) {
   };
 
   return (
-    <div className="w-full px-12 py-4">
+    <div className="w-full px-12 py-2">
       <div className="w-full flex-shrink-0 pb-4">
         <div className="flex items-center justify-between space-x-3">
           <Link href={"/"}>
