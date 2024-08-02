@@ -1,6 +1,7 @@
 "use client";
 
 import { useUser } from "@/components/isomorphic/userContext";
+import LoadingPage from "@/components/loadingPage";
 import FirstPageUpdate from "@/components/updateComponents/firstPageUpdate";
 import SecondPageUpdate from "@/components/updateComponents/secondPageUpdate";
 import ThirdPageUpdate from "@/components/updateComponents/thirdPageUpdate";
@@ -141,7 +142,7 @@ export default function Page({ params }: { params: { idFacility: string } }) {
   };
 
   if (!facilityData) {
-    return <div>Loading...</div>;
+    return <LoadingPage />;
   }
 
   return (

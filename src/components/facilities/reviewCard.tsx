@@ -86,11 +86,10 @@ export default function ReviewCard({ review, editable }: ReviewCardProps) {
       if (!response.ok) {
         throw new Error("Delete failed");
       }
-
-      window.location.reload();
     } catch (error) {
       console.error("Error deleting review:", error);
     }
+    window.location.reload();
   };
 
   return (

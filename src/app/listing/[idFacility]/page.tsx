@@ -110,11 +110,11 @@ export default function Page({ params }: { params: { idFacility: string } }) {
         if (!response.ok) {
           throw new Error("Delete failed");
         }
-        router.push(`/listing/`);
       }
     } catch (error) {
       console.error("Error deleting booking:", error);
     }
+    router.push(`/listing/`);
   };
 
   if (loading) {

@@ -61,10 +61,10 @@ export default function DetailTempat({ ...facility }: Facility) {
             width={24}
             height={24}
           />
-          <span className="ml-1 text-xl text-[#6F778C]">{facility.location_link},</span>
           <span className="ml-1 text-xl text-[#6F778C]">
-            {" "}{facility.city}
+            {facility.location_link},
           </span>
+          <span className="ml-1 text-xl text-[#6F778C]"> {facility.city}</span>
         </div>
       </div>
       <div className="flex justify-center gap-5">
@@ -75,7 +75,9 @@ export default function DetailTempat({ ...facility }: Facility) {
             width={24}
             height={24}
           />
-          <span className="pt-1 text-xl font-medium text-[#4082E5]">4.9/5</span>
+          <span className="pt-1 text-xl font-medium text-[#4082E5]">
+            {facility.rating == 0 ? 0 : facility.rating}/5
+          </span>
         </div>
       </div>
       <div className="mt-8 flex justify-between">

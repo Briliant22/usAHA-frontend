@@ -75,10 +75,10 @@ export default function SewaTempatInput({
       if (!response.ok) {
         throw new Error("Delete failed");
       }
-      router.push(`/riwayat/`);
     } catch (error) {
       console.error("Error deleting booking:", error);
     }
+    router.push(`/riwayat/`);
   };
 
   return (

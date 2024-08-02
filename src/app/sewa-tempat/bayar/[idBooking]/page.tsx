@@ -2,6 +2,7 @@ import React from "react";
 import SewaTempatInput from "@/components/pembayaran/sewaTempatInput";
 import DetailTempat from "@/components/pembayaran/detailTempat";
 import formatDateRange from "@/utils/formatDateRange";
+import ProtectedRoute from "@/components/protectedRoute";
 
 interface Amenity {
   uuid: string;
@@ -92,19 +93,21 @@ export default async function Page({
   };
 
   return (
-    <div className="relative flex w-full flex-col items-center justify-center">
-      <div className="flex flex-col items-center justify-center pt-10">
-        <h1 className="font-inter text-[36px] font-semibold">
-          Request to Reserve
-        </h1>
-        <p className="text-[24px] font-semibold">
-          {formatDateRange(bookingData.start_date, bookingData.end_date)}
-        </p>
+    <ProtectedRoute>
+      <div className="relative flex w-full flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-center pt-10">
+          <h1 className="font-inter text-[36px] font-semibold">
+            Request to Reserve
+          </h1>
+          <p className="text-[24px] font-semibold">
+            {formatDateRange(bookingData.start_date, bookingData.end_date)}
+          </p>
+        </div>
+        <div className="mt-10 flex justify-center space-x-10 px-20">
+          <DetailTempat {...facilityData} />
+          <SewaTempatInput {...paymentProps} />
+        </div>
       </div>
-      <div className="mt-10 flex justify-center space-x-10 px-20">
-        <DetailTempat {...facilityData} />
-        <SewaTempatInput {...paymentProps} />
-      </div>
-    </div>
+    </ProtectedRoute>
   );
 }

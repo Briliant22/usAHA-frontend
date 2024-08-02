@@ -5,6 +5,7 @@ import BookingCard from "@/components/facilities/bookingCard";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import LoadingPage from "@/components/loadingPage";
+import ProtectedRoute from "@/components/protectedRoute";
 
 interface FacilityImage {
   uuid: string;
@@ -62,28 +63,40 @@ export default function Page() {
     fetchBookings();
   }, [isLoggedIn, fetchWithCredentials]);
 
-  if (loading) return <LoadingPage />;
-  if (error) return <p>{error}</p>;
+  if (loading)
+    return (
+      <ProtectedRoute>
+        <LoadingPage />;
+      </ProtectedRoute>
+    );
+  if (error)
+    return (
+      <ProtectedRoute>
+        <div>Error: {error}</div>;
+      </ProtectedRoute>
+    );
 
   return (
-    <div className="flex h-screen w-full flex-col items-center">
-      <div className="flex flex-col items-center justify-center py-4">
-        <h1 className="text-center text-[40px] font-semibold">
-          Riwayat Transaksi
-        </h1>
+    <ProtectedRoute>
+      <div className="flex h-screen w-full flex-col items-center">
+        <div className="flex flex-col items-center justify-center py-4">
+          <h1 className="text-center text-[40px] font-semibold">
+            Riwayat Transaksi
+          </h1>
+        </div>
+        <div className="flex w-[70vw] flex-wrap items-center justify-center space-y-4">
+          {bookings.map((booking) => {
+            const redirectLink = booking.is_paid
+              ? `/riwayat/${booking.uuid}`
+              : `/sewa-tempat/bayar/${booking.uuid}`;
+            return (
+              <Link href={redirectLink} key={booking.uuid} className="w-full">
+                <BookingCard {...booking} />
+              </Link>
+            );
+          })}
+        </div>
       </div>
-      <div className="flex w-[70vw] flex-wrap items-center justify-center space-y-4">
-        {bookings.map((booking) => {
-          const redirectLink = booking.is_paid
-            ? `/riwayat/${booking.uuid}`
-            : `/sewa-tempat/bayar/${booking.uuid}`;
-          return (
-            <Link href={redirectLink} key={booking.uuid} className="w-full">
-              <BookingCard {...booking} />
-            </Link>
-          );
-        })}
-      </div>
-    </div>
+    </ProtectedRoute>
   );
 }

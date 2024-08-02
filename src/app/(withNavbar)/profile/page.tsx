@@ -6,6 +6,7 @@ import ProfileDetail from "@/components/account/profileDetail";
 import EditProfile from "@/components/account/editProfile";
 import FacilityReviews from "@/components/facilities/facilityReviews";
 import LoadingPage from "@/components/loadingPage";
+import ProtectedRoute from "@/components/protectedRoute";
 
 interface Review {
   id: string;
@@ -62,29 +63,39 @@ export default function Page() {
   }, [user]);
 
   if (loading) {
-    return <LoadingPage />;
+    return (
+      <ProtectedRoute>
+        <LoadingPage />;
+      </ProtectedRoute>
+    );
   }
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return (
+      <ProtectedRoute>
+        <div>Error: {error}</div>;
+      </ProtectedRoute>
+    );
   }
 
   return (
-    <div className="flex h-full w-full flex-col items-center">
-      <h1 className="mb-8 text-center text-[40px] font-semibold underline">
-        Akun Saya
-      </h1>
-      {!editProfile ? (
-        <div className="flex w-full flex-col items-center justify-center space-y-10">
-          <div className="flex w-3/5 flex-col justify-center space-y-10">
-            <ProfileDetail onEditProfile={startEditing} />
-            <div className="h-[1px] w-full bg-[#E0E5F2]"></div>
+    <ProtectedRoute>
+      <div className="flex h-full w-full flex-col items-center">
+        <h1 className="mb-8 text-center text-[40px] font-semibold underline">
+          Akun Saya
+        </h1>
+        {!editProfile ? (
+          <div className="flex w-full flex-col items-center justify-center space-y-10">
+            <div className="flex w-3/5 flex-col justify-center space-y-10">
+              <ProfileDetail onEditProfile={startEditing} />
+              <div className="h-[1px] w-full bg-[#E0E5F2]"></div>
+            </div>
+            <FacilityReviews reviews={reviews} editable={true} />
           </div>
-          <FacilityReviews reviews={reviews} editable={true} />
-        </div>
-      ) : (
-        <EditProfile onCancel={stopEditing} />
-      )}
-    </div>
+        ) : (
+          <EditProfile onCancel={stopEditing} />
+        )}
+      </div>
+    </ProtectedRoute>
   );
 }

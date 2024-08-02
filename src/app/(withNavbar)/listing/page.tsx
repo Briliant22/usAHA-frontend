@@ -4,6 +4,7 @@ import { useUser } from "@/components/isomorphic/userContext";
 import { useEffect, useState } from "react";
 import FacilityCard from "@/components/facilities/facilityCard";
 import LoadingPage from "@/components/loadingPage";
+import ProtectedRoute from "@/components/protectedRoute";
 
 interface Amenity {
   uuid: string;
@@ -69,23 +70,37 @@ export default function Page() {
     fetchFacilities();
   }, [isLoggedIn, fetchWithCredentials]);
 
-  if (loading) return <LoadingPage />;
-  if (error) return <p>{error}</p>;
+  if (loading)
+    return (
+      <ProtectedRoute>
+        <LoadingPage />;
+      </ProtectedRoute>
+    );
+  if (error)
+    return (
+      <ProtectedRoute>
+        <div>Error: {error}</div>;
+      </ProtectedRoute>
+    );
 
   return (
-    <div className="flex h-screen w-full flex-col items-center">
-      <div className="flex flex-col items-center justify-center py-4">
-        <h1 className="text-center text-[40px] font-semibold">Listing Anda</h1>
+    <ProtectedRoute>
+      <div className="flex h-screen w-full flex-col items-center">
+        <div className="flex flex-col items-center justify-center py-4">
+          <h1 className="text-center text-[40px] font-semibold">
+            Listing Anda
+          </h1>
+        </div>
+        <div className="mx-auto grid grid-cols-1 gap-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+          {facilities.map((facility) => (
+            <FacilityCard
+              key={facility.uuid}
+              facility={facility}
+              isOwner={true}
+            />
+          ))}
+        </div>
       </div>
-      <div className="mx-auto grid grid-cols-1 gap-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
-        {facilities.map((facility) => (
-          <FacilityCard
-            key={facility.uuid}
-            facility={facility}
-            isOwner={true}
-          />
-        ))}
-      </div>
-    </div>
+    </ProtectedRoute>
   );
 }
