@@ -2,7 +2,6 @@
 
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 type RegisterModalProps = {
   isOpen: boolean;
@@ -14,7 +13,6 @@ const closeIcon = "/icons/miscIcons/close.svg";
 const cameraIcon = "/icons/miscIcons/camera.svg";
 
 export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
-  const router = useRouter();
   const [username, setUsername] = useState<string>("");
   const [first_name, setFirstName] = useState<string>("");
   const [last_name, setLastName] = useState<string>("");
@@ -60,7 +58,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
         throw new Error("Register failed");
       }
 
-      router.push("/sewa-tempat");
+      window.location.href = window.location.href;
     } catch (error) {
       console.error("Error registering:", error);
       setErrorMessage("Registration failed. Please try again.");

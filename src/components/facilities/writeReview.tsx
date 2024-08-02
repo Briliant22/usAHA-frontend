@@ -67,7 +67,7 @@ export default function WriteReview({ booking }: WriteReviewProps) {
         throw new Error("Edit failed");
       }
 
-      router.push(`/riwayat/${booking.uuid}`)
+      window.location.href = window.location.href;
     } catch (error) {
       console.error("Error creating review:", error);
     }

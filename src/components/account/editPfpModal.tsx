@@ -2,7 +2,6 @@ import React, { ChangeEvent, FormEvent, useState } from "react";
 import Image from "next/image";
 import { useUser } from "../isomorphic/userContext";
 import TextButton from "../textButton";
-import { useRouter } from "next/navigation";
 
 interface EditPfpModal {
   isOpen: boolean;
@@ -14,7 +13,6 @@ const cameraIcon = "/icons/miscIcons/camera.svg";
 
 export default function EditPfpModal({ isOpen, onClose }: EditPfpModal) {
   const { fetchWithCredentials } = useUser();
-  const router = useRouter();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
@@ -39,7 +37,7 @@ export default function EditPfpModal({ isOpen, onClose }: EditPfpModal) {
         throw new Error("Edit failed");
       }
 
-      router.push("/profile");
+      window.location.href = window.location.href;
       onClose();
     } catch (error) {
       console.error("Error changing profile picture:", error);

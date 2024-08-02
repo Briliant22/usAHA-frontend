@@ -4,7 +4,6 @@ import Image from "next/image";
 import { FormEvent, useState } from "react";
 import EditPfpModal from "./editPfpModal";
 import TextButton from "../textButton";
-import { useRouter } from "next/navigation";
 
 interface EditProfileProps {
   onCancel: () => void;
@@ -12,7 +11,6 @@ interface EditProfileProps {
 
 export default function EditProfile({ onCancel }: EditProfileProps) {
   const { user, isLoggedIn, fetchWithCredentials } = useUser();
-  const router = useRouter();
 
   const name = !user ? "" : user.username;
   const firstName = !user ? "" : user.first_name;
@@ -80,7 +78,7 @@ export default function EditProfile({ onCancel }: EditProfileProps) {
       }
 
       onCancel();
-      router.push("/profile");
+      window.location.href = window.location.href;
     } catch (error) {
       console.error("Error changing profile picture:", error);
     }

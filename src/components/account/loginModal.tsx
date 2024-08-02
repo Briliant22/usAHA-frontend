@@ -3,7 +3,6 @@
 import React, { FormEvent, useState } from "react";
 import Image from "next/image";
 import TextButton from "../textButton";
-import { useRouter } from "next/navigation";
 
 type LoginModalProps = {
   isOpen: boolean;
@@ -15,7 +14,6 @@ const lightbulbIcon = "/icons/miscIcons/lightbulb.svg";
 const closeIcon = "/icons/miscIcons/close.svg";
 
 export function LoginModal({ isOpen, onClose, openRegister }: LoginModalProps) {
-  const router = useRouter();
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -39,7 +37,7 @@ export function LoginModal({ isOpen, onClose, openRegister }: LoginModalProps) {
         throw new Error("Login failed");
       }
 
-      router.push("/sewa-tempat");
+      window.location.href = window.location.href;
     } catch (error) {
       console.error("Error logging in:", error);
       setErrorMessage("Login failed. Please try again.");

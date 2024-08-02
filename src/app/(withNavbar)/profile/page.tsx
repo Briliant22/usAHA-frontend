@@ -84,7 +84,7 @@ export default function Page() {
         <h1 className="mb-8 text-center text-[40px] font-semibold">Profil</h1>
         {!editProfile ? (
           <div className="flex w-full flex-col items-center justify-center space-y-10">
-            <div className="flex w-3/5 flex-col justify-center space-y-10">
+            <div className="flex w-3/5 flex-col items-center justify-center space-y-10">
               <ProfileDetail onEditProfile={startEditing} />
               <div className="h-[1px] w-full bg-[#E0E5F2]"></div>
             </div>
