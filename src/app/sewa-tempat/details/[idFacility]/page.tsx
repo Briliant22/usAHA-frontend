@@ -91,7 +91,7 @@ export default function Page({ params }: { params: { idFacility: string } }) {
     };
 
     fetchData();
-  }, [params.idFacility]);
+  }, [params.idFacility, fetchWithCredentials]);
 
   if (loading) {
     return <LoadingPage />;

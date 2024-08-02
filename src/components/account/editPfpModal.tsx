@@ -12,9 +12,7 @@ const closeIcon = "/icons/miscIcons/close.svg";
 const cameraIcon = "/icons/miscIcons/camera.svg";
 
 export default function EditPfpModal({ isOpen, onClose }: EditPfpModal) {
-  if (!isOpen) return null;
   const { fetchWithCredentials } = useUser();
-
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
@@ -54,6 +52,7 @@ export default function EditPfpModal({ isOpen, onClose }: EditPfpModal) {
     }
   };
 
+  if (!isOpen) return null;
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="flex h-[75vh] w-96 w-[866px] flex-col items-center justify-start rounded-[28px] bg-[#FFFFFF] p-5 shadow-lg">

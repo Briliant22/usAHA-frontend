@@ -60,7 +60,7 @@ export default function Page() {
     };
 
     fetchReviews();
-  }, [user]);
+  }, [user, fetchWithCredentials]);
 
   if (loading) {
     return (

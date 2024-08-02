@@ -12,8 +12,6 @@ const lightbulbIcon = "/icons/miscIcons/lightbulb.svg";
 const closeIcon = "/icons/miscIcons/close.svg";
 
 export function LoginModal({ isOpen, onClose, openRegister }: LoginModalProps) {
-  if (!isOpen) return null;
-
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -49,6 +47,7 @@ export function LoginModal({ isOpen, onClose, openRegister }: LoginModalProps) {
     openRegister();
   };
 
+  if (!isOpen) return null;
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="flex h-[64vh] w-96 w-[866px] flex-col items-center justify-start rounded-[28px] bg-[#FFFFFF] p-8 shadow-lg">

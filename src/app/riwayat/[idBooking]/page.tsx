@@ -74,11 +74,7 @@ interface Review {
   updated_at: string;
 }
 
-export default function Page({
-  params,
-}: {
-  params: { idBooking: string };
-}) {
+export default function Page({ params }: { params: { idBooking: string } }) {
   const { fetchWithCredentials } = useUser();
   const [bookingData, setBookingData] = useState<FacilityBooking | null>(null);
   const [facilityData, setFacilityData] = useState<Facility | null>(null);
@@ -126,7 +122,7 @@ export default function Page({
     };
 
     fetchData();
-  }, [params.idBooking]);
+  }, [params.idBooking, fetchWithCredentials]);
 
   if (loading) {
     return <LoadingPage />;
