@@ -1,6 +1,8 @@
+"use client";
+
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import Image from "next/image";
-import TextButton from "../textButton";
+import { useRouter } from "next/navigation";
 
 type RegisterModalProps = {
   isOpen: boolean;
@@ -12,6 +14,7 @@ const closeIcon = "/icons/miscIcons/close.svg";
 const cameraIcon = "/icons/miscIcons/camera.svg";
 
 export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
+  const router = useRouter();
   const [username, setUsername] = useState<string>("");
   const [first_name, setFirstName] = useState<string>("");
   const [last_name, setLastName] = useState<string>("");
@@ -57,7 +60,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
         throw new Error("Register failed");
       }
 
-      window.location.reload();
+      router.push("/sewa-tempat");
     } catch (error) {
       console.error("Error registering:", error);
       setErrorMessage("Registration failed. Please try again.");
@@ -75,7 +78,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
   if (!isOpen) return null;
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="flex h-[75vh] w-96 w-[866px] flex-col items-center justify-start rounded-[28px] bg-[#FFFFFF] p-5 shadow-lg">
+      <div className="flex min-h-fit w-[866px] flex-col items-center justify-start rounded-[28px] bg-[#FFFFFF] p-5 shadow-lg">
         <div className="flex w-full justify-end">
           <button type="button" onClick={onClose} className="">
             <Image

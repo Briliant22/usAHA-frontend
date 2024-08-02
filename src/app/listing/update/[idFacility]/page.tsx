@@ -147,10 +147,10 @@ export default function Page({ params }: { params: { idFacility: string } }) {
 
   return (
     <div className="relative flex h-full w-full flex-col items-center justify-center">
-      <h1 className="mb-8 text-center text-[36px] font-semibold text-[#4082E5] underline">
+      <h1 className="mt-10 text-center text-[36px] font-semibold text-[#4082E5] underline">
         Sewakan Properti Saya
       </h1>
-      <div className="my-4 flex h-[16px] flex-col items-center justify-center">
+      <div className="my-2 flex h-[16px] flex-col items-center justify-center">
         {errorMessage && (
           <p className="text-[16px] font-semibold text-red-500">
             {errorMessage}

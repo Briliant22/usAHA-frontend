@@ -15,7 +15,7 @@ export default function ProfileDetail({ onEditProfile }: ProfileDetailProps) {
   return (
     <div className="flex h-full w-full min-w-fit">
       {isLoggedIn() ? (
-        <div className="flex h-full w-full min-w-fit justify-between items-center space-x-10">
+        <div className="mt-6 flex h-full w-full min-w-fit items-center justify-between space-x-10">
           <div className="flex h-64 w-64 min-w-fit items-start justify-start rounded-full border border-[#4082E5]">
             <Image
               src={
@@ -31,7 +31,7 @@ export default function ProfileDetail({ onEditProfile }: ProfileDetailProps) {
           </div>
           <div className="flex w-full min-w-fit flex-col justify-start">
             <div className="flex justify-between">
-              <h1 className="text-[36px] font-semibold text-[#4082E5]">
+              <h1 className="text-[32px] font-semibold text-[#4082E5]">
                 {user?.first_name} {user?.last_name}
               </h1>
               <TextButton

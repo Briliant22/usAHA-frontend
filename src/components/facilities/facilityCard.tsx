@@ -62,9 +62,9 @@ export default function FacilityCard({ facility, isOwner }: FacilityCardProps) {
         />
       </div>
 
-      <div className="flex flex-col py-2">
-        <h2 className="mb-1 text-xl font-semibold">{facility.name}</h2>
-        <div className="my-1 flex items-center justify-between">
+      <div className="flex flex-col space-y-1 py-2">
+        <h2 className="text-xl font-semibold">{facility.name}</h2>
+        <div className="flex items-center justify-between">
           <div className="flex items-center justify-end space-x-1">
             <Image
               src={locationIcon}

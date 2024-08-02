@@ -68,7 +68,7 @@ export default function ReviewCard({ review, editable }: ReviewCardProps) {
       }
 
       toggleEdit();
-      window.location.reload();
+      window.location.href = window.location.href;
     } catch (error) {
       console.error("Error editing review:", error);
     }
@@ -89,7 +89,7 @@ export default function ReviewCard({ review, editable }: ReviewCardProps) {
     } catch (error) {
       console.error("Error deleting review:", error);
     }
-    window.location.reload();
+    window.location.href = window.location.href;
   };
 
   return (

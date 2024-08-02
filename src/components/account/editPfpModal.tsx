@@ -2,6 +2,7 @@ import React, { ChangeEvent, FormEvent, useState } from "react";
 import Image from "next/image";
 import { useUser } from "../isomorphic/userContext";
 import TextButton from "../textButton";
+import { useRouter } from "next/navigation";
 
 interface EditPfpModal {
   isOpen: boolean;
@@ -13,6 +14,7 @@ const cameraIcon = "/icons/miscIcons/camera.svg";
 
 export default function EditPfpModal({ isOpen, onClose }: EditPfpModal) {
   const { fetchWithCredentials } = useUser();
+  const router = useRouter();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
@@ -37,7 +39,7 @@ export default function EditPfpModal({ isOpen, onClose }: EditPfpModal) {
         throw new Error("Edit failed");
       }
 
-      window.location.reload();
+      router.push("/profile");
       onClose();
     } catch (error) {
       console.error("Error changing profile picture:", error);
@@ -55,7 +57,7 @@ export default function EditPfpModal({ isOpen, onClose }: EditPfpModal) {
   if (!isOpen) return null;
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="flex h-[75vh] w-96 w-[866px] flex-col items-center justify-start rounded-[28px] bg-[#FFFFFF] p-5 shadow-lg">
+      <div className="flex h-[60vw] w-[60vw] flex-col items-center justify-start rounded-[28px] bg-[#FFFFFF] p-5 shadow-lg">
         <div className="flex w-full justify-end">
           <button type="button" onClick={onClose} className="">
             <Image

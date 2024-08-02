@@ -52,7 +52,7 @@ export default function DetailTempat({ ...facility }: Facility) {
           className="mx-auto rounded-[32px]"
         />
       </div>
-      <div className="flex flex-col items-center justify-center gap-1">
+      <div className="flex flex-col items-start justify-start gap-1">
         <p className="font-inter text-3xl font-semibold">{facility.name}</p>
         <div className="my-1 flex items-center">
           <Image
@@ -67,7 +67,7 @@ export default function DetailTempat({ ...facility }: Facility) {
           <span className="ml-1 text-xl text-[#6F778C]"> {facility.city}</span>
         </div>
       </div>
-      <div className="flex justify-center gap-5">
+      <div className="flex justify-start gap-5">
         <div className="flex justify-center">
           <Image
             src="/icons/reviewStar.svg"

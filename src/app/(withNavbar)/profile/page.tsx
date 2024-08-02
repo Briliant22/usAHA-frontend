@@ -81,9 +81,7 @@ export default function Page() {
   return (
     <ProtectedRoute>
       <div className="flex h-full w-full flex-col items-center">
-        <h1 className="mb-8 text-center text-[40px] font-semibold underline">
-          Akun Saya
-        </h1>
+        <h1 className="mb-8 text-center text-[40px] font-semibold">Profil</h1>
         {!editProfile ? (
           <div className="flex w-full flex-col items-center justify-center space-y-10">
             <div className="flex w-3/5 flex-col justify-center space-y-10">

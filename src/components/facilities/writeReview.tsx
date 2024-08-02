@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useUser } from "../isomorphic/userContext";
 import TextButton from "../textButton";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 interface FacilityImage {
   uuid: string;
@@ -38,6 +39,7 @@ const starIconNonActive = "/icons/reviewStarNonActive.svg";
 
 export default function WriteReview({ booking }: WriteReviewProps) {
   const { fetchWithCredentials, isLoggedIn } = useUser();
+  const router = useRouter();
   const [rating, setRating] = useState<number>(0);
   const [content, setContent] = useState<string>("");
 
@@ -65,7 +67,7 @@ export default function WriteReview({ booking }: WriteReviewProps) {
         throw new Error("Edit failed");
       }
 
-      window.location.reload();
+      router.push(`/riwayat/${booking.uuid}`)
     } catch (error) {
       console.error("Error creating review:", error);
     }

@@ -3,6 +3,7 @@ import TextButton from "../textButton";
 import GoBack from "../createFacility/goBack";
 import Image from "next/image";
 import { useUser } from "../isomorphic/userContext";
+import { useRouter } from "next/navigation";
 
 interface FacilityImage {
   uuid: string;
@@ -29,6 +30,7 @@ export default function SecondPage({
   previousImages,
 }: SecondPageProps) {
   const { fetchWithCredentials } = useUser();
+  const router = useRouter();
   const [imageFiles, setImageFiles] = useState<(File | null)[]>(images);
   const [previewUrls, setPreviewUrls] = useState<(string | null)[]>(
     images.map((file) => (file ? URL.createObjectURL(file) : null)),
@@ -81,7 +83,7 @@ export default function SecondPage({
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-      window.location.reload();
+      router.push(`/listing/update/${uuid}`);
     } catch (error) {
       console.error("Error changing facility image:", error);
     }

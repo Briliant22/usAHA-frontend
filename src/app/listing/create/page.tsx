@@ -5,7 +5,7 @@ import SecondPage from "@/components/createFacility/secondPage";
 import ThirdPage from "@/components/createFacility/thirdPage";
 import { useUser } from "@/components/isomorphic/userContext";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 interface Amenity {
   name: string;
@@ -106,7 +106,7 @@ export default function Page() {
       <h1 className="mt-10 text-center text-[36px] font-semibold text-[#4082E5] underline">
         Sewakan Properti Saya
       </h1>
-      <div className="my-4 flex h-[16px] flex-col items-center justify-center">
+      <div className="my-2 flex h-[16px] flex-col items-center justify-center">
         {errorMessage && (
           <p className="text-[16px] font-semibold text-red-500">
             {errorMessage}
