@@ -26,7 +26,7 @@ interface Facility {
   owner_pfp: string;
   owner_start: string;
   name: string;
-  category: string;
+  category: "kitchen" | "art studio" | "workshop" | "others" | null;
   description: string;
   city: string;
   location_link: string;
