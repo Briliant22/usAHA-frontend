@@ -58,7 +58,7 @@ export function RegisterModal({ isOpen, onClose }: RegisterModalProps) {
         throw new Error("Register failed");
       }
 
-      window.location.href = window.location.href;
+      window.location.reload();
     } catch (error) {
       console.error("Error registering:", error);
       setErrorMessage("Registration failed. Please try again.");

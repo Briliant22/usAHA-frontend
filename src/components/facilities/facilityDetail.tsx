@@ -101,11 +101,11 @@ export default function FacilityDetail({
           </div>
         </div>
       </div>
-      <div className="my-8 flex w-3/4 justify-around">
+      <div className="my-8 flex w-3/4 justify-center">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-1 lg:grid-cols-1 xl:grid-cols-3 2xl:grid-cols-3">
           {facility.images &&
             facility.images.map((src, index) => (
-              <div key={src.uuid} className="relative h-[20vw] w-[18vw]">
+              <div key={src.uuid} className="relative h-[26vw] w-[24vw]">
                 <Image
                   src={src.image}
                   alt={`facilityImg${index + 1}`}

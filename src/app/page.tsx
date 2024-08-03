@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <div className="flex min-h-screen w-full flex-col items-center">
       <NavbarAtas isDashboard={false} />
-      <div className="flex h-[80vh] w-full justify-evenly bg-gradient-to-t from-[#8BB5F3] via-[#CADEFD] to-[#FFFFFF] px-20">
+      <div className="flex w-full items-center justify-evenly bg-gradient-to-t from-[#8BB5F3] via-[#CADEFD] to-[#FFFFFF] px-20">
         <div className="flex h-full w-1/3 flex-col items-start justify-center space-y-6">
           <h1 className="-mb-12 text-[48px] font-bold text-[#1973F9]">Halo,</h1>
           <h2 className="text-[64px] font-bold text-[#FED365]">
@@ -38,8 +38,6 @@ export default function Home() {
           />
         </div>
       </div>
-      <div className="flex h-[80vh] w-full justify-evenly bg-gradient-to-t from-[#1973F9] to-[#7FA7DB] px-20"></div>
-      <div className="flex h-[100vh] w-full justify-evenly bg-[#FFFFFF] px-20"></div>
       <Footer />
     </div>
   );

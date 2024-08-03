@@ -37,7 +37,7 @@ export function LoginModal({ isOpen, onClose, openRegister }: LoginModalProps) {
         throw new Error("Login failed");
       }
 
-      window.location.href = window.location.href;
+      window.location.reload();
     } catch (error) {
       console.error("Error logging in:", error);
       setErrorMessage("Login failed. Please try again.");

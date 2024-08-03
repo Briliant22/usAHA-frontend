@@ -81,7 +81,7 @@ export default function SecondPage({
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-      window.location.href = window.location.href;
+      window.location.reload();
     } catch (error) {
       console.error("Error changing facility image:", error);
     }

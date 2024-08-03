@@ -9,7 +9,7 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   return (
     <div className="flex min-h-screen flex-col">
-      <div className="w-full flex-grow px-16 pb-10">
+      <div className="w-full flex-grow pb-10">
       <NavbarAtas isDashboard={false} />
         {children}
       </div>

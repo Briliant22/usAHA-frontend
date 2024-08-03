@@ -6,7 +6,7 @@ const filterButtonStyle = tv({
   base: "flex gap-2 w-[10vw] justify-center rounded-full p-2",
   variants: {
     isActive: {
-      true: "bg-[#4082E5]",
+      true: "bg-[#1973F9]",
       false: "",
     },
   },

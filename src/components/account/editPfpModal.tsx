@@ -37,7 +37,7 @@ export default function EditPfpModal({ isOpen, onClose }: EditPfpModal) {
         throw new Error("Edit failed");
       }
 
-      window.location.href = window.location.href;
+      window.location.reload();
       onClose();
     } catch (error) {
       console.error("Error changing profile picture:", error);

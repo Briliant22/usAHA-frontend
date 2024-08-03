@@ -67,7 +67,7 @@ export default function WriteReview({ booking }: WriteReviewProps) {
         throw new Error("Edit failed");
       }
 
-      window.location.href = window.location.href;
+      window.location.reload();
     } catch (error) {
       console.error("Error creating review:", error);
     }

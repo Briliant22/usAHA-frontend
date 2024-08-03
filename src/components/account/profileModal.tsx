@@ -24,7 +24,7 @@ export default function ProfileModal() {
 
       if (response.ok) {
         setUser(null);
-        window.location.href = "/sewa-tempat";
+        window.location.reload();
       } else {
         console.error("Logout failed");
       }
@@ -51,16 +51,6 @@ export default function ProfileModal() {
             <p>Profile Anda</p>
           </span>
         </Link>
-        <a
-          href="#"
-          className="block px-4 py-4 text-xl font-normal hover:bg-gray-100 hover:text-[#4082E5]"
-          role="menuitem"
-        >
-          <span className="flex items-center justify-start space-x-4">
-            <Image src={settingsIcon} alt="settings" width={24} height={124} />
-            <p>Settings</p>
-          </span>
-        </a>
         <button
           onClick={handleLogout}
           className="block w-full px-4 py-4 text-left text-xl font-normal hover:bg-gray-100 hover:text-red-600"

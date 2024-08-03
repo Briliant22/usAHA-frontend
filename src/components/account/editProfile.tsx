@@ -78,7 +78,7 @@ export default function EditProfile({ onCancel }: EditProfileProps) {
       }
 
       onCancel();
-      window.location.href = window.location.href;
+      window.location.reload();
     } catch (error) {
       console.error("Error changing profile picture:", error);
     }

@@ -2,11 +2,11 @@ import React from "react";
 import { tv } from "tailwind-variants";
 
 const navbarButtonStyle = tv({
-  base: "aspect-square w-20 mx-auto flex flex-col justify-center items-center pb-1 rounded-[10px] hover:bg-[#97BCF2]",
+  base: "aspect-square w-full mx-auto flex flex-col justify-center text-center text-white items-center hover:bg-[#97BCF2]",
   variants: {
     isActive: {
-      true: "bg-[#97BCF2]",
-      false: "",
+      true: "underline font-bold",
+      false: "font-semibold",
     },
   },
 });
@@ -26,9 +26,7 @@ export const NavbarButton: React.FC<NavbarButtonProps> = ({
   return (
     <button className={navbarButtonStyle({ isActive })} {...props}>
       <div className="flex h-8 w-8 items-center justify-center">{icon}</div>
-      <p className="w-14 text-center font-inter text-xs font-semibold text-white">
-        {label}
-      </p>
+      <p className="w-14 text-[12px]">{label}</p>
     </button>
   );
 };
